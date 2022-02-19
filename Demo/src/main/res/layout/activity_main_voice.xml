@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0：空闲态 ， 1：开始, 2：停止状态， 3：超时"/>
+        <TextView
+            android:id="@+id/voice_result_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="..."
+            android:textSize="50sp"
+            android:height="60dp"
+            android:background="@color/black"/>
+
+        <TextView
+            android:id="@+id/voice_lost_byte_size_info"
+            android:layout_width="wrap_content"
+            android:textColor="@color/red"
+            android:text="总包：0 丢包：0"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="stopTranVoice"
+            android:visibility="gone"
+            android:text="停止传输"/>
+
+
+        <TextView
+            android:layout_marginTop="@dimen/size10dp"
+            android:id="@+id/voice_file_play_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0000.pcm"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:onClick="playVoice"
+                android:text="播放"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:onClick="stopVoice"
+                android:text="停止"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/size20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:onClick="exportAllVoiceFile"
+                android:text="导出语音文件"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:onClick="clearAllVoiceFile"
+                android:text="清空"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size30dp"
+            android:text="登陆状态"/>
+        <RadioGroup
+            android:id="@+id/rg_login_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rb_login_state_not_login"
+                android:text="未登陆"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rb_login_state_has_login"
+                android:text="已登录"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rb_login_state_no_network"
+                android:text="无网络"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size30dp"
+            android:text="语音识别状态"/>
+        <RadioGroup
+            android:id="@+id/rg_recognize_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rb_recognize_state_un_recognize"
+                android:text="无法识别"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rb_recognize_state_recognized"
+                android:text="已识别"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+        <LinearLayout
+            android:id="@+id/ll_recognize_timeout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="识别时长（秒）"/>
+            <EditText
+                android:id="@+id/et_recognize_time"
+                android:layout_width="@dimen/size50dp"
+                android:layout_height="wrap_content"
+                android:text="8"/>
+        </LinearLayout>
+        <EditText
+            android:id="@+id/tv_recognize_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="打开电视机"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="testStart"
+                android:layout_marginRight="20dp"
+                android:text="test-start"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="testEnd"
+                android:text="test-end"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/alexa_voice_file_path_tv"
+            android:layout_marginTop="@dimen/size30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/play_voice_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="playAlexaVoice"
+            android:layout_marginRight="20dp"
+            android:text="播放下行流语音"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="playTmp"
+            android:text="PlayTmp"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_marginTop="@dimen/size30dp"
+                android:text="*(0x01)  // 户外跑步  -- 跳到走路界面并开始
+     * (0x02)  // 室内跑步
+     * (0x03)  // 户外走路
+     * (0x04)  // 室内走路
+     * (0x05)  // 户外骑行
+     * (0x06)  // 室内骑行
+     * (0x07)  // 徒步
+     * (0x08)  // 板球
+     * (0x09)  // 泳池游泳
+     * (0x0A)  // 开放水域游泳
+     * (0x0B)  // 瑜伽
+     * (0x0C)  // 划船机
+     * (0x0D)  // 椭圆机
+     * (0x0E)  // 其他"
+                android:textColor="@color/driver_gray_color"
+                android:textSize="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/voice_sport_type_et"
+                android:layout_width="wrap_content"
+                android:text="1"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/voice_sport_type_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="goSportPage"
+                android:text="跳转运动界面"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/size30dp"
+                android:text="1:心率测量 2：血压测量 3：天气预报 4：寻找手机 5：消息界面"
+                android:textColor="@color/driver_gray_color"
+                android:textSize="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/voice_func_et"
+                android:layout_width="wrap_content"
+                android:text="1"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/voice_func_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="goFunc"
+                android:text="跳转功能界面"/>
+
+
+            <TextView
+                android:layout_marginTop="@dimen/size30dp"
+                android:text="1:实时心率开关 2：抬腕亮屏开关 3：勿扰模式开关"
+                android:textColor="@color/driver_gray_color"
+                android:textSize="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/voice_switch_et"
+                    android:layout_width="wrap_content"
+                    android:text="1"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:id="@+id/voice_switch_sh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/voice_switch_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="controlSwitch"
+                android:text="控制开关"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/size30dp"
+                android:text="0x01   上一曲
+     0x02   下一曲
+     0x03   增加音量
+     0x04   减少音量
+     0x05   播放音乐
+     0x06   暂停音乐"
+                android:textColor="@color/driver_gray_color"
+                android:textSize="10sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/voice_music_et"
+                android:layout_width="wrap_content"
+                android:text="1"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/voice_music_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="controlMusic"
+                android:text="音乐控制"/>
+
+            <EditText
+                android:id="@+id/voice_brightness_et"
+                android:layout_width="wrap_content"
+                android:text="1"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/voice_brightness_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="controlBrightnessLevel"
+                android:text="亮度调节"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

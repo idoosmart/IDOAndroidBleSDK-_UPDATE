@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthSportData"
+        android:text="运动健康数据" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthSportItemData"
+        android:text="运动详情健康数据" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthSleepData"
+        android:text="睡眠健康数据" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthSleepItemData"
+        android:text="睡眠详情健康数据" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthHeartRateData"
+        android:text="心率健康数据" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthHeartRateItemData"
+        android:text="心率详情健康数据" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthActivityData"
+        android:text="活动健康数据" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthBloodPressedData"
+        android:text="血压汇总健康数据" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:onClick="healthBloodPressedItemData"
+        android:text="血压详情健康数据" />
+
+</LinearLayout>

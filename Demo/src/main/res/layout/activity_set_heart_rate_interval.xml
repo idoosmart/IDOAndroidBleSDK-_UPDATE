@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/fat_burning" />
+
+        <EditText
+            android:id="@+id/ed_burn_fat_threshold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="1-255"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/aerobic_exercise" />
+
+        <EditText
+            android:id="@+id/ed_aerobic_threshold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="1-255"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/limit_exercise" />
+
+        <EditText
+            android:id="@+id/ed_limit_threshold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="1-255"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/exercise_tip"
+        android:textColor="@color/red" />
+
+    <EditText
+        android:id="@+id/et_min_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="最小心率提醒阀值"
+        android:text="50"
+        android:inputType="number" />
+    <Switch
+        android:id="@+id/sh_min_remind"
+        android:text="最小心率提醒"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_marginTop="@dimen/size20dp"
+        android:id="@+id/et_max_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100"
+        android:hint="最大心率提醒阀值"
+        android:inputType="number" />
+    <Switch
+        android:id="@+id/sh_max_remind"
+        android:text="最大心率提醒"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginTop="10dp"
+        android:background="#0099FF" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/set_start_time" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/ed_longsit_starthour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="0"
+            android:hint="@string/start_hour"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/ed_longsit_startmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="1"
+            android:hint="@string/start_minute"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginTop="10dp"
+        android:background="#0099FF" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/set_end_time" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/ed_longsit_endhour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="23"
+            android:hint="@string/end_hour"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/ed_longsit_endmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="59"
+            android:hint="@string/end_minute"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="@dimen/size30dp"
+        android:id="@+id/btn_heartrateinterval_commit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/set" />
+
+</LinearLayout>

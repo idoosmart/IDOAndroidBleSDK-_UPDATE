@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:background="@color/aaa"
+            android:text="@string/app_exchange_data_receive_device_notice"/>
+        <TextView
+            android:id="@+id/app_exchange_data_receive_device_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/aaa"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:background="@color/data_color"
+            android:text="@string/app_exchange_data_receive_device_feedback_data"/>
+        <TextView
+            android:id="@+id/app_exchange_data_receive_device_feedback_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/data_color"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:background="@color/detail_chart_deepSleep"
+            android:text="@string/app_exchange_data_app_send_para"/>
+        <TextView
+            android:id="@+id/app_exchange_data_app_send_para"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/detail_chart_deepSleep"/>
+
+
+        <Button
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="start"
+            android:text="@string/app_exchange_data_start"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sending"
+            android:text="@string/app_exchange_data_ing"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="stop"
+            android:text="@string/app_exchange_data_stop"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="pause"
+            android:text="@string/app_exchange_data_pause"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="resume"
+            android:text="@string/app_exchange_data_resume"/>
+
+
+
+    </LinearLayout>
+
+</ScrollView>
+

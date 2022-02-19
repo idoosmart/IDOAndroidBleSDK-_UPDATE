@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/heart_rate_measure_mode"/>
+
+                <RadioGroup
+                    android:id="@+id/set_para_heart_rate_mode_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/set_para_heart_rate_mode_atuo"
+                    android:orientation="vertical">
+                    <RadioButton
+                        android:id="@+id/set_para_heart_rate_mode_manual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/heart_rate_mode_manual"/>
+                    <RadioButton
+                        android:id="@+id/set_para_heart_rate_mode_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/heart_rate_mode_off"/>
+                    <RadioButton
+                        android:id="@+id/set_para_heart_rate_mode_atuo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/heart_rate_mode_auto"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/set_para_heart_rate_mode_interval"
+                android:hint="心率间隔:分钟"
+                android:text="15"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/set_para_heart_rate_mode_has_time_range" />
+
+            <Switch
+                android:id="@+id/set_para_heart_rate_mode_switch_has_time_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textOff="@string/set_para_heart_rate_mode_has_time_off"
+                android:textOn="@string/set_para_heart_rate_mode_has_time_on" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="10dp"
+                android:background="#0099FF" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="10dp"
+                android:background="#0099FF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/set_start_time" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/set_para_heart_rate_mode_starthour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/start_hour"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/set_para_heart_rate_mode_startmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/start_minute"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="10dp"
+                android:background="#0099FF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/set_end_time" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/set_para_heart_rate_mode_endhour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/end_hour"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/set_para_heart_rate_mode_endmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/end_minute"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="10dp"
+                android:background="#0099FF" />
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="20dp"
+                android:onClick="setHeartRateMeasureMode"
+                android:text="@string/set" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="20dp"
+                android:onClick="setHeartRateMeasureModeV3"
+                android:text="V3" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

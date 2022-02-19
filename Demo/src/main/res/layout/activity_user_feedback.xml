@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_marginTop="@dimen/size10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请选择类型:"/>
+        <Spinner
+            android:id="@+id/feedback_type_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/feedback_type"/>
+
+
+        <EditText
+            android:layout_marginTop="20dp"
+            android:id="@+id/feedback_extra_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:hint="请输入详细信息"
+            android:minHeight="200dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="submit"
+            android:text="提交"/>
+    </LinearLayout>
+
+
+
+
+</ScrollView>

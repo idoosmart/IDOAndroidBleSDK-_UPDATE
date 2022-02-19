@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/public_bg"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/lv_device"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:divider="@color/public_line"
+        android:dividerHeight="0.6dp" />
+
+    <Button
+        android:id="@+id/btn_scan"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="搜索待升级的设备"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="10dp"
+        android:text="去升级(长按则不获取MTU)"
+        android:visibility="invisible"
+        android:textSize="13sp" />
+
+
+</LinearLayout>

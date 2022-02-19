@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:background="@color/aaa"
+            android:text="@string/device_control_app_event"/>
+        <TextView
+            android:id="@+id/device_control_app_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+
+        <View
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black"/>
+
+
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:background="@color/search_device_color"
+            android:text="@string/device_control_app_find_phone"/>
+        <TextView
+            android:id="@+id/device_control_app_find_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <View
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black"/>
+
+
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:background="@color/aaac"
+            android:text="@string/device_control_app_sos"/>
+        <TextView
+            android:id="@+id/device_control_app_sos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <View
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:background="@color/data_color"
+            android:text="@string/device_control_anti_lost"/>
+        <TextView
+            android:id="@+id/device_control_app_anti_lost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+        <View
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
+

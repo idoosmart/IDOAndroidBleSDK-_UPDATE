@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">IDO Demo</string>
+
+    <!--扫描-->
+    <string name="scan_refresh">Refresh</string>
+    <string name="scanning">Scanning...</string>
+    <string name="scan_finish">Complete</string>
+    <string name="scan_bind">Bind</string>
+
+    <!--连接状态-->
+    <string name="connect_state_start">Connect start</string>
+    <string name="connect_state_ing">Connecting...</string>
+    <string name="connect_state_ok">Connected</string>
+    <string name="connect_state_failed">Connect failed</string>
+    <string name="connect_state_break">Breadk</string>
+    <string name="connect_state_dfu">DFU mode</string>
+
+    <!--连接管理-->
+    <string name="connect_action_break">disconnect</string>
+    <string name="connect_action_auto">auto connect</string>
+    <string name="connect_check_state">check connect state</string>
+
+    <!--主页-->
+    <string name="home_unbind">unbind ></string>
+    <string name="home_connect_manage">connect manage ></string>
+    <string name="home_get_info">Get info ></string>
+    <string name="home_set_para">Set paras ></string>
+    <string name="home_notice">Notice ></string>
+    <string name="home_app_control_device">App control device ></string>
+    <string name="home_device_control_app">Device control app ></string>
+    <string name="home_sync_data">data sync ></string>
+    <string name="home_app_send_data">App send data ></string>
+    <string name="home_exchange_data">exchange data ></string>
+    <string name="home_tip_not_connect">Not connect device</string>
+
+    <!--获取信息-->
+    <string name="get_info_basic_info">Basic info</string>
+    <string name="get_info_function">Function table</string>
+    <string name="get_info_time">Device time</string>
+    <string name="get_info_mac">Mac address</string>
+    <string name="get_info_battery">Battery info</string>
+    <string name="get_info_sn">SN info</string>
+    <string name="get_info_notice_switch">Notice center switch state</string>
+    <string name="get_info_live_data">Live data</string>
+    <string name="get_info_hid_data">HID info</string>
+    <string name="get_info_activity_count">Activity count</string>
+    <string name="get_walk_reminder">Walk Reminder</string>
+    <string name="get_sport_three_circle_goal">Sport Three Circle Goal</string>
+
+    <!--绑定、解绑-->
+    <string name="unbind_unbind">Unbind</string>
+    <string name="unbind_force_unbind">Force unbind</string>
+    <string name="unbind_tip_msg_ok">Unbind success</string>
+    <string name="unbind_tip_msg_failed">Unbind failed</string>
+
+    <!--___________________________设置___________________________________ -->
+    <string name="set">Set</string>
+    <string name="add">Add</string>
+    <string name="unit_minute">Min</string>
+    <string name="unit_hour">Hour</string>
+
+    <string name="set_para_time">Set time ></string>
+
+    <!--闹钟-->
+    <string name="set_para_alarm">Set alarms ></string>
+    <string name="alarmtext111">The demo only provides demo, only set one set of alarm clock, and the maximum support of the alarm clock is 10. The developer can set it up for the demo, and the demo only sets one.</string>
+    <string name="alarmtext2">set alarm switch</string>
+    <string name="alarmtext3">On</string>
+    <string name="alarmtext4">Off</string>
+    <string name="alarmtext5">set alarm type</string>
+    <string name="alarmtext6">Get up</string>
+    <string name="alarmtext7">Sleep</string>
+    <string name="alarmtext8">Exercise</string>
+    <string name="alarmtext9">Medicine</string>
+    <string name="alarmtext99">Engagement</string>
+    <string name="alarmtext10">Gathering</string>
+    <string name="alarmtext11">Meeting</string>
+    <string name="alarmtext12">Customize</string>
+    <string name="alarmtext13">Set alarm time</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="state_on">On</string>
+    <string name="state_off">Off</string>
+    <string name="alarm_set_repeat">Repeat</string>
+
+    <!--目标-->
+    <string name="set_para_goal">Set goal</string>
+
+    <!--个人信息-->
+    <string name="set_para_user_info">Set user info ></string>
+    <string name="set_para_user_info_1">1.Set user info</string>
+    <string name="set_para_user_info_sync_config">2.sync config data</string>
+    <string name="set_para_user_info_tips">The demo only provides demo, only set one set of alarm clock, and the maximum support of the alarm clock is 10. The developer can set it up for the demo, and the demo only sets one.</string>
+    <string name="set_para_user_info_person_sex_boy">Boy</string>
+    <string name="set_para_user_info_person_sex_girl">Girl</string>
+    <string name="set_para_user_info_sex">*Sex:&#160;&#160;&#160;&#160;</string>
+    <string name="set_para_user_info_birthday">Birthday:&#160;&#160;&#160;&#160;</string>
+    <string name="set_para_user_info_height">*Height&#160;&#160;&#160;&#160;</string>
+    <string name="set_para_user_info_weight">*Weight&#160;&#160;&#160;&#160;</string>
+    <string name="set_para_user_info_year">Year</string>
+    <string name="set_para_user_info_month">Month</string>
+    <string name="set_para_user_info_day">Day</string>
+    <string name="set_para_user_info_hour">Hour</string>
+
+    <!--单位-->
+    <string name="set_para_unit">Set unit ></string>
+
+
+    <string name="set_para_dial_plate">Set plate</string>
+    <string name="set_para_short_cut">Set shortCut</string>
+    <string name="set_para_blood_measure_para">set blood measure para</string>
+    <string name="query_blood_adjust_result">query adjust result</string>
+
+    <!--久坐-->
+    <string name="set_para_long_sit">Set long sit para ></string>
+    <string name="set_longsit_switch">Set long sit switch</string>
+    <string name="unsport_tip">Set aside how many minutes to start reminding.</string>
+    <string name="minute_unit_str">Unit(Min)</string>
+    <string name="set_start_time">Start time</string>
+    <string name="set_end_time">End time</string>
+    <string name="set_week_switch">Week switch</string>
+    <string name="commit_longsit_set">Set long sit</string>
+    <string name="start_hour">Start hour</string>
+    <string name="start_minute">Start min</string>
+    <string name="end_hour">End hour</string>
+    <string name="end_minute">End min</string>
+
+
+    <string name="set_para_anti_lost_mode">Set anti lost mode</string>
+    <string name="set_para_anti_lost_para">Set anti lost para</string>
+    <string name="set_para_hand_wear_mode">Set hand wear mode</string>
+    <string name="set_para_phone_system_into">Set phone system info</string>
+
+    <!--心率区间-->
+    <string name="set_para_heart_rate_interval">Set heart rate interval ></string>
+    <string name="fat_burning">Fat burning</string>
+    <string name="aerobic_exercise">Aerobic exercise</string>
+    <string name="limit_exercise">Limit exercise</string>
+    <string name="exercise_tip">Fat burning＜Aerobic exercise＜Limit exercise</string>
+
+    <string name="set_para_heart_rate_mode">Set hear rate mode ></string>
+    <string name="set_para_heart_rate_mode_has_time_range">Has time range:</string>
+    <string name="set_para_heart_rate_mode_has_time_on">Yes</string>
+    <string name="set_para_heart_rate_mode_has_time_off">No</string>
+
+
+    <string name="set_para_find_phone_switch">Set find phone switch</string>
+    <string name="set_para_one_key_reset">one key reset</string>
+
+
+    <string name="set_para_up_hand_gesture">Set up hand gesture ></string>
+
+    <string name="set_para_not_disturb">Set not disturb ></string>
+
+    <string name="set_para_music_switch">Set music switch</string>
+    <string name="set_para_display_mode">Set display mode</string>
+    <string name="set_para_one_key_sos">Set one key sos</string>
+    <string name="set_para_weather_switch">Set weather switch</string>
+    <string name="set_para_quick_sport_mode">Set quick sport mode ></string>
+    <string name="set_para_notice_switch">Set notice switch</string>
+    <string name="set_para_sleep_monitoring_para">Set sleep monitoring para ></string>
+    <string name="set_para_tip_msg_ok">Success</string>
+    <string name="set_para_tip_msg_failed">Failed</string>
+
+    <!--同步-->
+    <string name="sync_all_data">sync all data</string>
+    <string name="stop_sync_all_data">stop sync all data</string>
+    <string name="sync_config_start">start sync config</string>
+    <string name="sync_health_start">start sync health data</string>
+    <string name="sync_activity_start">start sync activity data</string>
+    <string name="sync_config_stop">stop sync config</string>
+    <string name="sync_health_stop">stop sync health data</string>
+    <string name="sync_activity_stop">stop sync activity data</string>
+    <string name="sync_V3_data_start">start sync V3 data</string>
+    <string name="sync_V3_data_stop">stop sync V3 data</string>
+
+    <!--提醒命令-->
+    <string name="phone_notice_incoming_call">phone incoming notice</string>
+    <string name="phone_notice_calling_stop">stop calling notice</string>
+    <string name="phone_notice_new_message">new message notice</string>
+    <string name="phone_notice_unread_message">unread message notice</string>
+    <string name="phone_notice_tip_msg_ok">notice ok</string>
+    <string name="phone_notice_tip_msg_failed">notice failed</string>
+
+    <!--APP控制设备-->
+    <string name="app_control_device_music">play music</string>
+    <string name="app_control_device_camera">take camera</string>
+    <string name="app_control_device_once_sport">once sport</string>
+    <string name="app_control_device_find_device">find device</string>
+    <string name="app_control_device_device">display time and vibration</string>
+    <string name="app_control_device_blood">blood measure ></string>
+    <string name="app_control_device_open_ancs">open ANCS</string>
+    <string name="app_control_device_close_ance">close ANCS</string>
+    <string name="app_control_device_success">control ok</string>
+    <string name="app_control_device_failed">control failed</string>
+
+    <string name="measure_blood_start">start</string>
+    <string name="measure_blood_end">end</string>
+    <string name="measure_blood_get_data">get blood data</string>
+
+
+    <!--设备控制APP-->
+    <string name="device_control_app_event">event control</string>
+    <string name="device_control_app_find_phone">find phone</string>
+    <string name="device_control_app_sos">SOS</string>
+    <string name="device_control_anti_lost">anti lost</string>
+    <string name="device_control_start">start</string>
+    <string name="device_control_end">end</string>
+    <string name="device_control_app_event_start">start</string>
+    <string name="device_control_app_event_pause">pause</string>
+    <string name="device_control_app_event_stop">stop</string>
+    <string name="device_control_app_event_pre">pre</string>
+    <string name="device_control_app_event_next">nex</string>
+    <string name="device_control_app_event_single_photo">take single photo</string>
+    <string name="device_control_app_event_mutil_photo">take multi photo</string>
+    <string name="device_control_app_event_vol_up">up vol</string>
+    <string name="device_control_app_event_vol_down">down vol</string>
+    <string name="device_control_app_event_open_camera">open camera</string>
+    <string name="device_control_app_event_close_camera">close camera</string>
+    <string name="device_control_app_event_answer_phone">answer phone</string>
+    <string name="device_control_app_event_hand_up_phone">hand up</string>
+
+    <!--交换数据-->
+    <string name="exchange_data">exchange data ></string>
+    <string name="main_exchange_data_app">APP send data ></string>
+    <string name="main_exchange_data_device">Device send data ></string>
+    <string name="app_exchange_data_start">start</string>
+    <string name="app_exchange_data_ing">send data</string>
+    <string name="app_exchange_data_stop">stop</string>
+    <string name="app_exchange_data_pause">pause</string>
+    <string name="app_exchange_data_resume">resume</string>
+    <string name="app_exchange_data_receive_device_feedback_data">receive device response data</string>
+    <string name="app_exchange_data_app_send_para">APP send para</string>
+    <string name="app_exchange_data_receive_device_notice">receive device notice</string>
+    <string name="app_exchange_data_receive_device_notice_stop">Received device "exchange data end" notification.</string>
+    <string name="app_exchange_data_receive_device_notice_pause">Received device "exchange data pause" notification.</string>
+    <string name="app_exchange_data_receive_device_notice_resume">Received device "exchange data resume" notification.</string>
+
+    <string name="app_exchange_data_receive_device_cmd">receive device cmd</string>
+    <string name="device_exchange_data_receive_device_cmd_start">Received device "exchange data start" notification</string>
+    <string name="device_exchange_data_receive_device_cmd_ing">Received device "send data" notification.</string>
+    <string name="device_exchange_data_receive_device_cmd_stop">Received device "exchange data end" notification.</string>
+    <string name="device_exchange_data_receive_device_cmd_pause">Received device "exchange data pause" notification.</string>
+    <string name="device_exchange_data_receive_device_cmd_resume">Received device "exchange data resume" notification.</string>
+
+
+    <!--APP发送数据-->
+    <string name="app_send_data_weather">send weather data</string>
+    <string name="app_send_data_tip_ok">send ok</string>
+    <string name="app_send_data_tip_failed">send failed</string>
+
+    <!--重启设备-->
+    <string name="reboot_device">reboot</string>
+    <string name="reboot_device_tip_ok">reboot ok</string>
+    <string name="reboot_device_tip_failed">reboot failed</string>
+
+
+    <string name="device_upgrade">device upgrade</string>
+
+    <string name="get_local_data">query local data ></string>
+    <string name="get_internal_test">internal test ></string>
+    <!--测试数据-->
+    <string name="home_health_data">Test health data></string>
+
+
+    <string name="year">Y</string>
+    <string name="month">M</string>
+    <string name="day">D</string>
+    <string name="hour">H</string>
+    <string name="minute">Min</string>
+    <string name="second">S</string>
+    <string name="week">week</string>
+
+    <string name="china">china</string>
+    <string name="english">english</string>
+    <string name="french">french</string>
+    <string name="german">german</string>
+    <string name="italian">italian</string>
+    <string name="spanish">spanish</string>
+    <string name="japanese">japanese</string>
+    <string name="czech">czech</string>
+    <string name="romanian">romanian</string>
+    <string name="lithuanian">lithuanian</string>
+    <string name="dutch">dutch</string>
+    <string name="slovenian">slovenian</string>
+    <string name="hungarian">hungarian</string>
+    <string name="polish">polish</string>
+
+    <string name="unit_default">Default</string>
+    <string name="unit_distance">distance</string>
+    <string name="unit_weight">weight</string>
+    <string name="unit_temperature">temperature</string>
+    <string name="unit_walk_step_length">walk step length</string>
+    <string name="unit_run_step_length">run step length</string>
+    <string name="unit_lang">lang</string>
+    <string name="unit_time_format">time</string>
+    <string name="unit_gps_adjust_switch">gps adjust switch</string>
+
+    <string name="short_cut_take_photo">take photo</string>
+    <string name="short_cut_sport_mode">sport mode</string>
+    <string name="short_cut_not_disturb">not disturb</string>
+
+    <string name="systolic_pressure">systolic pressure</string>
+    <string name="diastolic_pressure">diastolic pressure</string>
+
+    <string name="antil_lost_off">off</string>
+    <string name="antil_lost_short">short distance</string>
+    <string name="antil_lost_middle">middle distance</string>
+    <string name="antil_lost_long">long distance</string>
+
+    <string name="wear_mode_left">left hand</string>
+    <string name="wear_mode_right">right hand</string>
+
+    <string name="display_mode_default">default</string>
+    <string name="display_mode_horizontal">horizontal</string>
+    <string name="display_mode_vertical">vertical</string>
+    <string name="display_mode_MODE_OVER_180">over 180°</string>
+
+    <string name="heart_rate_measure_mode">measure mode</string>
+    <string name="heart_rate_mode_manual">manual</string>
+    <string name="heart_rate_mode_off">off</string>
+    <string name="heart_rate_mode_auto">auto</string>
+
+    <string name="up_hand_gesture_switch">switch</string>
+    <string name="up_hand_gesture_show_time">show time</string>
+
+    <string name="local_data_activity">activity data</string>
+    <string name="local_data_sport">sport data</string>
+    <string name="local_data_heart_rate">heart rate data</string>
+    <string name="local_data_sleep">sleep data</string>
+    <string name="local_data_blood">blood data</string>
+
+    <string name="local_data_query_appoint_time">query appoint time</string>
+    <string name="local_data_query_last_n_week">query last N week</string>
+    <string name="local_data_query_week_data">query week data</string>
+    <string name="local_data_last_n_week">Last N week</string>
+
+    <string name="sport_time">sport time:%s</string>
+
+
+</resources>

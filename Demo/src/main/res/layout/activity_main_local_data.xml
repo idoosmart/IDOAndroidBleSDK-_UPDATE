@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/main_local_data_data_type_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/main_local_data_type_health_rb">
+            <RadioButton
+                android:id="@+id/main_local_data_type_activity_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/local_data_activity"/>
+
+            <RadioButton
+                android:id="@+id/main_local_data_type_health_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/local_data_sport"/>
+            <RadioButton
+                android:id="@+id/main_local_data_type_heart_rate_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/local_data_heart_rate"/>
+            <RadioButton
+                android:id="@+id/main_local_data_type_sleep_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/local_data_sleep"/>
+            <RadioButton
+                android:id="@+id/main_local_data_type_blood_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/local_data_blood"/>
+        </RadioGroup>
+
+
+        <!--查询指定天····················································-->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/aaab"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/red"
+            android:text="@string/local_data_query_appoint_time"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/one_day_data_year_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="@string/year"/>
+
+            <EditText
+                android:id="@+id/one_day_data_month_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="@string/month"/>
+
+            <EditText
+                android:id="@+id/one_day_data_day_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="@string/day"/>
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/local_data_query_appoint_time"
+            android:onClick="getOneTimeData"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!--查询指定时间段····················································-->
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/aaab"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="@color/red"
+                android:text="查询指定时间段"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="开始时间"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/one_period_data_start_year_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:hint="年"/>
+
+                <EditText
+                    android:id="@+id/one_period_data_start_month_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:hint="月"/>
+
+                <EditText
+                    android:id="@+id/one_period_data_start_day_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:hint="日"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="结束时间"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/one_period_data_end_year_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:hint="年"/>
+
+                <EditText
+                    android:id="@+id/one_period_data_end_month_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:hint="月"/>
+
+                <EditText
+                    android:id="@+id/one_period_data_end_day_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:hint="日"/>
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="查询指定时间段数据"
+                android:onClick="getOnePeriodData"/>
+        </LinearLayout>
+
+
+
+        <!--查询周数据····················································-->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/aaab"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/red"
+            android:text="@string/local_data_query_last_n_week"/>
+
+        <EditText
+            android:id="@+id/last_n_week_data_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/local_data_last_n_week"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getLastNWeekData"
+            android:text="@string/local_data_query_week_data"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="get139Data"
+            android:text="139"/>
+
+    </LinearLayout>
+
+</ScrollView>

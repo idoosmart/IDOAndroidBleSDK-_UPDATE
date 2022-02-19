@@ -1,0 +1,41 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/log_out_by_self"
+        android:orderInCategory="100"
+        android:title="日志窗口"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/log_out_by_service"
+        android:orderInCategory="100"
+        android:title="本手机“LogOutput”应用查看日志"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/log_out_by_bluetooth"
+        android:orderInCategory="100"
+        android:title="其他手机“LogOutput”应用查看日志"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/install_tool"
+        android:orderInCategory="100"
+        android:title="安装日志工具"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/share_tool"
+        android:orderInCategory="100"
+        android:title="分享日志工具"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/font_upgrade"
+        android:orderInCategory="100"
+        android:title="字库升级"
+        app:showAsAction="never" />
+
+
+
+</menu>

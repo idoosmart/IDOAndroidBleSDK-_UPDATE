@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="test.com.ido">
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="com.project.ble.service" /> <!-- ShareSDK Permission -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+    <application
+        android:name=".APP"
+        android:icon="@drawable/ido_bg"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".set.MusicFolderActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".set.SetAlarmV3Activity" />
+        <activity android:name=".set.ShowAlarmsV3Activity" />
+        <activity
+            android:name=".file.transfer.FileTransferActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.WatchPlateActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".chart.SimpleMpChart"
+            android:screenOrientation="landscape" />
+        <activity android:name=".connect.DeviceManageActivity" />
+        <activity
+            android:name=".font.upgrade.FontUpgradeSettingActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".font.upgrade.FontUpgradeMainActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".font.upgrade.FontScanDeviceActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".connect.ScanDeviceActivity"
+            android:launchMode="singleTask" />
+
+        <service
+            android:name="com.ido.ble.bluetooth.DeviceConnectService"
+            android:exported="false" />
+        <service android:name=".TestService" />
+
+        <activity
+            android:name=".HomeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".app2device.AppControlDeviceActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".appsenddata.AppSendDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".device2app.DeviceControlAppActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".get.GetInfoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".notice.PhoneNoticeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.MainSetActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".sync.SyncDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".connect.ConnectManageActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".unbind.UnbindActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".app2device.BloodPressureMeasureActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".exgdata.ExchangeDataMainActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".exgdata.AppExchangeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".exgdata.DeviceExchangeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetTimeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetAlarmActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetUserInfoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetUnitActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetLongSitActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetHeartRateIntervalActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetHeartRateModeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetUpHandGestureActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetNotDisturbActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetQuickSportModeActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".set.SetSleepMonitoringActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.MainLocalDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.GetActivityDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.GetSportDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.GetHeartRateActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.GetSleepDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.GetBloodDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.GetSportItemDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.GetSleepItemDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".localdata.GetHeartRateItemDataActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".logoutput.LogOutputActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" />
+        <activity android:name=".localdata.GetBloodItemDataActivity" />
+        <activity
+            android:name=".dfu.MainDfuActivity"
+            android:launchMode="singleTask" />
+
+        <service
+            android:name="com.ido.ble.dfu.DFUService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".set.ShowAlarmsActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".dfu.DownloadFirmwareFileActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".dfu.MainUpgradeActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".gps.GpsMainActivity" />
+        <activity android:name=".gps.AGpsSectionTranslateActivity" />
+        <activity android:name=".gps.AGpsAutoTranslateActivity" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="0lf0ZmPnNzRoA1hcUINvrkXIUHudg5MB" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity android:name=".gps.BaiDuMapActivity" />
+        <activity android:name=".gps.StaticMapActivity" />
+        <activity android:name=".dfu.RTKDfuActivity" />
+
+        <service
+            android:name="com.realsil.sdk.dfu.DfuService"
+            android:enabled="true"
+            android:exported="false" />
+    </application>
+
+    <!-- 判断相机是否 可以使用 如果不加以下配置 那么captureIntent.resolveActivity(context.getPackageManager())==null -->
+   <!-- <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE"/>
+        </intent>
+
+        <intent>
+            <action android:name="android.media.action.VIDEO_CAPTURE"/>
+        </intent>
+    </queries>-->
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
+
+</manifest>

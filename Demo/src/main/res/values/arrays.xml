@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="feedback_type">
+        <item>连接失败</item>
+        <item>同步失败</item>
+        <item>运动数据错误</item>
+        <item>睡眠数据错误</item>
+        <item>心率数据错误</item>
+        <item>运动模式异常</item>
+        <item>闹钟提醒异常</item>
+        <item>抬腕亮屏异常</item>
+        <item>来电提醒异常</item>
+        <item>通知提醒异常</item>
+        <item>短信提醒异常</item>
+        <item>不能充电</item>
+        <item>不能开机</item>
+        <item>好点过快</item>
+        <item>滑屏没有反应</item>
+        <item>按键没有反应</item>
+        <item>振动器没有反应</item>
+        <item>其他</item>
+    </string-array>
+
+    <declare-styleable name="SpecialProgressBarStyle">
+        <attr name="textSize1" format="dimension|reference"/><!-- 字体大小 -->
+        <attr name="textColorSuccess" format="color|reference"/><!-- 成功字体颜色 -->
+        <attr name="textColorNormal" format="color|reference"/><!-- 默认进度字体颜色 -->
+        <attr name="textColorError" format="color|reference"/><!-- 错误失败字体颜色 -->
+        <attr name="startDrawable" format="integer|reference"/><!-- 内部图片 -->
+        <attr name="endSuccessDrawable" format="integer|reference"/><!-- 成功图片 -->
+        <attr name="progressBarHeight" format="dimension|reference"/><!--进度条高度 -->
+        <attr name="progressBarBgColor" format="color|reference"/><!--进度条背景颜色 -->
+        <attr name="progressBarColor" format="color|reference"/><!--进度条颜色 -->
+        <attr name="canReBackable" format="boolean|reference"/><!-- 是否成功后返回-->
+        <attr name="canDragable" format="boolean|reference"/><!-- 是否可以拖拽-->
+    </declare-styleable>
+</resources>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/size10dp"
+            android:layout_marginBottom="@dimen/size10dp"
+            android:background="@color/aaa">
+
+            <EditText
+                android:id="@+id/phone_notice_incoming_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="zhou"
+                android:hint="联系人姓名"/>
+            <EditText
+                android:id="@+id/phone_notice_incoming_phone_number_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="15812348888"
+                android:inputType="phone"
+                android:hint="电话号码"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="noticeIncomingCall"
+                android:text="@string/phone_notice_incoming_call"/>
+        </LinearLayout>
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setStopInComingCall"
+            android:text="@string/phone_notice_calling_stop"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="v3noticeIncomingCall"
+            android:text="V3 Phone incoming"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="v3setStopInComingCall"
+            android:text="V3 stop calling"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/size10dp"
+            android:layout_marginBottom="@dimen/size10dp"
+            android:background="@color/aaa">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:checkedButton="@+id/phone_notice_new_msg_type_sms_rb"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/phone_notice_new_msg_type_sms_rb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="短信"/>
+                <RadioButton
+                    android:id="@+id/phone_notice_new_msg_type_email_rb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="邮件"/>
+                <RadioButton
+                    android:id="@+id/phone_notice_new_msg_type_wx_rb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信"/>
+
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="消息类型"/>
+
+                <EditText
+                    android:id="@+id/phone_notice_new_msg_type_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/size30dp"
+                    android:text="0x0A" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/phone_notice_new_msg_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="zhou"
+                android:hint="姓名"/>
+
+            <EditText
+                android:id="@+id/phone_notice_new_msg_number_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="243147030"
+                android:inputType="phone"
+                android:hint="号码"/>
+            <EditText
+                android:id="@+id/phone_notice_new_msg_content_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="hello link"
+                android:hint="信息内容"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="noticeNewMsg"
+                android:text="@string/phone_notice_new_message"/>
+        </LinearLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="noticeUnreadMsg"
+            android:visibility="gone"
+            android:text="@string/phone_notice_unread_message"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="v3noticeNewMsg"
+            android:text="V3 new message"/>
+
+        <Button
+            android:layout_marginTop="@dimen/size20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="OpenDeviceNoticeSwitch"
+            android:text="打开设备通知开关"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="IconAndNameMsg"
+            android:text="IconAndNameMsg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="
+    TYPE_SMS = 0x01;\n
+    TYPE_EMAIL = 0x02;\n
+    TYPE_WX = 0x03;\n
+    TYPE_QQ = 0x04;\n
+    TYPE_WEIBO = 0x05;\n
+    TYPE_FACEBOOK = 0x06;\n
+    TYPE_TWITTER = 0x07;\n
+    TYPE_WHATSAPP = 0x08;\n
+    TYPE_MESSENGER = 0x09;\n
+    TYPE_INSTAGRAM = 0x0A;\n
+    TYPE_LINKEDIN = 0x0B;\n
+    TYPE_CALENDAR = 0x0C;\n
+    TYPE_SKYPE = 0x0D;\n
+    TYPE_ALARM = 0x0E;\n
+    TYPE_VKONTAKTE = 0x10;\n
+    TYPE_LINE = 0x11;\n
+    TYPE_VIBER = 0x12;\n
+    TYPE_KAKAO_TALK = 0x13;\n
+    TYPE_GMAIL = 0x14;\n
+    TYPE_OUTLOOK = 0x15;\n
+    TYPE_SNAPCHAT = 0x16;\n
+    TYPE_TELEGRAM = 0x17;\n
+    TYPE_CHATWORK = 0x20;\n
+    TYPE_SLACK = 0x21;\n
+    TYPE_TUMBLR = 0x23;\n
+    TYPE_YOUTUBE = 0x24;\n
+    TYPE_PINTEREST_YAHOO = 0x25;\n
+    TYPE_TIKTOK = 0x26;\n
+    TYPE_REDBUS = 0X27;\n
+    TYPE_DAILYHUNT= 0X28;\n
+    TYPE_HOTSTAR = 0X29;\n
+    TYPE_INSHORTS = 0X2A;\n
+    TYPE_PAYTM = 0X2B;\n
+    TYPE_AMAZON = 0X2C;\n
+    TYPE_FLIPKART = 0X2D;\n
+    TYPE_PRIME = 0X2E;\n
+    TYPE_NETFLIX = 0X2F;\n
+    TYPE_GPAY = 0X30;\n
+    TYPE_PHONPE = 0X31;\n
+    TYPE_SWIGGY = 0X32;\n
+    TYPE_ZOMATO = 0X33;\n
+    TYPE_MAKEMYTRIP = 0X34;\n
+    TYPE_JIOTV = 0X35;\n
+    TYPE_KEEP = 0X36;\n"/>
+    </LinearLayout>
+
+
+</ScrollView>
+

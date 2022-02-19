@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/sync_gps_status_tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        android:textColor="@color/white"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="synGpsData"
+        android:text="同步GPS数据"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="tranAgpsFile"
+        android:text="传输Agps文件(自定义)"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="autoTranAgpsFile"
+        android:text="传输Agps文件(自动)"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="创建模拟GPS数据"
+        android:onClick="createTestGpsData"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showDataOnMap"
+        android:text="把数据加载到地图上"/>
+
+</LinearLayout>

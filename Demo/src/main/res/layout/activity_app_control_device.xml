@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/size10dp"
+            android:layout_marginBottom="@dimen/size10dp"
+            android:background="@color/aaa">
+
+            <Switch
+                android:id="@+id/app_control_device_play_music_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="Enter"
+                android:textOff="Exit"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_control_device_music"
+                android:onClick="entryMusicMode"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="8dp" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/size10dp"
+            android:layout_marginBottom="@dimen/size10dp"
+            android:background="@color/aaa">
+
+            <Switch
+                android:id="@+id/app_control_device_camera_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="Enter"
+                android:textOff="Exit"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_control_device_camera"
+                android:onClick="entryCameraMode"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="8dp" />
+        </LinearLayout>
+
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:enabled="false"-->
+            <!--android:text="@string/app_control_device_once_sport"-->
+            <!--android:onClick="entryOnceSportMode"-->
+            <!--tools:layout_editor_absoluteY="0dp"-->
+            <!--tools:layout_editor_absoluteX="8dp" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/size10dp"
+            android:layout_marginBottom="@dimen/size10dp"
+            android:background="@color/aaa">
+
+            <Switch
+                android:id="@+id/app_control_device_find_device_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOn="Start"
+                android:textOff="End"/>
+            <Button
+                android:id="@+id/home_btn_connect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_control_device_find_device"
+                android:onClick="startFindDevice"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="8dp" />
+        </LinearLayout>
+
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/app_control_device_device"-->
+            <!--android:onClick="setDeviceVibrateAndDisplayTime"-->
+            <!--android:enabled="false"-->
+            <!--tools:layout_editor_absoluteY="0dp"-->
+            <!--tools:layout_editor_absoluteX="8dp" />-->
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_control_device_blood"
+            android:onClick="measureBlood"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp" />
+
+        <!--<Button-->
+            <!--android:id="@+id/home_btn_get_info"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/app_control_device_open_ancs"-->
+            <!--android:onClick="openANCS"-->
+            <!--android:enabled="false"-->
+            <!--tools:layout_editor_absoluteY="0dp"-->
+            <!--tools:layout_editor_absoluteX="8dp" />-->
+
+
+        <!--<Button-->
+            <!--android:id="@+id/home_btn_unbind"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/app_control_device_close_ance"-->
+            <!--android:onClick="closeANCS"-->
+            <!--android:enabled="false"-->
+            <!--tools:layout_editor_absoluteY="0dp"-->
+            <!--tools:layout_editor_absoluteX="8dp" />-->
+
+        <EditText
+            android:id="@+id/custom_cmd_data_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="F1-F2"
+            android:hint="格式如：04-05-1A-17" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sendCustomCmds"
+            android:text="发送自定义命令"/>
+
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
+

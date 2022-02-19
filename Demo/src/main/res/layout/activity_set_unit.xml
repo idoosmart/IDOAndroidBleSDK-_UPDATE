@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/unit_distance"/>
+
+            <RadioGroup
+                android:id="@+id/set_unit_dist_unit_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/set_unit_dist_unit_default"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/set_unit_dist_unit_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_default"/>
+                <RadioButton
+                    android:id="@+id/set_unit_dist_unit_km"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KM"/>
+                <RadioButton
+                    android:id="@+id/set_unit_dist_unit_mi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MI"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/unit_weight"/>
+
+            <RadioGroup
+                android:id="@+id/set_unit_weight_unit_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/set_unit_weight_unit_default"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/set_unit_weight_unit_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_default"/>
+                <RadioButton
+                    android:id="@+id/set_unit_weight_kg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KG"/>
+                <RadioButton
+                    android:id="@+id/set_unit_weight_lb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LB"/>
+                <RadioButton
+                    android:id="@+id/set_unit_weight_st"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ST"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/unit_temperature"/>
+
+            <RadioGroup
+                android:id="@+id/set_unit_temp_unit_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/set_unit_temp_unit_default"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/set_unit_temp_unit_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_default"/>
+                <RadioButton
+                    android:id="@+id/set_unit_temp_unit_c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°C"/>
+                <RadioButton
+                    android:id="@+id/set_unit_temp_unit_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°F"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/unit_walk_step_length"/>
+
+            <EditText
+                android:id="@+id/set_unit_stride_wake_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="30"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/unit_lang"/>
+
+            <RadioGroup
+                android:id="@+id/set_unit_lang_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/set_unit_lang_default"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/set_unit_lang_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_default"/>
+
+                <RadioButton
+                    android:id="@+id/set_unit_lang_zh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/china"/>
+                <RadioButton
+                    android:id="@+id/set_unit_lang_en"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english"/>
+                <RadioButton
+                    android:id="@+id/set_unit_lang_fr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/french"/>
+                <RadioButton
+                    android:id="@+id/set_unit_lang_de"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/german"/>
+                <RadioButton
+                    android:id="@+id/set_unit_lang_it"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/italian"/>
+                <RadioButton
+                    android:id="@+id/set_unit_lang_es"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/spanish"/>
+                <RadioButton
+                    android:id="@+id/set_unit_lang_ja"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/japanese"/>
+                <RadioButton
+                    android:id="@+id/set_unit_lang_po"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/polish"/>
+                <RadioButton
+                    android:id="@+id/set_unit_lang_cz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/czech"/>
+            </RadioGroup>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/unit_time_format"/>
+
+            <RadioGroup
+                android:id="@+id/set_unit_time_mode_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/set_unit_time_mode_default"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/set_unit_time_mode_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_default"/>
+                <RadioButton
+                    android:id="@+id/set_unit_time_mode_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="24"/>
+                <RadioButton
+                    android:id="@+id/set_unit_time_mode_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12"/>
+            </RadioGroup>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/unit_run_step_length"/>
+
+            <EditText
+                android:id="@+id/set_unit_stride_run_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="30"
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="@string/unit_gps_adjust_switch"/>
+
+            <RadioGroup
+                android:id="@+id/set_unit_gps_switch_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/set_unit_dist_gps_default"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/set_unit_dist_gps_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_default"/>
+                <RadioButton
+                    android:id="@+id/set_unit_dist_gps_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ON"/>
+                <RadioButton
+                    android:id="@+id/set_unit_dist_gps_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OFF"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setUnit"
+            android:text="@string/set"/>
+
+
+    </LinearLayout>
+
+</ScrollView>

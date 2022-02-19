@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="bgColor" format="color" />
+    <attr name="valueTextColor" format="color" />
+    <attr name="lineWidth" format="dimension"></attr>
+
+
+    <declare-styleable name="ItemLableValue">
+        <attr name="lable_color" format="color" />
+        <attr name="lable_text" format="string" />
+        <attr name="value_text" format="string" />
+        <attr name="right_arrow" format="reference" />
+        <attr name="left_drawable" format="reference" />
+        <!-- 点击该view会跳转，这个属性值为跳转目标activity的全名 -->
+        <attr name="target_activty" format="string" />
+        <!-- true表示开启状态 -->
+        <attr name="opened" format="boolean" />
+        <attr name="android:enabled" />
+        <!-- 默认是有的 -->
+        <attr name="has_bottom_line" format="boolean" />
+        <attr name="bottom_line_color" format="color" />
+        <attr name="bottom_line_width" format="dimension" />
+
+        <attr name="is_show" format="boolean" />
+        <!-- 默认是有的 -->
+        <attr name="has_top_line" format="boolean" />
+        <attr name="has_all_line" format="boolean" />
+        <attr name="top_line_color" format="color" />
+        <attr name="top_line_width" format="dimension" />
+        <attr name="valueTextColor" />
+
+    </declare-styleable>
+
+    <declare-styleable name="DrawableStates">
+        <!-- true表示开启状态 -->
+        <attr name="state_open" format="boolean" />
+        <attr name="state_pull_fresh" format="boolean" />
+        <attr name="state_free_fresh" format="boolean" />
+        <attr name="state_freshing" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ValueStateTextView">
+        <attr name="checkBackground" format="reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="WheelView">
+        <attr name="android:textSize" />
+        <attr name="android:background" />
+        <attr name="item_text_color" format="color" />
+        <attr name="valueTextColor" />
+    </declare-styleable>
+
+    <declare-styleable name="SportPieView">
+        <attr name="pieColor" format="color" />
+        <attr name="bgColor" />
+        <attr name="bgTextSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SleepPieView">
+        <attr name="bgColor" />
+    </declare-styleable>
+
+
+    <declare-styleable name="SportBarChart">
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="barColor" format="color" />
+        <attr name="drawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PointLine">
+        <attr name="dataTextSize" format="dimension" />
+        <attr name="dataColor" format="color" />
+        <attr name="pointTextSize" format="dimension" />
+        <attr name="pointColor" format="color" />
+        <attr name="gotoTheDayTextSize" format="dimension" />
+        <attr name="gotoTheDayColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="DataShowView">
+        <attr name="android:textColor" />
+        <attr name="bgColor" />
+        <attr name="titleTextSize" format="dimension" />
+        <attr name="valueTextSize" format="dimension" />
+        <attr name="unitTextSize" format="dimension" />
+        <attr name="valueTextColor" />
+        <attr name="titleTextColor" />
+        <attr name="centerY" format="boolean" />
+        <attr name="isShowFlag" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomHeartPhotoView">
+        <attr name="chpv_bgColor" format="color" />
+        <attr name="chpv_titleTextSize" format="dimension" />
+        <attr name="chpv_valueTextSize" format="dimension" />
+        <attr name="chpv_valueTextColor" format="color" />
+        <attr name="chpv_titleTextColor" format="color" />
+        <attr name="chpv_centerY" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SleepBarChart">
+        <attr name="lightSleep" format="color" />
+        <attr name="awake" format="color" />
+        <attr name="deepSleep" format="color" />
+        <attr name="android:textColor" />
+        <attr name="tittleTextSize" format="dimension" />
+        <attr name="xLabelTextSize" format="dimension" />
+        <attr name="timeTextSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CirclePageIndicator">
+
+        <!-- Whether or not the indicators should be centered. -->
+        <attr name="centered" format="boolean" />
+        <!-- Color of the filled circle that represents the current page. -->
+        <attr name="fillColor" format="color" />
+        <!-- Color of the filled circles that represents pages. -->
+        <attr name="pageColor" format="color" />
+        <!-- Orientation of the indicator. -->
+        <attr name="android:orientation" />
+        <!-- Radius of the circles. This is also the spacing between circles. -->
+        <attr name="radius" format="dimension" />
+        <!-- Whether or not the selected indicator snaps to the circles. -->
+        <attr name="snap" format="boolean" />
+        <!-- Color of the open circles. -->
+        <attr name="strokeColor" format="color" />
+        <!-- Width of the stroke used to draw the circles. -->
+        <attr name="strokeWidth" format="dimension" />
+        <!-- View background -->
+        <attr name="android:background" />
+    </declare-styleable>
+
+
+    <declare-styleable name="RulerView">
+        <attr name="arrowLineColor" format="color" />
+        <attr name="scaleLineColor" format="color" />
+        <attr name="titleTextColor" format="color" />
+        <attr name="titleDataColor" format="color" />
+        <attr name="maxData" format="integer" />
+        <attr name="minData" format="integer" />
+        <attr name="stepData" format="integer" />
+        <attr name="stepLineNum" format="integer" />
+        <attr name="halfScreenLines" format="integer" />
+        <attr name="unit" format="string" />
+        <attr name="unitBig" format="string" />
+        <attr name="title" format="string" />
+        <attr name="currentLineShow" format="boolean" />
+        <attr name="isScroll" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="BloodpressureRulerView">
+        <attr name="arrowLineColor_blood" format="color" />
+        <attr name="scaleLineColor_blood" format="color" />
+        <attr name="titleTextColor_blood" format="color" />
+        <attr name="titleDataColor_blood" format="color" />
+        <attr name="maxData_blood" format="integer" />
+        <attr name="minData_blood" format="integer" />
+        <attr name="stepData_blood" format="integer" />
+        <attr name="stepLineNum_blood" format="integer" />
+        <attr name="halfScreenLines_blood" format="integer" />
+        <attr name="unit_blood" format="string" />
+        <attr name="unitBig_blood" format="string" />
+        <attr name="title_blood" format="string" />
+        <attr name="currentLineShow_blood" format="boolean" />
+        <attr name="isScroll_blood" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="DetailChart">
+        <attr name="lineWidth" />
+        <attr name="xOffset" format="dimension" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="gridColor" format="color" />
+        <!-- 标题底部到图例顶部的距离 -->
+        <attr name="space" format="dimension" />
+        <!-- 点的半径 -->
+        <attr name="pointRadius" format="dimension" />
+        <attr name="isHeartFlag" format="boolean" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TextSelectView">
+        <attr name="tsTextSize" format="dimension" />
+        <attr name="tsTextColor" format="color" />
+        <attr name="tsSelectTextColor" format="color" />
+        <attr name="tsTextLeft" format="string" />
+        <attr name="tsTextRight" format="string" />
+        <attr name="tsTextCenter" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <!-- 我的-Item样式 -->
+    <declare-styleable name="MyItemLableValue">
+        <attr name="iv_left" format="reference" />
+        <attr name="label_text" format="string" />
+        <attr name="label_text_color" format="color" />
+        <attr name="iv_right" format="reference" />
+        <attr name="jump_target_activty" format="string" />
+        <attr name="has_bottom_linex" format="boolean" />
+        <attr name="bottom_line_colorx" format="color" />
+        <attr name="has_top_linex" format="boolean" />
+        <attr name="top_line_colorx" format="color" />
+        <attr name="is_toggle_mode" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="MyCustomItemLableValue">
+        <attr name="label_item" format="string" />
+        <attr name="label_item_color" format="color" />
+        <attr name="label_value" format="string" />
+        <attr name="label_value_color" format="color" />
+        <attr name="label_right" format="reference" />
+        <attr name="label_line_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="BottomChangeItem">
+        <attr name="item_title_tv" format="string" />
+        <attr name="item_title_color" format="color" />
+        <attr name="item_iv" format="reference" />
+        <attr name="item_is_show" format="boolean" />
+    </declare-styleable>
+
+    <!-- 我的-纯文本Item样式 -->
+    <declare-styleable name="MyItemTextView">
+        <attr name="has_top_linez" format="boolean" />
+        <attr name="has_bottom_linez" format="boolean" />
+        <attr name="top_line_colorz" format="color" />
+        <attr name="bottom_line_colorz" format="color" />
+        <attr name="label_text_colorz" format="color" />
+        <attr name="label_textz" format="string" />
+    </declare-styleable>
+
+    <!-- 我的编辑框样式 -->
+    <declare-styleable name="MyEditText">
+        <attr name="ed_leftImage" format="reference" />
+        <attr name="ed_hint" format="string" />
+        <attr name="ed_rightBtnText" format="string" />
+        <attr name="ed_btnVisiblity">
+            <enum name="visiable" value="0" />
+            <enum name="gone" value="1" />
+        </attr>
+        <attr name="ed_inputType">
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+            <enum name="number" value="2" />
+        </attr>
+    </declare-styleable>
+
+
+    <!--MyRect样式-->
+    <declare-styleable name="myrect">
+        <attr name="myrect_color" format="color" />
+    </declare-styleable>
+
+    <!--活动-->
+    <declare-styleable name="SportView">
+        <attr name="sv_image" format="reference" />
+        <attr name="sv_title" format="string" />
+        <attr name="sv_value" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="mainChangeView">
+        <attr name="mchange_title" format="string" />
+        <attr name="mchange_image" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HeartBarChart">
+        <attr name="hbc_textSize" format="dimension" />
+        <attr name="hbc_textColor" format="color" />
+        <attr name="hbc_bgColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxis">
+        <!--时间轴偏移量-->
+        <attr name="time_margin_side" format="dimension" />
+        <!--时间轴动态调整值-->
+        <attr name="time_dynimic_dimen" format="dimension" />
+        <!--线的宽度-->
+        <attr name="time_line_width" format="dimension" />
+        <!--线的颜色-->
+        <attr name="time_line_color" format="color" />
+        <!--点的大小-->
+        <attr name="time_point_size" format="dimension" />
+        <!--点的颜色-->
+        <attr name="time_point_color" format="color" />
+        <!--图标-->
+        <attr name="time_src" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTimeAxisTextView">
+        <attr name="time_axis_textSize" format="dimension" />
+        <attr name="time_axis_textColor" format="color" />
+        <attr name="time_axis_rectColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="DashedLineView">
+        <attr name="dashed_line_color" format="color" />
+        <attr name="dashed_line_horizontal" format="boolean" />
+        <attr name="dashed_line_isShow" format="boolean" />
+        <attr name="dashed_line_isSolid" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomIconAndTextView">
+        <attr name="custom_icon_and_text_view_text" format="string" />
+        <attr name="custom_icon_and_text_view_textSize" format="dimension" />
+        <attr name="custom_icon_and_text_view_textColor" format="color" />
+        <attr name="custom_icon_and_text_view_symbolColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SleepTotalTimeView">
+        <attr name="sleep_total_time_view_totalTitleColor" format="color" />
+        <attr name="sleep_total_time_view_dataTitleColor" format="color" />
+        <attr name="sleep_total_time_view_dataColor" format="color" />
+        <attr name="sleep_total_time_view_unitColor" format="color" />
+        <attr name="sleep_total_time_view_deepSleepColor" format="color" />
+        <attr name="sleep_total_time_view_lessSleepColor" format="color" />
+        <attr name="sleep_total_time_view_awakSleepColor" format="color" />
+        <attr name="sleep_total_time_view_peakExerciseColor" format="color" />
+        <attr name="sleep_total_time_view_cardioPulmonaryExerciseColor" format="color" />
+        <attr name="sleep_total_time_view_fatBurningColor" format="color" />
+        <attr name="sleep_total_time_view_sleepBgColor" format="color" />
+        <attr name="sleep_total_time_view_heartRateBgColor" format="color" />
+        <attr name="sleep_total_time_view_typefaceColor" format="color" />
+        <attr name="sleep_total_time_view_textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxisSleepItemView">
+        <attr name="time_axis_sleep_item_view_textSize" format="dimension" />
+        <attr name="time_axis_sleep_item_view_textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RunBottomView">
+        <attr name="run_bottom_view_drawable" format="reference" />
+        <attr name="run_bottom_view_data" format="string" />
+        <attr name="run_bottom_view_unit" format="string" />
+        <attr name="run_bottom_view_dataTextSize" format="dimension" />
+        <attr name="run_bottom_view_unitTextSize" format="dimension" />
+        <attr name="run_bottom_view_data_color" format="color" />
+        <attr name="run_bottom_view_unit_color" format="color" />
+        <attr name="run_bottom_view_isCurrentLine" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RunProgressView">
+        <attr name="run_progress_view_data" format="string" />
+        <attr name="run_progress_view_dataColor" format="color" />
+        <attr name="run_progress_view_dataTextSize" format="dimension" />
+        <attr name="run_progress_view_unit" format="string" />
+        <attr name="run_progress_view_unitColor" format="color" />
+        <attr name="run_progress_view_unitTextSize" format="dimension" />
+        <attr name="run_progress_view_progressColor" format="color" />
+        <attr name="run_progress_view_progressBgColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomGPSView">
+        <attr name="custom_gps_view_text" format="string" />
+        <attr name="custom_gps_view_textSize" format="dimension" />
+        <attr name="custom_gps_view_text_color" format="color" />
+        <attr name="custom_gps_view_gps_signal_width" format="dimension" />
+        <attr name="custom_gps_view_gps_signal_color" format="color" />
+        <attr name="custom_gps_view_gps_signal_text" format="string" />
+        <attr name="custom_gps_view_gps_signal_bg_color" format="color" />
+        <attr name="custom_gps_view_gps_signal_goodBg" format="reference" />
+        <attr name="custom_gps_view_gps_signal_badBg" format="reference" />
+        <attr name="custom_gps_view_gps_signal_noBg" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SlideUnLockView">
+        <attr name="slide_unlock_view_slide" format="reference" />
+        <attr name="slide_unlock_view_slide_bg" format="reference" />
+        <attr name="slide_unlock_view_slide_under_bg" format="reference" />
+        <attr name="slide_unlock_view_text" format="string" />
+        <attr name="slide_unlock_view_textSize" format="dimension" />
+        <attr name="slide_unlock_view_textNormalColor" format="color" />
+        <attr name="slide_unlock_view_textGradientColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MyTextView">
+        <attr name="mytext_view_bg_drawable" format="reference" />
+        <attr name="mytext_view_textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxisSleepView">
+        <attr name="time_axis_sleep_view_bgColor" format="color" />
+        <attr name="time_axis_sleep_view_deepColor" format="color" />
+        <attr name="time_axis_sleep_view_lessColor" format="color" />
+        <attr name="time_axis_sleep_view_awakColor" format="color" />
+        <attr name="time_axis_sleep_view_lineColor" format="color" />
+        <attr name="time_axis_sleep_view_textColor" format="color" />
+        <attr name="time_axis_sleep_view_textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxisSleepRectView">
+        <attr name="time_axis_sleep_rect_view_deepColor" format="color" />
+        <attr name="time_axis_sleep_rect_view_lessColor" format="color" />
+        <attr name="time_axis_sleep_rect_view_awakColor" format="color" />
+        <attr name="time_axis_sleep_rect_view_sleepTimeDrawable" format="reference" />
+        <attr name="time_axis_sleep_rect_view_sleepTimeTitle" format="string" />
+        <attr name="time_axis_sleep_rect_view_bedDrawable" format="reference" />
+        <attr name="time_axis_sleep_rect_view_bedTitle" format="string" />
+        <attr name="time_axis_sleep_rect_view_titleColor" format="color" />
+        <attr name="time_axis_sleep_rect_view_titleSize" format="dimension" />
+        <attr name="time_axis_sleep_rect_view_deepSleepData" format="integer" />
+        <attr name="time_axis_sleep_rect_view_lessSleepData" format="integer" />
+        <attr name="time_axis_sleep_rect_view_awakSleepData" format="integer" />
+        <attr name="time_axis_sleep_rect_view_dataColor" format="color" />
+        <attr name="time_axis_sleep_rect_view_dataSize" format="dimension" />
+        <attr name="time_axis_sleep_rect_view_bedQuatilyDrawable" format="reference" />
+        <attr name="time_axis_sleep_rect_view_lessDrawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxisSportDataView">
+        <attr name="time_axis_sport_data_view_unitSise" format="dimension" />
+        <attr name="time_axis_sport_data_view_unitColor" format="color" />
+        <attr name="time_axis_sport_data_view_dataSise" format="dimension" />
+        <attr name="time_axis_sport_data_view_dataColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxisSportRectView">
+        <attr name="time_axis_sport_rect_view_peakColor" format="color" />
+        <attr name="time_axis_sport_rect_view_cardioColor" format="color" />
+        <attr name="time_axis_sport_rect_view_fatColor" format="color" />
+        <attr name="time_axis_sport_rect_view_textColor" format="color" />
+        <attr name="time_axis_sport_rect_view_valueColor" format="color" />
+        <attr name="time_axis_sport_rect_view_dataSize" format="dimension" />
+        <attr name="time_axis_sport_rect_view_unitSize" format="dimension" />
+        <attr name="time_axis_sport_rect_view_textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxisSportHeartRateView">
+        <attr name="time_axis_sport_heartrate_view_bitmap" format="reference" />
+        <attr name="time_axis_sport_heartrate_view_titleText" format="string" />
+        <attr name="time_axis_sport_heartrate_view_titleColor" format="color" />
+        <attr name="time_axis_sport_heartrate_view_titleSize" format="dimension" />
+        <attr name="time_axis_sport_heartrate_view_headTime" format="string" />
+        <attr name="time_axis_sport_heartrate_view_tailTime" format="string" />
+        <attr name="time_axis_sport_heartrate_view_timeColor" format="color" />
+        <attr name="time_axis_sport_heartrate_view_timeSize" format="dimension" />
+        <attr name="time_axis_sport_heartrate_view_bgColor" format="color" />
+        <attr name="time_axis_sport_heartrate_view_lineColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxisSportMapView">
+        <attr name="time_axis_sport_map_view_bigBitmap" format="reference" />
+        <attr name="time_axis_sport_map_view_smallBitmap" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HeartRateDetailLineView">
+        <attr name="heart_rate_detail_line_view_valueSize" format="dimension" />
+        <attr name="heart_rate_detail_line_view_normalSize" format="dimension" />
+        <attr name="heart_rate_detail_line_view_textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MyWalkingChart">
+        <attr name="my_walking_chart_bigTextSize" format="dimension" />
+        <attr name="my_walking_chart_normalTextSize" format="dimension" />
+        <attr name="my_walking_chart_textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MySleepChart">
+        <attr name="my_sleep_chart_awakColor" format="color" />
+        <attr name="my_sleep_chart_lessColor" format="color" />
+        <attr name="my_sleep_chart_deepColor" format="color" />
+        <attr name="my_sleep_chart_textColor" format="color" />
+        <attr name="my_sleep_chart_bigTextSize" format="dimension" />
+        <attr name="my_sleep_chart_normalTextSize" format="dimension" />
+        <attr name="my_sleep_chart_smallTextSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ModeSelectTextView">
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:padding" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAxisWeightView">
+        <attr name="timeaxis_weight_view_bigTextSize" format="dimension" />
+        <attr name="timeaxis_weight_view_normalTextSize" format="dimension" />
+        <attr name="timeaxis_weight_view_textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="PathSportView">
+        <attr name="path_sport_view_valueTextColor" format="color" />
+        <attr name="path_sport_view_unitTextColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="UnlockView">
+        <attr name="unlock_view_unlock_image" format="reference" />
+        <attr name="unlock_view_ring_color" format="color" />
+        <attr name="unlock_view_ring_width" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SportTypeHrChartView">
+        <attr name="sport_type_hr_chart_bgColor" format="color" />
+        <attr name="sport_type_hr_chart_textColor" format="color" />
+        <attr name="sport_type_hr_chart_timeColor" format="color" />
+        <attr name="sport_type_hr_chart_hrColor" format="color" />
+        <attr name="sport_type_hr_chart_hrSize" format="dimension" />
+        <attr name="sport_type_hr_chart_textSize" format="dimension" />
+        <attr name="sport_type_hr_chart_timeSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RunTargetView">
+        <attr name="run_target_view_bgColor" format="color" />
+        <attr name="run_target_view_valueColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundProgressBar">
+        <attr name="roundColor" format="color" />
+        <attr name="roundProgressColor" format="color" />
+        <attr name="roundWidth" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="roundTextSize" format="dimension" />
+        <attr name="max" format="integer" />
+        <attr name="textIsDisplayable" format="boolean" />
+        <attr name="style">
+            <enum name="STROKE" value="0"></enum>
+            <enum name="FILL" value="1"></enum>
+        </attr>
+    </declare-styleable>
+
+    <!--燃烧矩形自定义View-->
+    <declare-styleable name="BurningRectView">
+        <attr name="burn_rect_view_rectColor" format="color" />
+        <attr name="burn_rect_view_normalColor" format="color" />
+        <attr name="burn_rect_view_valueColor" format="color" />
+        <attr name="burn_rect_view_unitColor" format="color" />
+        <attr name="burn_rect_view_rectProportion" format="dimension" />
+        <attr name="burn_rect_view_normalSize" format="dimension" />
+        <attr name="burn_rect_view_valueSize" format="dimension" />
+        <attr name="burn_rect_view_unitSize" format="dimension" />
+        <attr name="burn_rect_view_textLeftPadding" format="dimension" />
+        <attr name="burn_rect_view_text" format="string" />
+        <attr name="burn_rect_view_unit" format="string" />
+    </declare-styleable>
+
+    <!--logo-->
+    <declare-styleable name="LogoTextView">
+        <attr name="logon_textview_text" format="string" />
+        <attr name="logon_textview_textColor" format="color" />
+        <attr name="logon_textview_textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CropImageView">
+
+        <attr name="guidelines">
+            <enum name="off" value="0"/>
+            <enum name="onTouch" value="1"/>
+            <enum name="on" value="2"/>
+        </attr>
+
+        <attr name="fixAspectRatio" format="boolean"/>
+        <attr name="aspectRatioX" format="integer"/>
+        <attr name="aspectRatioY" format="integer"/>
+
+    </declare-styleable>
+    <!--电子秤表盘属性-->
+    <declare-styleable name="DashboardView">
+        <attr name="mradius" format="dimension"/>     <!--扇形半径-->
+        <attr name="startAngle" format="integer"/> <!-- 起始角度-->
+        <attr name="sweepAngle" format="integer"/>  <!--绘制角度-->
+        <attr name="bigSliceCount" format="integer"/> <!-- 长刻度条数-->
+        <attr name="sliceCountInOneBigSlice" format="integer"/> <!-- 长刻度条数-->
+        <attr name="arcColor" format="color"/> <!--弧度颜色-->
+        <attr name="measureTextSize" format="dimension"/> <!--刻度字体大小-->
+        <attr name="mtextColor" format="color"/> <!--字体颜色-->
+        <attr name="headerTitle" format="string"/> <!--表头-->
+        <attr name="headerTextSize" format="string"/> <!--表头字体大小-->
+        <attr name="headerRadius" format="dimension"/> <!--表头半径-->
+        <attr name="pointerRadius" format="dimension"/> <!--指针半径-->
+        <attr name="circleRadius" format="dimension"/> <!--中心圆半径-->
+        <attr name="minValue" format="integer"/> <!--最小值-->
+        <attr name="maxValue" format="integer"/> <!--最大值-->
+        <attr name="realTimeValue" format="float"/> <!--实时值-->
+        <attr name="stripeWidth" format="dimension"/> <!--色带宽度-->
+        <attr name="stripeMode" > <!--色条显示位置-->
+            <enum name="normal" value="0"/>
+            <enum name="inner" value="1"/>
+            <enum name="outer" value="2"/>
+        </attr>
+        <attr name="mbgColor" format="color"/> <!--背景颜色-->
+    </declare-styleable>
+<!--电子秤图标-->
+    <!-- xy坐标轴颜色 -->
+    <attr name="xylinecolor" format="color" />
+    <!-- xy坐标轴宽度 -->
+    <attr name="xylinewidth" format="dimension" />
+    <!-- xy坐标轴文字颜色 -->
+    <attr name="xytextcolor" format="color" />
+    <!-- xy坐标轴文字大小 -->
+    <attr name="xytextsize" format="dimension" />
+    <!-- 折线图中折线的颜色 -->
+    <attr name="linecolor" format="color" />
+    <!-- x轴各个坐标点水平间距 -->
+    <attr name="interval" format="dimension" />
+    <!-- 背景颜色 -->
+    <attr name="bgcolor" format="color" />
+    <!--是否在ACTION_UP时，根据速度进行自滑动，建议关闭，过于占用GPU-->
+    <attr name="misScroll" format="boolean" />
+
+    <attr name="mispercent" format="boolean" />
+    <declare-styleable name="chartView">
+        <attr name="xylinecolor" />
+        <attr name="xylinewidth" />
+        <attr name="xytextcolor" />
+        <attr name="xytextsize" />
+        <attr name="linecolor" />
+        <attr name="interval" />
+        <attr name="bgcolor" />
+        <attr name="misScroll" />
+        <attr name="mispercent" />
+    </declare-styleable>
+</resources>

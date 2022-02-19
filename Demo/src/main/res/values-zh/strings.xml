@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">IDO Demo</string>
+
+    <!--扫描-->
+    <string name="scan_refresh">刷新</string>
+    <string name="scanning">扫描中...</string>
+    <string name="scan_finish">扫描完成</string>
+    <string name="scan_bind">绑定</string>
+
+    <!--连接状态-->
+    <string name="connect_state_start">开始连接</string>
+    <string name="connect_state_ing">连接中...</string>
+    <string name="connect_state_ok">已连接</string>
+    <string name="connect_state_failed">连接失败</string>
+    <string name="connect_state_break">已断开</string>
+    <string name="connect_state_dfu">DFU模式</string>
+
+    <!--连接管理-->
+    <string name="connect_action_break">断开连接</string>
+    <string name="connect_action_auto">自动连接</string>
+    <string name="connect_check_state">检测连接状态</string>
+
+    <!--主页-->
+    <string name="home_unbind">解绑 ></string>
+    <string name="home_connect_manage">连接管理 ></string>
+    <string name="home_get_info">获取信息 ></string>
+    <string name="home_set_para">设置参数 ></string>
+    <string name="home_notice">提醒 ></string>
+    <string name="home_app_control_device">APP控制设备 ></string>
+    <string name="home_device_control_app">设备控制APP ></string>
+    <string name="home_sync_data">同步数据 ></string>
+    <string name="home_app_send_data">APP发送数据 ></string>
+    <string name="home_exchange_data">交换数据 ></string>
+    <string name="home_tip_not_connect">未连接设备</string>
+
+    <!--获取信息-->
+    <string name="get_info_basic_info">基本信息</string>
+    <string name="get_info_function">功能列表</string>
+    <string name="get_info_time">设备时间</string>
+    <string name="get_info_mac">MAC地址</string>
+    <string name="get_info_battery">电池信息</string>
+    <string name="get_info_sn">SN信息</string>
+    <string name="get_info_notice_switch">通知开关状态</string>
+    <string name="get_info_live_data">实时数据</string>
+    <string name="get_info_hid_data">HID信息</string>
+    <string name="get_info_activity_count">活动数量</string>
+    <string name="get_walk_reminder">走动提醒</string>
+    <string name="get_sport_three_circle_goal">运动三环目标</string>
+
+    <!--绑定、解绑-->
+    <string name="unbind_unbind">解绑</string>
+    <string name="unbind_force_unbind">强制解绑</string>
+    <string name="unbind_tip_msg_ok">解绑成功</string>
+    <string name="unbind_tip_msg_failed">解绑失败</string>
+
+    <!--___________________________设置___________________________________ -->
+    <string name="set">设置</string>
+    <string name="add">添加</string>
+    <string name="unit_minute">分钟</string>
+    <string name="unit_hour">小时</string>
+
+    <string name="set_para_time">设置时间 ></string>
+
+    <!--闹钟-->
+    <string name="set_para_alarm">设置闹钟 ></string>
+    <string name="alarmtext111">demo只提供演示，只设置一组闹钟，闹钟最大支持十个，开发者可以自行设置，为方便演示，demo只设置一个</string>
+    <string name="alarmtext2">设置闹钟提醒开关</string>
+    <string name="alarmtext3">开</string>
+    <string name="alarmtext4">关</string>
+    <string name="alarmtext5">设置闹钟类型</string>
+    <string name="alarmtext6">起床</string>
+    <string name="alarmtext7">睡觉</string>
+    <string name="alarmtext8">锻炼</string>
+    <string name="alarmtext9">吃药</string>
+    <string name="alarmtext99">约会</string>
+    <string name="alarmtext10">聚会</string>
+    <string name="alarmtext11">会议</string>
+    <string name="alarmtext12">自定义</string>
+    <string name="alarmtext13">设置闹钟时间</string>
+    <string name="monday">周一</string>
+    <string name="tuesday">周二</string>
+    <string name="wednesday">周三</string>
+    <string name="thursday">周四</string>
+    <string name="friday">周五</string>
+    <string name="saturday">周六</string>
+    <string name="sunday">周日</string>
+    <string name="state_on">开</string>
+    <string name="state_off">关</string>
+    <string name="alarm_set_repeat">重复</string>
+
+    <!--目标-->
+    <string name="set_para_goal">设置目标</string>
+
+    <!--个人信息-->
+    <string name="set_para_user_info">设置用户信息 ></string>
+    <string name="set_para_user_info_1">1.设置用户信息</string>
+    <string name="set_para_user_info_sync_config">2.同步配置信息</string>
+    <string name="set_para_user_info_tips">设置用户信息：用户信息中的身高和性别等参数是计算手环的步长，卡路里，公里数等的重要参数，请在第一时间将身高性别体重等参数设置好，以免手环上的步数显示错误</string>
+    <string name="set_para_user_info_person_sex_boy">男</string>
+    <string name="set_para_user_info_person_sex_girl">女</string>
+    <string name="set_para_user_info_sex">*性&#160;&#160;&#160;&#160;别:</string>
+    <string name="set_para_user_info_birthday">生&#160;&#160;&#160;&#160;日:</string>
+    <string name="set_para_user_info_height">*身&#160;&#160;&#160;&#160;高:</string>
+    <string name="set_para_user_info_weight">*体&#160;&#160;&#160;&#160;重:</string>
+    <string name="set_para_user_info_year">年</string>
+    <string name="set_para_user_info_month">月</string>
+    <string name="set_para_user_info_day">日</string>
+    <string name="set_para_user_info_hour">时</string>
+
+    <!--单位-->
+    <string name="set_para_unit">设置单位 ></string>
+
+
+    <string name="set_para_dial_plate">设置表盘</string>
+    <string name="set_para_short_cut">设置快捷键</string>
+    <string name="set_para_blood_measure_para">设置血压校准参数</string>
+    <string name="query_blood_adjust_result">查询“血压校准”结果</string>
+
+    <!--久坐-->
+    <string name="set_para_long_sit">设置久坐提醒 ></string>
+    <string name="set_longsit_switch">设置久坐提醒开关</string>
+    <string name="unsport_tip">设置未活动多少分钟后开始提醒</string>
+    <string name="minute_unit_str">单位分钟</string>
+    <string name="set_start_time">设置开始的时间</string>
+    <string name="set_end_time">设置结束的时间</string>
+    <string name="set_week_switch">设置周开关</string>
+    <string name="commit_longsit_set">提交久坐提醒设置</string>
+    <string name="start_hour">开始的小时</string>
+    <string name="start_minute">开始的分钟</string>
+    <string name="end_hour">结束的小时</string>
+    <string name="end_minute">结束的分钟</string>
+
+
+    <string name="set_para_anti_lost_mode">设置防丢模式</string>
+    <string name="set_para_anti_lost_para">设置防丢参数</string>
+    <string name="set_para_hand_wear_mode">设置左右手佩戴模式</string>
+    <string name="set_para_phone_system_into">设置手机操作系统信息</string>
+
+    <!--心率区间-->
+    <string name="set_para_heart_rate_interval">设置心率区间 ></string>
+    <string name="fat_burning">脂肪燃烧</string>
+    <string name="aerobic_exercise">有氧锻炼</string>
+    <string name="limit_exercise">极限锻炼</string>
+    <string name="exercise_tip">脂肪燃烧＜有氧锻炼＜极限锻炼</string>
+
+    <string name="set_para_heart_rate_mode">设置心率监测模式 ></string>
+    <string name="set_para_heart_rate_mode_has_time_range">是否有时间区间:</string>
+    <string name="set_para_heart_rate_mode_has_time_on">有</string>
+    <string name="set_para_heart_rate_mode_has_time_off">无</string>
+
+
+    <string name="set_para_find_phone_switch">设置寻找手机开关</string>
+    <string name="set_para_one_key_reset">一键还原</string>
+
+
+    <string name="set_para_up_hand_gesture">设置抬腕手势开关 ></string>
+
+    <string name="set_para_not_disturb">设置勿扰模式 ></string>
+
+    <string name="set_para_music_switch">设置音乐开关</string>
+    <string name="set_para_display_mode">设置显示模式</string>
+    <string name="set_para_one_key_sos">设置一键呼救</string>
+    <string name="set_para_weather_switch">设置天气预报开关</string>
+    <string name="set_para_quick_sport_mode">选择快捷运动模式 ></string>
+    <string name="set_para_notice_switch">设置通知提醒开关</string>
+    <string name="set_para_sleep_monitoring_para">设置睡眠监测时间段 ></string>
+    <string name="set_para_tip_msg_ok">设置成功</string>
+    <string name="set_para_tip_msg_failed">设置失败</string>
+
+    <!--同步-->
+    <string name="sync_all_data">同步所有数据</string>
+    <string name="stop_sync_all_data">停止同步所有数据</string>
+    <string name="sync_config_start">开始同步配置信息</string>
+    <string name="sync_health_start">开始同步健康数据</string>
+    <string name="sync_activity_start">开始同步活动数据</string>
+    <string name="sync_config_stop">停止同步配置信息</string>
+    <string name="sync_health_stop">停止同步健康数据</string>
+    <string name="sync_activity_stop">停止同步活动数据</string>
+    <string name="sync_V3_data_start">开始同步V3数据</string>
+    <string name="sync_V3_data_stop">停止同步V3数据</string>
+
+    <!--提醒命令-->
+    <string name="phone_notice_incoming_call">来电提醒</string>
+    <string name="phone_notice_calling_stop">结束来电提醒</string>
+    <string name="phone_notice_new_message">新信息提醒</string>
+    <string name="phone_notice_unread_message">未读消息提醒</string>
+    <string name="phone_notice_tip_msg_ok">提醒成功</string>
+    <string name="phone_notice_tip_msg_failed">提醒失败</string>
+
+    <!--APP控制设备-->
+    <string name="app_control_device_music">音乐播放</string>
+    <string name="app_control_device_camera">拍照</string>
+    <string name="app_control_device_once_sport">单次运动</string>
+    <string name="app_control_device_find_device">寻找手环</string>
+    <string name="app_control_device_device">设备震动和显示时长</string>
+    <string name="app_control_device_blood">血压功能 ></string>
+    <string name="app_control_device_open_ancs">打开ANCS模块</string>
+    <string name="app_control_device_close_ance">关闭ANCS模块</string>
+    <string name="app_control_device_success">控制成功</string>
+    <string name="app_control_device_failed">控制失败</string>
+
+    <string name="measure_blood_start">开始测量</string>
+    <string name="measure_blood_end">结束测量</string>
+    <string name="measure_blood_get_data">获取血压数据</string>
+
+    <!--设备控制APP-->
+    <string name="device_control_app_event">事件控制</string>
+    <string name="device_control_app_find_phone">寻找手机</string>
+    <string name="device_control_app_sos">一键呼救</string>
+    <string name="device_control_anti_lost">防丢事件提醒</string>
+    <string name="device_control_start">开始</string>
+    <string name="device_control_end">结束</string>
+    <string name="device_control_app_event_start">开始</string>
+    <string name="device_control_app_event_pause">暂停</string>
+    <string name="device_control_app_event_stop">结束</string>
+    <string name="device_control_app_event_pre">上一首</string>
+    <string name="device_control_app_event_next">下一首</string>
+    <string name="device_control_app_event_single_photo">单拍</string>
+    <string name="device_control_app_event_mutil_photo">连拍</string>
+    <string name="device_control_app_event_vol_up">音量增</string>
+    <string name="device_control_app_event_vol_down">音量减</string>
+    <string name="device_control_app_event_open_camera">打开相机</string>
+    <string name="device_control_app_event_close_camera">关闭相机</string>
+    <string name="device_control_app_event_answer_phone">接听电话</string>
+    <string name="device_control_app_event_hand_up_phone">拒接电话</string>
+
+    <!--交换数据-->
+    <string name="exchange_data">数据交换 ></string>
+    <string name="main_exchange_data_app">APP发起交换数据 ></string>
+    <string name="main_exchange_data_device">设备发起交换数据 ></string>
+    <string name="app_exchange_data_start">开始</string>
+    <string name="app_exchange_data_ing">发送数据</string>
+    <string name="app_exchange_data_stop">结束</string>
+    <string name="app_exchange_data_pause">暂停</string>
+    <string name="app_exchange_data_resume">恢复</string>
+    <string name="app_exchange_data_receive_device_feedback_data">收到手环响应数据</string>
+    <string name="app_exchange_data_app_send_para">App发送的参数</string>
+    <string name="app_exchange_data_receive_device_notice">收到手环通知</string>
+    <string name="app_exchange_data_receive_device_notice_stop">收到手环"交换数据结束"通知</string>
+    <string name="app_exchange_data_receive_device_notice_pause">收到手环"交换数据暂停"通知</string>
+    <string name="app_exchange_data_receive_device_notice_resume">收到手环"交换数据恢复"通知</string>
+
+    <string name="app_exchange_data_receive_device_cmd">收到手环命令</string>
+    <string name="device_exchange_data_receive_device_cmd_start">收到手环"交换数据开始"命令</string>
+    <string name="device_exchange_data_receive_device_cmd_ing">收到手环"发送数据"命令</string>
+    <string name="device_exchange_data_receive_device_cmd_stop">收到手环"交换数据结束"命令</string>
+    <string name="device_exchange_data_receive_device_cmd_pause">收到手环"交换数据暂停"命令</string>
+    <string name="device_exchange_data_receive_device_cmd_resume">收到手环"交换数据恢复"命令</string>
+
+
+    <!--APP发送数据-->
+    <string name="app_send_data_weather">发送天气预报数据</string>
+    <string name="app_send_data_tip_ok">发送成功</string>
+    <string name="app_send_data_tip_failed">发送失败</string>
+
+    <!--重启设备-->
+    <string name="reboot_device">重启设备</string>
+    <string name="reboot_device_tip_ok">重启成功</string>
+    <string name="reboot_device_tip_failed">重启失败</string>
+
+
+    <string name="device_upgrade">设备升级</string>
+
+    <string name="get_local_data">查询数据></string>
+    <string name="get_internal_test">内部测试></string>
+    <!--测试数据-->
+    <string name="home_health_data">测试健康数据></string>
+
+
+    <!-- 单位 -->
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+    <string name="second">秒</string>
+    <string name="week">星期</string>
+
+    <string name="china">中文</string>
+    <string name="english">英文</string>
+    <string name="french">法语</string>
+    <string name="german">德语</string>
+    <string name="italian">意大利语</string>
+    <string name="spanish">西班牙语</string>
+    <string name="japanese">日语</string>
+    <string name="czech">捷克语</string>
+    <string name="romanian">罗马尼亚语</string>
+    <string name="lithuanian">立陶宛语</string>
+    <string name="dutch">荷兰语</string>
+    <string name="slovenian">斯洛文尼亚语</string>
+    <string name="hungarian">匈牙利语</string>
+    <string name="polish">波兰语</string>
+
+    <string name="unit_default">不设置</string>
+    <string name="unit_distance">距离</string>
+    <string name="unit_weight">体重</string>
+    <string name="unit_temperature">温度</string>
+    <string name="unit_walk_step_length">走路步长</string>
+    <string name="unit_run_step_length">跑步步长</string>
+    <string name="unit_lang">语言</string>
+    <string name="unit_time_format">时间制式</string>
+    <string name="unit_gps_adjust_switch">通过手机GPS校准步长开关</string>
+
+    <string name="short_cut_take_photo">快速进入拍照控制</string>
+    <string name="short_cut_sport_mode">快速进入运动模式</string>
+    <string name="short_cut_not_disturb">快速进入勿扰模式</string>
+
+    <string name="systolic_pressure">收缩压</string>
+    <string name="diastolic_pressure">舒张压</string>
+
+    <string name="antil_lost_off">不防丢</string>
+    <string name="antil_lost_short">近距离防丢</string>
+    <string name="antil_lost_middle">中距离防丢</string>
+    <string name="antil_lost_long">远距离防丢</string>
+
+    <string name="wear_mode_left">左手</string>
+    <string name="wear_mode_right">右手</string>
+
+    <string name="display_mode_default">默认</string>
+    <string name="display_mode_horizontal">横屏</string>
+    <string name="display_mode_vertical">竖屏</string>
+    <string name="display_mode_MODE_OVER_180">翻转180°</string>
+
+    <string name="heart_rate_measure_mode">测量模式</string>
+    <string name="heart_rate_mode_manual">手动模式</string>
+    <string name="heart_rate_mode_off">关闭心率检测功能 </string>
+    <string name="heart_rate_mode_auto">自动模式</string>
+
+    <string name="up_hand_gesture_switch">开关</string>
+    <string name="up_hand_gesture_show_time">显示时长</string>
+
+    <string name="local_data_activity">活动数据</string>
+    <string name="local_data_sport">运动数据</string>
+    <string name="local_data_heart_rate">心率数据</string>
+    <string name="local_data_sleep">睡眠数据</string>
+    <string name="local_data_blood">血压数据</string>
+
+    <string name="local_data_query_appoint_time">查询指定时间</string>
+    <string name="local_data_query_last_n_week">查询上N周</string>
+    <string name="local_data_query_week_data">查询周数据</string>
+    <string name="local_data_last_n_week">上N周</string>
+
+    <string name="sport_time">运动时间:%s</string>
+
+</resources>

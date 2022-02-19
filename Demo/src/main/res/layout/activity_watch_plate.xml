@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/file_path_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择表盘压缩包"
+        android:onClick="selectFile"/>
+
+    <TextView
+        android:id="@+id/state_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始设置"
+        android:onClick="startSet"/>
+
+
+    <TextView
+        android:layout_marginTop="@dimen/size20dp"
+        android:id="@+id/operate_info_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:textColor="@color/white"
+        android:background="@color/black"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取表盘列表"
+        android:onClick="getPlateList"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取手表屏幕信息"
+        android:onClick="getScreenInfo"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查询当前使用的表盘"
+        android:onClick="getCurrentPlate"/>
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/unique_id_tv"
+        android:hint="请输入要操作的表盘名"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除表盘"
+            android:onClick="deletePlate"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置表盘"
+            android:onClick="setPlate"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tran_lang_file_path_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择语言包"
+        android:onClick="selectFile"/>
+
+    <TextView
+        android:id="@+id/tran_lang_state_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始传输"
+        android:onClick="startTrans"/>
+
+
+    <TextView
+        android:layout_marginTop="@dimen/size20dp"
+        android:id="@+id/tran_lang_info_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:textColor="@color/white"
+        android:background="@color/black"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取语言信息"
+        android:onClick="getLangInfo"/>
+
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/tran_lang_lang_value_et"
+        android:hint="输入语言值"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置语言"
+        android:onClick="setLang"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="/**\n
+	 * 中文\n
+	 */\n
+	public static final int LANG_ZH = 0x01;\n
+	/**\n
+	 * 英文\n
+	 */\n
+	public static final int LANG_EN = 0x02;\n
+	/**\n
+	 * 法语\n
+	 */\n
+	public static final int LANG_FR = 0x03;\n
+	/**\n
+	 * 德语\n
+	 */\n
+	public static final int LANG_DE = 0x04;\n
+	/**\n
+	 * 意大利\n
+	 */\n
+	public static final int LANG_IT = 0x05;\n
+	/**\n
+	 * 西班牙\n
+	 */\n
+	public static final int LANG_ES = 0x06;\n
+	/**\n
+	 * 日语\n
+	 */\n
+	public static final int LANG_JA = 0x07;\n
+	/**\n
+	 * 波兰\n
+	 */\n
+	public static final int LANG_PO = 0x08;\n
+	/**\n
+	 * 捷克语\n
+	 */\n
+	public static final int LANG_CZ = 0x09;\n
+	/**\n
+	 * 罗马尼亚语\n
+	 */\n
+	public static final int LANG_ROMANIAN = 0x0A;\n
+	/**\n
+	 * 立陶宛语\n
+	 */\n
+	public static final int LANG_LITHUANIAN = 0x0B;\n
+	/**\n
+	 * 荷兰语\n
+	 */\n
+	public static final int LANG_DUTCH = 0x0C;\n
+	/**\n
+	 * 斯洛文尼亚语\n
+	 */\n
+	public static final int LANG_SLOVENIAN = 0x0D;\n
+	/**\n
+	 * 匈牙利语14\n
+	 */\n
+	public static final int LANG_HUNGARIAN = 0x0E;\n
+	/**\n
+	 * 俄罗斯语\n
+	 */\n
+	public static final int LANG_RUSSIAN = 0x0F;\n
+	/**\n
+	 * 乌克兰语\n
+	 */\n
+	public static final int LANG_UKRAINIAN = 0x10;\n
+	/**\n
+	 * 斯洛伐克语\n
+	 */\n
+	public static final int LANG_SLOVAK = 0x11;\n
+	/**\n
+	 * 丹麦语\n
+	 */\n
+	public static final int LANG_DANISH = 0x12;\n
+	/**\n
+	 * 克罗地亚语\n
+	 */\n
+	public static final int LANG_CROATIAN = 0x13;\n
+
+	/**\n
+	 * 印尼语\n
+	 */\n
+	public static final int LANG_INDONESIAN = 0x14;\n
+
+	/**\n
+	 * 韩语\n
+	 */\n
+	public static final int LANG_KOREAN = 0x15;\n
+	/**\n
+	 * 印度（印第）语\n
+	 */\n
+	public static final int LANG_HINDI = 0x16;\n
+	/**\n
+	 * 葡萄牙语\n
+	 */\n
+	public static final int LANG_PORTUGUESE = 0x17;\n
+	/**\n
+	 * 土耳其语\n
+	 */\n
+	public static final int LANG_TURKISH = 0x18;\n
+
+	/**\n
+	 * 泰国语\n
+	 */\n
+	public static final int LANG_THAI = 0x19;\n
+	/**\n
+	 * 越南语\n
+	 */\n
+	public static final int LANG_VIETNAMESE = 0x1A;\n
+	/**\n
+	 * 缅甸语\n
+	 */\n
+	public static final int LANG_BURMESE = 0x1B;\n
+	/**\n
+	 * 菲律宾\n
+	 */\n
+	public static final int LANG_FILIPINO = 0x1C;\n"/>
+    </ScrollView>
+
+
+
+
+</LinearLayout>

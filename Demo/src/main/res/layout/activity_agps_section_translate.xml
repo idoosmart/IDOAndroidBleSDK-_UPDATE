@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/gps_info_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="getGPSInfo"
+                android:text="获取GPS信息" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/tcxo_offset_et"
+                android:hint="晶体偏移"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200"/>
+            <EditText
+                android:id="@+id/longitude_et"
+                android:hint="经度"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/latitude_et"
+                android:hint="纬度"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/altitude_et"
+                android:hint="海拔高度"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="setGpsHotStartPara"
+                android:text="设置GPS热启动参数" />
+
+            <TextView
+                android:id="@+id/get_gps_hot_para_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="getGpsHotStartPara"
+                android:text="获取GPS热启动参数" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/gps_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="年"
+                android:text="2018" />
+
+            <EditText
+                android:id="@+id/gps_month"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="月"
+                android:text="3" />
+
+            <EditText
+                android:id="@+id/gps_day"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="日"
+                android:text="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/gps_hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="时"
+                android:text="11" />
+
+            <EditText
+                android:id="@+id/gps_min"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="分"
+                android:text="20" />
+
+            <EditText
+                android:id="@+id/gps_second"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="秒"
+                android:text="30" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="启动模式:1为冷启动; 2为热启动; 默认2" />
+
+            <EditText
+                android:id="@+id/gps_start_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="操作模式: 1为正常; 2为低功耗; 4为Balance; 5为1PPS 默认1" />
+
+            <EditText
+                android:id="@+id/gps_operator_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="定位周期(单位毫秒):默认1000" />
+
+            <EditText
+                android:id="@+id/gps_cycle_ms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="1000" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="定位卫星模式 1为GPS,2为GLONASS,3为GPS + GLONASS ;默认1" />
+
+            <EditText
+                android:id="@+id/gps_gps_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="1" />
+
+
+            <TextView
+                android:id="@+id/gps_set_para"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="setGPSConfig"
+                android:text="设置GPS参数" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="checkAGpsUpdate"
+            android:text="检测是否需要更新aGps文件" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 查模式, 1 快速模式 ,2 慢速模式" />
+
+            <EditText
+                android:id="@+id/agps_connect_mode_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0x01 修改快速模式连接间隔, 默认为0" />
+
+            <EditText
+                android:id="@+id/agps_connect_interval_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/apgs_connect_mode_result_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="connectMode"
+                android:text="连接模式" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/agps_file_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="长按me选择aGps文件"
+                android:textSize="25sp" />
+
+            <ProgressBar
+                android:id="@+id/agps_file_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/agps_trans_complete_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRN"/>
+                <EditText
+                    android:id="@+id/agps_trans_set_prn_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"/>
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="startTransAGpsFile"
+                android:text="开始传输aGps文件" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="stopTransAGpsFile"
+                android:text="停止传输aGps文件" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="continueTransAGpsFile"
+                android:text="继续传输aGps文件" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[使用时,先operate = 1 控制操作, 如果status = 返回ing,再= 2 查询结果,如果ing,再发送2 继续查询,直到完成]"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 控制 , 2 查询"/>
+            <EditText
+                android:id="@+id/agps_control_or_query_oprate_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.开启log  ,2 关闭log  ,3 写入agps , 4 擦除agps"/>
+            <EditText
+                android:id="@+id/agps_control_type_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="3"/>
+            <TextView
+                android:id="@+id/agps_control_or_query_result_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size20dp"
+                android:onClick="controlOrQueryGps"
+                android:text="控制/查询" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+

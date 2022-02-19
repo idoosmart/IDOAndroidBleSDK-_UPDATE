@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFEB6859">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/duf_result_scroll"
+            android:layout_width="match_parent"
+            android:background="@color/black"
+            android:visibility="gone"
+            android:layout_height="300dp">
+
+            <TextView
+                android:id="@+id/dfu_log_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp"
+
+                android:textColor="@android:color/white"
+                android:textSize="11sp" />
+        </ScrollView>
+
+
+
+        <ProgressBar
+            android:id="@+id/dfu_ing_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/dfu_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/dfu_error_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/aaab" />
+
+        <TextView
+            android:id="@+id/dfu_file_path_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF" />
+
+        <CheckBox
+            android:id="@+id/dfu_is_auto_test_cbx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自动化测试模式"/>
+        <TextView
+            android:id="@+id/dfu_lost_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/dfu_retry_times_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="重试次数:"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/live_lost_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:layout_marginTop="20dp"
+            android:text="20"
+            android:textColor="#FFFFFF" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_start_upgrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="startUpgrade"
+            android:text="开始升级 "/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="cancel"
+            android:text="取消 "/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="selectFile"
+            android:text="选择固件包 "/>
+    </LinearLayout>
+
+
+</RelativeLayout>

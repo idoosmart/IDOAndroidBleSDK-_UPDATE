@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/info_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/size60dp"
+            android:textColor="@color/white"
+            android:background="@color/black"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="queryInfo"
+            android:text="查询文件夹信息"/>
+
+        <EditText
+            android:id="@+id/folder_id_et"
+            android:layout_marginTop="@dimen/size30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="文件夹ID"/>
+        <EditText
+            android:id="@+id/folder_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="文件夹名称"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="添加"
+                android:onClick="addFolder"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="删除"
+                android:onClick="deleteFolder"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="修改"
+                android:onClick="updateFolder"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/music_id_et"
+            android:layout_marginTop="@dimen/size30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="音乐ID"/>
+        <EditText
+            android:id="@+id/music_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="音乐名称"/>
+        <EditText
+            android:id="@+id/music_folder_flag_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:hint="folder_flag"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:onClick="addMusic"
+                android:text="添加"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:onClick="deleteMusic"
+                android:text="删除"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginTop="@dimen/size10dp"
+            android:layout_width="match_parent"
+            android:onClick="attachMusicAndFolder"
+            android:text="音乐导入到歌单文件夹"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:onClick="removeMusicFromFolder"
+            android:text="音乐从歌单文件夹移除"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</ScrollView>

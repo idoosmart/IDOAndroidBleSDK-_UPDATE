@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/set_time_tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:background="@color/black"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/set_time_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/year"/>
+    <EditText
+        android:id="@+id/set_time_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/month"/>
+    <EditText
+        android:id="@+id/set_time_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/day"/>
+    <EditText
+        android:id="@+id/set_time_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/hour"/>
+    <EditText
+        android:id="@+id/set_time_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/minute"/>
+    <EditText
+        android:id="@+id/set_time_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/second"/>
+    <EditText
+        android:id="@+id/set_time_weak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/week"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setTime"
+        android:text="@string/set"/>
+
+
+    <EditText
+        android:layout_marginTop="@dimen/size20dp"
+        android:id="@+id/set_time_zone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text="8"
+        android:hint="时区"/>
+
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/size10dp"
+            android:layout_marginBottom="@dimen/size10dp"
+            android:background="@color/aaa">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="输入相应数字后，将会自动生成JSON参数：\n1:天气数据 2:女性健康 3:女性健康提醒 4:图标隐藏、显示 5:音乐信息设置 6:v3运动排序 7:v3天气数据 8:女性健康历史数据"/>
+            <EditText
+                android:id="@+id/data_type_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="60dp"
+                android:text="1"
+                android:inputType="number"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="sendJsonData"
+                android:text="发送JSON数据"/>
+
+            <EditText
+                android:layout_marginTop="@dimen/size20dp"
+                android:id="@+id/weather_para_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/data_type_tip_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text=" * 0x00 无效
+                             * 0x01 步数
+                             * 0x02 心率
+                             * 0x03 睡眠
+                             * 0x04 拍照
+                             * 0x05 闹钟
+                             * 0x06 音乐
+                             * 0x07 秒表
+                             * 0x08 计时器
+                             * 0x09 运动模式
+                             * 0x0A 天气
+                             * 0x0B 呼吸锻炼
+                             * 0x0C 查找手机
+                        "/>
+
+    </LinearLayout>
+
+</ScrollView>
+

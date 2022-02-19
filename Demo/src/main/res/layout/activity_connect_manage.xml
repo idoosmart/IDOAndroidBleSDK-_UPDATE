@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="test.com.ido.connect.ConnectManageActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="disConnect"
+            android:text="@string/connect_action_break"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="autoConnect"
+            android:text="@string/connect_action_auto"/>
+
+        <TextView
+            android:id="@+id/connect_state_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColorLink="@color/black"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="checkState"
+            android:text="@string/connect_check_state"/>
+
+
+        <EditText
+            android:id="@+id/connect_test_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"/>
+
+        <EditText
+            android:id="@+id/connect_test_newState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onTest"
+            android:text="Test"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onDeviceManager"
+            android:text="device manager"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btConnect"
+            android:text="BT Connect"/>
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sppConnect"
+            android:text="SPP Connect"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sppDisConnect"
+            android:text="SPP DisConnect"/>
+
+    </LinearLayout>
+
+</ScrollView>

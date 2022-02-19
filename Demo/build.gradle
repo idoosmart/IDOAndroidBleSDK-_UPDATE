@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'demo'
+            keyPassword '123456'
+            storeFile file("../demo_sign_key.jks")
+            storePassword '123456'
+        }
+    }
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
+    defaultConfig {
+        applicationId "test.com.ido"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 3
+        versionName "3.0"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //设置so库路径
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    //添加aar文件
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+static def createApkFileTime() {
+    return new Date().format("MMddHHmm", TimeZone.getTimeZone("GMT+8"))
+}
+
+dependencies {
+    //    compile(name: 'dfu', ext: 'aar')//添加aar文件
+//    implementation(name: 'rtk-support-1.1.1-43', ext: 'aar')
+//    implementation(name: 'rtk-dfu-support-1.1.2-49', ext: 'aar')
+    //    compile project(':Lib')
+    //    compile fileTree(include: '*.jar', dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+
+    //SDK--need
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'com.alibaba:fastjson:1.2.35'
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.squareup.okio:okio:1.9.0'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation files('libs/IDoBLELib-Custom-2.65.40.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
+}
