@@ -6,6 +6,7 @@ import android.view.View;
 
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
+import test.com.ido.exgdata.demo.SportRunDemoActivity;
 
 public class ExchangeDataMainActivity extends BaseAutoConnectActivity {
 
@@ -22,4 +23,9 @@ public class ExchangeDataMainActivity extends BaseAutoConnectActivity {
     public void deviceExchange(View v){
         startActivity(new Intent(this, DeviceExchangeActivity.class));
     }
+
+    public void sportDemo(View v){
+        startActivity(new Intent(this, SportRunDemoActivity.class));
+    }
+    
 }

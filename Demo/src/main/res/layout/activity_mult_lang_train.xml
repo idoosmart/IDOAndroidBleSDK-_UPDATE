@@ -12,7 +12,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="选择语言包"
+        android:text="Select language pack"
         android:onClick="selectFile"/>
 
     <TextView
@@ -23,7 +23,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开始传输"
+        android:text="startTrans"
         android:onClick="startTrans"/>
 
 
@@ -38,14 +38,20 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="获取语言信息"
+        android:text="getLangInfo"
         android:onClick="getLangInfo"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="getCanDownloadLangInfoV3"
+        android:onClick="getCanDownloadLangInfoV3"/>
 
 
     <EditText
         android:layout_marginTop="20dp"
         android:id="@+id/tran_lang_lang_value_et"
-        android:hint="输入语言值"
+        android:hint="input language value"
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -53,7 +59,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="设置语言"
+        android:text="setLang"
         android:onClick="setLang"/>
     <ScrollView
         android:layout_width="match_parent"

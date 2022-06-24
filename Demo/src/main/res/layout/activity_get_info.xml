@@ -32,9 +32,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="getTime"
-            android:visibility="gone"
-            android:text="@string/get_info_time"/>
+            android:onClick="getSupportSportInfoV3"
+            android:text="getSupportSportInfoV3"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,62 +42,38 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="getBatteryInfo"
-            android:text="@string/get_info_battery"/>
+            android:onClick="getMenulist"
+            android:text="getmenuList"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="getSN"
-            android:enabled="false"
-            android:visibility="gone"
-            android:text="@string/get_info_sn"/>
+            android:onClick="getGpsState"
+            android:text="getGpsState"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="getNoticeSwitchStatus"
-            android:enabled="false"
-            android:visibility="gone"
-            android:text="@string/get_info_notice_switch"/>
+            android:onClick="getFireWareVersion"
+            android:text="getFireVersion Btversion"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="getLiveData"
-            android:text="@string/get_info_live_data"/>
+            android:onClick="NotifyApp"
+            android:text="device notify app"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="getHidInfo"
-            android:text="@string/get_info_hid_data"/>
+            android:onClick="deviceControlApp"
+            android:text="device control app"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="getActivityCount"
-            android:text="@string/get_info_activity_count"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getNotDisturbPara"
-            android:text="getNotDisturbPara"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getAlarmV3"
-            android:text="getAlarmV3"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getSupportSportInfoV3"
-            android:text="getSupportSportInfoV3"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getWalkReminder"
-            android:text="@string/get_walk_reminder"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getSportThreeCircleGoal"
-            android:text="@string/get_sport_three_circle_goal"/>
+            android:onClick="getScreenBrightness"
+            android:text="getScreenBrightness"/>
 
     </LinearLayout>
 

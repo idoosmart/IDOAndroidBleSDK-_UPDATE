@@ -1,13 +1,22 @@
 package test.com.ido.set;
 
+import static com.ido.ble.LocalDataManager.getSupportFunctionInfo;
+
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ido.ble.BLEManager;
+import com.ido.ble.LocalDataManager;
+import com.ido.ble.dfu.BleDFUConfig;
 import com.ido.ble.file.transfer.FileTransferConfig;
 import com.ido.ble.file.transfer.IFileTransferListener;
 import com.ido.ble.protocol.model.WallpaperFileCreateConfig;
@@ -21,12 +30,17 @@ import java.io.File;
 
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
+import test.com.ido.localdata.Wallpaper;
+import test.com.ido.log.LogPathImpl;
 import test.com.ido.utils.DataUtils;
+import test.com.ido.utils.GetFilePathFromUri;
 import test.com.ido.utils.GsonUtil;
+import test.com.ido.utils.ImageUtil;
 
 public class WatchPlateActivity extends BaseAutoConnectActivity {
     private String filePath;
-    private TextView tvFilePath, tvState, tvOperateTv, tvUniqueID;
+    private TextView tvFilePath, tvState, tvOperateTv, tvUniqueID ,tvPhoto;
+    WatchPlateScreenInfo mScreenInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +50,14 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         tvState = findViewById(R.id.state_tv);
         tvOperateTv = findViewById(R.id.operate_info_tv);
         tvUniqueID = findViewById(R.id.unique_id_tv);
-
+        tvPhoto = findViewById(R.id.photo_tv);
+        BLEManager.getFunctionTables();
         BLEManager.registerWatchOperateCallBack(iOperateCallBack);
 
-
+        BLEManager.getWatchPlateScreenInfo();
         filePath = DataUtils.getInstance().getFilePath();
         if (TextUtils.isEmpty(filePath)){
-            tvFilePath.setText("请先选择表盘压缩包(.zip)");
+            tvFilePath.setText("please select watch file(.zip)");
         }else {
             tvFilePath.setText(filePath);
         }
@@ -91,6 +106,9 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
 
     private static final int SELECT_FILE_REQ = 1;
+    private static final int SELECT_IMAGE_REQ = 2;
+    private String photoInputPath = "";
+    private String photoInputPath_crop = LogPathImpl.getInstance().getPicPath()+"input.png";
     private void openFileChooser() {
         final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("application/zip");
@@ -101,28 +119,52 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         }
     }
 
+    private void openImageChooser() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            startActivityForResult(new Intent(Intent.ACTION_GET_CONTENT).setType("image/*"),
+                    SELECT_IMAGE_REQ);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            startActivityForResult(intent, SELECT_IMAGE_REQ);
+        }
+    }
+
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         if (resultCode != RESULT_OK)
             return;
-
         switch (requestCode) {
-            case SELECT_FILE_REQ: {
+            case SELECT_FILE_REQ:
                 // and read new one
                 final Uri uri = data.getData();
                 /*
                  * The URI returned from application may be in 'file' or 'content' schema. 'File' schema allows us to create a File object and read details from if
                  * directly. Data from 'Content' schema must be read by Content Provider. To do that we are using a Loader.
                  */
+
                 if (uri.getScheme().equals("file") || uri.getScheme().equals("content")) {
                     // the direct path to the file has been returned
-                    final String path = uri.getPath();
+                  //  final String path = uri.getPath();
+                    String path = GetFilePathFromUri.getFileAbsolutePath(this, uri);
                     filePath = path;
                     tvFilePath.setText(path);
                     DataUtils.getInstance().saveFilePath(path);
                 }
-            }
-
+                 break;
+            case  SELECT_IMAGE_REQ:
+                final Uri image_url = data.getData();
+                photoInputPath = GetFilePathFromUri.getFileAbsolutePath(this, image_url);
+                tvPhoto.setText(photoInputPath);
+                Bitmap wallPaper = BitmapFactory.decodeFile(photoInputPath);
+                if(mScreenInfo != null && mScreenInfo.width>0){//Crop the watch screen size picture
+                    ImageUtil.saveWallPaper(Bitmap.createScaledBitmap(wallPaper, mScreenInfo.width
+                            ,  mScreenInfo.height, true), photoInputPath_crop);
+                }else {
+                    Toast.makeText(this,"please CALL BLEManager.getWatchPlateScreenInfo();",Toast.LENGTH_LONG).show();
+                }
+                break;
         }
     }
 
@@ -145,6 +187,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         @Override
         public void onGetScreenInfo(WatchPlateScreenInfo screenInfo) {
             tvOperateTv.setText(GsonUtil.toJson(screenInfo));
+            mScreenInfo = screenInfo;
         }
 
         @Override
@@ -170,6 +213,11 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
     public void getPlateList(View view){
         BLEManager.getWatchPlateList();
+        if (LocalDataManager.getSupportFunctionInfo().V3_get_watch_list_new) {  //根据功能表盘判断，调用不同的方法
+            BLEManager.getDialPlateParam();
+        } else {
+            BLEManager.getWatchPlateList();
+        }
     }
 
     public void getScreenInfo(View view){
@@ -180,27 +228,39 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         BLEManager.getCurrentWatchPlate();
     }
 
+
     public void deletePlate(View view){
+        //the name must contain .iwf ,example "watch.iwf"
         BLEManager.deleteWatchPlate(tvUniqueID.getText().toString());
     }
+
 
     public void setPlate(View view){
         BLEManager.setWatchPlate(tvUniqueID.getText().toString());
     }
 
+    public void selectImage(View view){
+        openImageChooser();
+    }
+
     /**
      * 设置壁纸表盘
      */
-    public void setWallpaperPNG(){
-        WallpaperFileCreateConfig config = new WallpaperFileCreateConfig();
-        //App裁剪用户选择的图片，生成的PNG原始图片地址
-        config.setSourceFilePath("/asdcard/demo/test.png");
-        //经过sdk处理之后会输出新的壁纸文件
-        config.setOutFilePath("/adcard1/demo/outFile.png");
-        //开始制作壁纸文件
-        BLEManager.createPlateWallpaperFile(config);
+    public void setPhotoWatch(View view){
+       if(TextUtils.isEmpty(photoInputPath_crop)){
+           Toast.makeText(this,"please select imamge",Toast.LENGTH_LONG).show();
+           return;
+       }
+        String outfile = LogPathImpl.getInstance().getPicPath()+"output.png";
+        Wallpaper wallpaper = new Wallpaper();
+        wallpaper.setFileName(photoInputPath_crop);// 裁剪的图片存储的地方
+        wallpaper.setSaveFileName(outfile);
+        wallpaper.setFormat(5);
+        String json = GsonUtil.toJson(wallpaper);
+        BLEManager.setParaToDeviceByTypeAndJson(5500, json);//请求制作照片
+        Log.e("ddd",outfile);
         //制作完成，传输壁纸文件到设备
-        FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(config.getOutFilePath(), new IFileTransferListener() {
+        FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(outfile+".lz", new IFileTransferListener() {
             @Override
             public void onStart() {
 
@@ -208,12 +268,12 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
             @Override
             public void onProgress(int progress) {
-
+                Log.e("ddd",progress+"watch file");
             }
 
             @Override
             public void onSuccess() {
-
+                Log.e("ddd","success");
             }
 
             @Override
@@ -221,7 +281,6 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
             }
         });
-        BLEManager.stopTranCommonFile();
         BLEManager.startTranCommonFile(config1);
     }
 }

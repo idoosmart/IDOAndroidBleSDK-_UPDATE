@@ -10,8 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ido.ble.BLEManager;
-//import com.ido.ble.bluetooth.bt.ISPPConnectStateListener;
-//import com.ido.ble.bluetooth.bt.BTManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +26,6 @@ public class ConnectManageActivity extends BaseAutoConnectActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect_manage);
         tvConnectState = (TextView) findViewById(R.id.connect_state_tv);
-        statusEt = findViewById(R.id.connect_test_status);
-        newStateEt = findViewById(R.id.connect_test_newState);
 
     }
 
@@ -67,13 +63,6 @@ public class ConnectManageActivity extends BaseAutoConnectActivity {
 
 
     private EditText statusEt, newStateEt;
-    public void onTest(View view){
-//        getAddress(36.42142090044274, 139.32779999999988);
-//        byte[] data = new byte[2];
-//        data[0] = (byte) 0xD2;
-//        data[1] = 0x07;
-//        BTManager.writeSPP(data);
-    }
 
     public void onDeviceManager(View view){
         startActivity(new Intent(this, DeviceManageActivity.class));
@@ -108,34 +97,7 @@ public class ConnectManageActivity extends BaseAutoConnectActivity {
 
 
     public void btConnect(View view){
-//        BTManager.connectBT();
+        BLEManager.connectBT();
     }
 
-
-    public void sppConnect(View view){
-//        BTManager.connectSPP(new ISPPConnectStateListener() {
-//            @Override
-//            public void onStart() {
-//
-//            }
-//
-//            @Override
-//            public void onSuccess() {
-//
-//            }
-//
-//            @Override
-//            public void onFailed() {
-//
-//            }
-//
-//            @Override
-//            public void onBreak() {
-//
-//            }
-//        });
-    }
-    public void sppDisConnect(View view){
-//        BTManager.disconnectSPP();
-    }
 }

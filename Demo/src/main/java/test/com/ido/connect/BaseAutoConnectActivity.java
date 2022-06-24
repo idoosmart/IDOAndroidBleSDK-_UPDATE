@@ -23,7 +23,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ido.ble.BLEManager;
-import com.ido.ble.LocalDataManager;
 import com.ido.ble.bluetooth.connect.ConnectFailedReason;
 import com.ido.ble.bluetooth.device.BLEDevice;
 import com.ido.ble.callback.ConnectCallBack;
@@ -34,8 +33,7 @@ import java.lang.reflect.Method;
 import test.com.ido.R;
 import test.com.ido.dfu.MainDfuActivity;
 import test.com.ido.logoutput.LogOutput;
-
-import test.com.ido.utils.FileUtil;
+import test.com.ido.utils.FileUtilLib;
 import test.com.ido.utils.HidConncetUtil;
 
 /**
@@ -162,11 +160,11 @@ public class BaseAutoConnectActivity extends Activity {
             case R.id.share_tool:
                 LogOutput.shareTool(this);
                 break;
+            case R.id.share_log:
+                LogOutput.shareLog(this);
+                break;
             case R.id.export_db:
                 copyDbAndShare();
-                break;
-            case R.id.bond:
-//                HIDConnectManager.getManager().connect(LocalDataManager.getCurrentDeviceInfo().mDeviceAddress);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -233,7 +231,7 @@ public class BaseAutoConnectActivity extends Activity {
         String sdkDbTempName = "idoLib_temp.db";
         final File file = getDatabasePath(sdkDbName);
         File outFile = new File(Environment.getExternalStorageDirectory(), sdkDbTempName);
-        FileUtil.fileCopy(file, outFile);
+        FileUtilLib.fileCopy(file, outFile);
 
         Toast.makeText(this, "(idoLib_temp.db)已导出到SD卡根目录", Toast.LENGTH_LONG).show();
 //        shareFile(this, outFile);

@@ -31,6 +31,16 @@
             tools:layout_editor_absoluteX="8dp" />
 
         <Button
+            android:id="@+id/home_btn_sync_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_sync_data"
+            android:onClick="syncData"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp" />
+
+
+        <Button
             android:id="@+id/home_btn_get_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +48,6 @@
             android:onClick="getInfo"
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="8dp" />
-
         <Button
             android:id="@+id/home_btn_set_para"
             android:layout_width="match_parent"
@@ -47,7 +56,23 @@
             android:onClick="setPara"
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="8dp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="watchPlate"
+            android:onClick="watchPlate"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/device_upgrade"
+            android:onClick="upgrade"/>
+        <Button
+            android:id="@+id/home_btn_app_exchange_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exchange_data"
+            android:onClick="exchangeData"/>
         <Button
             android:id="@+id/home_btn_notice"
             android:layout_width="match_parent"
@@ -58,77 +83,6 @@
             tools:layout_editor_absoluteX="8dp" />
 
         <Button
-            android:id="@+id/home_btn_app_control_device"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/home_app_control_device"
-            android:onClick="appControlDevice"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
-
-        <Button
-            android:id="@+id/home_btn_device_control_app"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/home_device_control_app"
-            android:onClick="deviceControlApp"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
-
-        <Button
-            android:id="@+id/home_btn_sync_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/home_sync_data"
-            android:onClick="syncData"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
-
-        <Button
-            android:id="@+id/home_btn_app_send_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/home_app_send_data"
-            android:onClick="appSendData"/>
-
-        <Button
-            android:id="@+id/home_btn_app_exchange_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/exchange_data"
-            android:onClick="exchangeData"/>
-
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/get_local_data"
-            android:onClick="getLocalData"/>
-
-        <Button
-            android:id="@+id/home_btn_internal_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/get_internal_test"
-            android:visibility="gone"
-            android:textColor="@color/base_color_text_gray"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/reboot_device"
-            android:onClick="reboot"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/device_upgrade"
-            android:onClick="upgrade"/>
-
-        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="GPS"
@@ -137,20 +91,25 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="手表表盘"
-            android:onClick="watchPlate"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="文件传输"
+            android:text="fileTransfer"
             android:onClick="fileTransfer"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="langauge"
+            android:onClick="multLangTrain"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="音乐文件夹"
-            android:onClick="musicFolder"/>
+            android:text="music trans"
+            android:onClick="musicTrans"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BT upgrade"
+            android:onClick="btUpgrade"/>
 
     </LinearLayout>
 

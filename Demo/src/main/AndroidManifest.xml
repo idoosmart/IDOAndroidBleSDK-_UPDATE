@@ -52,7 +52,13 @@
         <activity android:name=".set.SetAlarmV3Activity" />
         <activity android:name=".set.ShowAlarmsV3Activity" />
         <activity
+            android:name=".file.transfer.MultLangTrainActivity"
+            android:launchMode="singleTask" />
+        <activity
             android:name=".file.transfer.FileTransferActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".file.transfer.BTTransferActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".set.WatchPlateActivity"
@@ -124,6 +130,9 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".exgdata.ExchangeDataMainActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".exgdata.demo.SportRunDemoActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".exgdata.AppExchangeActivity"

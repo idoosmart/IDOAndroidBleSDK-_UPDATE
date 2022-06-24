@@ -14,7 +14,6 @@ import com.ido.ble.callback.ConnectCallBack;
 import com.ido.ble.dfu.BleDFUConfig;
 import com.ido.ble.dfu.BleDFUState;
 import com.ido.ble.gps.callback.GpsCallBack;
-//import com.ido.ble.protocol.handler.SoLibNativeMethodWrapper;
 import com.veryfit.multi.nativeprotocol.Protocol;
 
 import java.io.ByteArrayOutputStream;
@@ -139,6 +138,11 @@ public class FontUpgradePresenter {
         @Override
         public void onFailed(int error) {
             notifyBinFileFailed();
+        }
+
+        @Override
+        public void onFailed(int error, Object value) {
+
         }
     }
 
@@ -353,12 +357,12 @@ public class FontUpgradePresenter {
 
 
         byte[] aGpsData = getBytes(DataUtils.getInstance().getFontUpgradeBinFilePath());
-//        if (aGpsData != null && aGpsData.length > 0) {
-//            int errorCode = SoLibNativeMethodWrapper.setAgpsFileTranPara(aGpsData);
-//            Log.e("AGPS", "tranDataSetBuff return code is " + errorCode);
-//        } else {
-//            Log.e("AGPS", "aGpsData is null");
-//        }
+        if (aGpsData != null && aGpsData.length > 0) {
+           // int errorCode = SoLibNativeMethodWrapper.setAgpsFileTranPara(aGpsData);
+           // Log.e("AGPS", "tranDataSetBuff return code is " + errorCode);
+        } else {
+            Log.e("AGPS", "aGpsData is null");
+        }
 
         Protocol.getInstance().tranDataStart();
         notifyBinFileStart();

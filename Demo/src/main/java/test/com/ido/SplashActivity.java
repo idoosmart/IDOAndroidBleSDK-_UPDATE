@@ -11,12 +11,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.ido.ble.BLEManager;
+import com.ido.ble.InitParam;
 import com.ido.ble.LocalDataManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import test.com.ido.connect.ScanDeviceActivity;
+import test.com.ido.log.LogPathImpl;
 
 public class SplashActivity extends Activity {
 
@@ -90,7 +93,26 @@ public class SplashActivity extends Activity {
         }, 500);
     }
     private void initSDK(){
-        BLEManager.init();
+        InitParam param = new InitParam();
+        param.log_save_path = LogPathImpl.getInstance().getBleSdkLogPath();
+        param.isSaveDeviceDataToDB = false;
+        param.isNeedSoLibAutoSyncConfigIfReboot = false;
+        param.isEncryptedSPData = true;
+        if (true) {
+            try {
+                String soPath = LogPathImpl.getInstance().getSoPath();
+                File file = new File(soPath);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                param.soJinLogSavePath = soPath;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            param.soJinLogSavePath = "";
+        }
+        BLEManager.init(param);
     }
 
 }

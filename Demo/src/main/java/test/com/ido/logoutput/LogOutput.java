@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.StrictMode;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.ido.ble.BLEManager;
@@ -19,9 +20,11 @@ import com.ido.logoutput.ILogAidlInterface;
 
 import java.io.File;
 
+import test.com.ido.log.LogPathImpl;
 import test.com.ido.logoutput.bluetooth.BluetoothLogoutManager;
 import test.com.ido.utils.Common;
 import test.com.ido.utils.Constant;
+import test.com.ido.utils.FileUtil;
 
 /**
  * @author: zhouzj
@@ -130,6 +133,39 @@ public class LogOutput {
 //        } else { // 系统默认标题
 //            startActivity(intent);
 //        }
+    }
+
+    public static void shareLog(Context context){
+
+        File dir = new File(FileUtil.getSdcard()+"/BLEdemo");
+        if (dir.exists() && dir.isFile()) {
+            dir.delete();
+            dir.mkdirs();
+        } else if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        String zipNamePath = LogPathImpl.getInstance().getLogZipNamePath();
+        String srcPath = LogPathImpl.getInstance().getLogPath();
+        if(TextUtils.isEmpty(zipNamePath) || TextUtils.isEmpty(srcPath)){
+            return;
+        }
+        File pFile = new File(zipNamePath);
+        if(pFile.exists() && pFile.isFile()){
+            FileUtil.deleteFile(zipNamePath);
+        }
+        FileUtil.zipFolder(srcPath,zipNamePath);
+        File file = new File(zipNamePath);
+        if(file.exists()){
+            Uri uri = Uri.fromFile(new File(zipNamePath));
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "分享日志");
+            context.startActivity(Intent.createChooser(intent, "分享日志"));
+        }else {
+            Toast.makeText(context.getApplicationContext(),"文件不存在",Toast.LENGTH_LONG).show();
+        }
+
     }
 
 

@@ -5,18 +5,106 @@
       <config />
     </shared>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e5786c3-0dd4-4a74-8fba-b72f89f5b497" name="Default Changelist" comment="" />
+    <list default="true" id="6e5786c3-0dd4-4a74-8fba-b72f89f5b497" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/libs/IDoBLELib-Custom-2.65.40.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/libs/arm64-v8a/libVeryFitMulti.so" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/libs/arm64-v8a/libVeryFitMulti.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/libs/armeabi-v7a/libVeryFitMulti.so" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/libs/armeabi-v7a/libVeryFitMulti.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/libs/armeabi/libVeryFitMulti.so" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/libs/armeabi/libVeryFitMulti.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/APP.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/APP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/HomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/TestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/TestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/app2device/AppControlDeviceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/app2device/AppControlDeviceActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/appsenddata/AppSendDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/appsenddata/AppSendDataActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/BaseAutoConnectActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/BaseAutoConnectActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/ConnectManageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/ConnectManageActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/DeviceManageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/DeviceManageActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/ScanDeviceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/ScanDeviceActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/dfu/MainDfuActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/dfu/MainDfuActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/dfu/MainUpgradeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/dfu/MainUpgradeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/exgdata/ExchangeDataMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/exgdata/ExchangeDataMainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/file/transfer/FileTransferActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/file/transfer/FileTransferActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/font/upgrade/present/FontUpgradePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/font/upgrade/present/FontUpgradePresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/get/GetInfoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/get/GetInfoActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/gps/AGpsSectionTranslateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/gps/AGpsSectionTranslateActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/gps/GpsMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/gps/GpsMainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/localdata/MainLocalDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/localdata/MainLocalDataActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/logoutput/LogOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/logoutput/LogOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/notice/PhoneNoticeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/notice/PhoneNoticeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/MainSetActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/MainSetActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/MusicFolderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/MusicFolderActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/SetAlarmV3Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/SetAlarmV3Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/SetSleepMonitoringActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/SetSleepMonitoringActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/ShowAlarmsV3Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/ShowAlarmsV3Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/WatchPlateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/WatchPlateActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/sync/SyncDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/sync/SyncDataActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/utils/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/utils/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_connect_manage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_connect_manage.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_exchange_data_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_exchange_data_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_file_transfer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_file_transfer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_get_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_get_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_gps_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_gps_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_main_dfu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_main_dfu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_main_upgrade.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_main_upgrade.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_mult_lang_train.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_mult_lang_train.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_music_folder.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_music_folder.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_phone_notice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_phone_notice.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_set_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_set_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_sync_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_sync_data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_watch_plate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_watch_plate.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/menu/base_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/menu/base_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/menu/scan_device_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/menu/scan_device_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/values-zh/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/values-zh/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[b2f8a3b4]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[lv4lwwlbdm69krnb]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="IDOAndroidBleSDK-_UPDATE" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="IDOAndroidBleSDK-_UPDATE" type="f1a62948:ProjectNode" />
+                <item name="Demo" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="IDOAndroidBleSDK-_UPDATE" type="f1a62948:ProjectNode" />
+                <item name="Demo" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -30,16 +118,21 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Demo/libs" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Demo" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\project\ido\IDOAndroidBleSDK-_UPDATE\Demo" />
+      <recent name="C:\Users\57031\Desktop\develop\Demo\libs" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="test.com.ido.utils" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\57031\Desktop\develop\Demo\libs" />
     </key>
   </component>
   <component name="RunManager">
@@ -51,13 +144,14 @@
       </method>
     </configuration>
     <configuration name="Demo" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="develop.Demo" />
+      <module name="IDOAndroidBleSDK-_UPDATE.Demo" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -65,6 +159,7 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
@@ -95,7 +190,7 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
         <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
         <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
@@ -108,6 +203,7 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -125,27 +221,5 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="679" y="175" key="#com.intellij.ide.util.MemberChooser" timestamp="1645261566628">
-      <screen x="0" y="0" width="1842" height="1080" />
-    </state>
-    <state x="679" y="175" key="#com.intellij.ide.util.MemberChooser/0.0.1842.1080/1920.0.1986.1152@0.0.1842.1080" timestamp="1645261566628" />
-    <state x="585" y="224" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1645261877485">
-      <screen x="0" y="0" width="1842" height="1080" />
-    </state>
-    <state x="585" y="224" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1842.1080/1920.0.1986.1152@0.0.1842.1080" timestamp="1645261877485" />
-    <state x="290" y="97" key="SettingsEditor" timestamp="1645263704885">
-      <screen x="0" y="0" width="1842" height="1080" />
-    </state>
-    <state x="290" y="97" key="SettingsEditor/0.0.1842.1080/1920.0.1986.1152@0.0.1842.1080" timestamp="1645263704885" />
-    <state x="413" y="207" key="Vcs.Push.Dialog.v2" timestamp="1645263402571">
-      <screen x="0" y="0" width="1842" height="1080" />
-    </state>
-    <state x="413" y="207" key="Vcs.Push.Dialog.v2/0.0.1842.1080/1920.0.1986.1152@0.0.1842.1080" timestamp="1645263402571" />
-    <state x="675" y="425" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1645263541029">
-      <screen x="0" y="0" width="1842" height="1080" />
-    </state>
-    <state x="675" y="425" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1842.1080/1920.0.1986.1152@0.0.1842.1080" timestamp="1645263541029" />
   </component>
 </project>

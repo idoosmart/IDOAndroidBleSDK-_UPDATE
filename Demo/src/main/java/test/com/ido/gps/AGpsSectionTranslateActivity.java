@@ -25,7 +25,6 @@ import com.ido.ble.gps.model.ControlGpsReply;
 import com.ido.ble.gps.model.GPSInfo;
 import com.ido.ble.gps.model.GpsHotStartParam;
 import com.ido.ble.gps.model.GpsStatus;
-//import com.ido.ble.protocol.handler.SoLibNativeMethodWrapper;
 import com.veryfit.multi.nativeprotocol.Protocol;
 
 import java.io.ByteArrayOutputStream;
@@ -185,12 +184,11 @@ public class AGpsSectionTranslateActivity extends BaseAutoConnectActivity {
 
 
         byte[] aGpsData = getBytes(filePath);
-//        if (aGpsData != null && aGpsData.length > 0) {
-//            int errorCode = SoLibNativeMethodWrapper.setAgpsFileTranPara(aGpsData);
-//            Log.e("AGPS", "tranDataSetBuff return code is " + errorCode);
-//        } else {
-//            Log.e("AGPS", "aGpsData is null");
-//        }
+        if (aGpsData != null && aGpsData.length > 0) {
+
+        } else {
+            Log.e("AGPS", "aGpsData is null");
+        }
 
         Protocol.getInstance().tranDataStart();
     }
@@ -386,6 +384,11 @@ public class AGpsSectionTranslateActivity extends BaseAutoConnectActivity {
         @Override
         public void onFailed(int error) {
             aGpsTransState.setText("error = " + error);
+        }
+
+        @Override
+        public void onFailed(int error, Object value) {
+
         }
     };
 

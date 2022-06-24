@@ -48,6 +48,7 @@
     <string name="get_info_activity_count">活动数量</string>
     <string name="get_walk_reminder">走动提醒</string>
     <string name="get_sport_three_circle_goal">运动三环目标</string>
+    <string name="get_user_habit">用户习惯打点</string>
 
     <!--绑定、解绑-->
     <string name="unbind_unbind">解绑</string>
@@ -162,6 +163,7 @@
     <string name="set_para_music_switch">设置音乐开关</string>
     <string name="set_para_display_mode">设置显示模式</string>
     <string name="set_para_one_key_sos">设置一键呼救</string>
+    <string name="set_para_one_phone_sos">设置Doro sos</string>
     <string name="set_para_weather_switch">设置天气预报开关</string>
     <string name="set_para_quick_sport_mode">选择快捷运动模式 ></string>
     <string name="set_para_notice_switch">设置通知提醒开关</string>
@@ -227,7 +229,7 @@
     <string name="device_control_app_event_hand_up_phone">拒接电话</string>
 
     <!--交换数据-->
-    <string name="exchange_data">数据交换 ></string>
+    <string name="exchange_data">多运动数据交换 ></string>
     <string name="main_exchange_data_app">APP发起交换数据 ></string>
     <string name="main_exchange_data_device">设备发起交换数据 ></string>
     <string name="app_exchange_data_start">开始</string>

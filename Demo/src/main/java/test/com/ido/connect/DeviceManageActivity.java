@@ -18,7 +18,6 @@ import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
 import com.ido.ble.bluetooth.device.BLEDevice;
 import com.ido.ble.business.multidevice.ICommonListener;
-//import com.ido.ble.data.manage.sp.SPDataUtils;
 
 import java.util.List;
 
@@ -71,7 +70,7 @@ public class DeviceManageActivity extends Activity {
     }
 
     private void refreshData(){
-//        bindMacAddressList = SPDataUtils.getInstance().getBindMacAddressList();
+        bindMacAddressList = LocalDataManager.getBindMacAddressList();
         listView.setAdapter(baseAdapter);
     }
 

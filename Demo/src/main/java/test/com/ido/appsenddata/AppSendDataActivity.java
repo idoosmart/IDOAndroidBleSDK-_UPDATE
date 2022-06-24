@@ -274,6 +274,7 @@ public class AppSendDataActivity extends BaseAutoConnectActivity {
     private void createWeatherV3JsonData(){
         WeatherInfoV3 weatherInfoV3 = new WeatherInfoV3();
         weatherInfoV3.future_items = new ArrayList<>();
+        weatherInfoV3.sunrise_item = new ArrayList<>();
         weatherInfoV3.weather_type = WeatherInfo.WEATHER_TYPE_SNOW;
         weatherInfoV3.today_tmp = 9;
         weatherInfoV3.today_max_temp = 33;
@@ -316,6 +317,30 @@ public class AppSendDataActivity extends BaseAutoConnectActivity {
         futureInfoV3_3.max_temp = 88;
         futureInfoV3_3.min_temp = 99;
         weatherInfoV3.future_items.add(futureInfoV3_3);
+
+        WeatherInfoV3.SunRiseSet SunRiseSet_1 = new WeatherInfoV3.SunRiseSet();
+        SunRiseSet_1.sunrise_hour = 5;
+        SunRiseSet_1.sunrise_min = 10;
+        SunRiseSet_1.sunset_hour = 18;
+        SunRiseSet_1.sunset_min = 20;
+        weatherInfoV3.sunrise_item.add(SunRiseSet_1);
+
+        WeatherInfoV3.SunRiseSet SunRiseSet_2 = new WeatherInfoV3.SunRiseSet();
+        SunRiseSet_2.sunrise_hour = 6;
+        SunRiseSet_2.sunrise_min = 20;
+        SunRiseSet_2.sunset_hour = 19;
+        SunRiseSet_2.sunset_min = 5;
+        weatherInfoV3.sunrise_item.add(SunRiseSet_2);
+
+        WeatherInfoV3.SunRiseSet SunRiseSet_3 = new WeatherInfoV3.SunRiseSet();
+        SunRiseSet_3.sunrise_hour = 7;
+        SunRiseSet_3.sunrise_min = 15;
+        SunRiseSet_3.sunset_hour = 20;
+        SunRiseSet_3.sunset_min = 8;
+        weatherInfoV3.sunrise_item.add(SunRiseSet_3);
+
+        weatherInfoV3.sunrise_item_num = 3;
+
         etJsonData.setText(JsonUtils.format(new Gson().toJson(weatherInfoV3)));
     }
 

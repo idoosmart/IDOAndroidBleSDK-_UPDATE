@@ -12,7 +12,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="选择表盘压缩包"
+        android:text="select watch file"
         android:onClick="selectFile"/>
 
     <TextView
@@ -23,7 +23,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开始设置"
+        android:text="sart set"
         android:onClick="startSet"/>
 
 
@@ -38,23 +38,40 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="获取表盘列表"
+        android:text="get plates list"
         android:onClick="getPlateList"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="获取手表屏幕信息"
+        android:text="get Screen info"
         android:onClick="getScreenInfo"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="查询当前使用的表盘"
+        android:text="get current plate"
         android:onClick="getCurrentPlate"/>
+
+    <EditText
+        android:layout_marginTop="60dp"
+        android:id="@+id/photo_tv"
+        android:hint="select image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="select iamge"
+        android:onClick="selectImage"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="set photo watch"
+        android:onClick="setPhotoWatch"/>
 
     <EditText
         android:layout_marginTop="20dp"
         android:id="@+id/unique_id_tv"
-        android:hint="请输入要操作的表盘名"
+        android:hint="input wattch name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -65,12 +82,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="删除表盘"
+            android:text="delete Plate"
             android:onClick="deletePlate"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="设置表盘"
+            android:text="setPlate"
             android:onClick="setPlate"/>
     </LinearLayout>
 

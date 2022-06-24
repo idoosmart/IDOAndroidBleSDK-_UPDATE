@@ -391,6 +391,9 @@ public class ScanDeviceActivity extends Activity implements View.OnClickListener
             case R.id.share_tool:
                 LogOutput.shareTool(this);
                 break;
+            case R.id.share_log:
+                LogOutput.shareLog(this);
+                break;
             case R.id.font_upgrade:
                 gotoFontUpgradePage();
                 break;

@@ -35,6 +35,10 @@ public class FileTransferActivity extends BaseAutoConnectActivity {
     private EditText etPRN, etSpecName,etZipType, dataType, etIconType, etIconValue;
     private TextView tvFilePath, tvProgress;
 
+    /**fileTranster,Gallery upgrade  reference
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

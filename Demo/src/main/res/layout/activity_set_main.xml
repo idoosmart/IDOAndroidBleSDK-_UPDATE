@@ -50,6 +50,24 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="setReboot"
+            android:text="@string/reboot_device"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setRestoreFactory"
+            android:text="setRestoreFactory"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setUpHandGesture"
+            android:text="@string/set_para_up_hand_gesture"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="setUserInfo"
             android:text="@string/set_para_user_info"/>
 
@@ -58,71 +76,6 @@
             android:layout_height="wrap_content"
             android:onClick="setUnit"
             android:text="@string/set_para_unit"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/size10dp"
-            android:layout_marginBottom="@dimen/size10dp"
-            android:background="@color/aaa">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="setAntiLostMode"
-                android:text="@string/set_para_anti_lost_mode" />
-
-            <EditText
-                android:id="@+id/set_para_dial_plate_et"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red"
-                android:inputType="number"
-                android:text="1"
-                android:hint="1~4"
-                />
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="setDialPlate"
-                android:text="@string/set_para_dial_plate"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/size10dp"
-            android:layout_marginBottom="@dimen/size10dp"
-            android:background="@color/aaa">
-            <RadioGroup
-                android:id="@+id/set_para_short_cut_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checkedButton="@+id/set_para_short_cut_camera"
-                android:orientation="vertical">
-
-                <RadioButton
-                    android:id="@+id/set_para_short_cut_camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/short_cut_take_photo"/>
-                <RadioButton
-                    android:id="@+id/set_para_short_cut_sport_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/short_cut_sport_mode"/>
-                <RadioButton
-                    android:id="@+id/set_para_short_cut_not_disturb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/short_cut_not_disturb"/>
-
-            </RadioGroup>
-
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -158,17 +111,7 @@
                 android:id="@+id/set_para_query_blood_adjust_result_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/query_blood_adjust_result"
-                android:onClick="queryBloodAdjustResult"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="setShortCut"
-                android:text="@string/set_para_short_cut" />
         </LinearLayout>
 
 
@@ -177,6 +120,12 @@
             android:layout_height="wrap_content"
             android:onClick="setLongSit"
             android:text="@string/set_para_long_sit"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setDrinkWaterReminder"
+            android:text="setDrinkWaterReminder"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -267,14 +216,81 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="setHeartRateInterval"
-            android:text="@string/set_para_heart_rate_interval"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:onClick="setHeartRateMode"
             android:text="@string/set_para_heart_rate_mode"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setPressureParam"
+            android:text="setPressureParam"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setMenuList"
+            android:text="setMenuList"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setFrequentContactsV3"
+            android:text="setFrequentContactsV3"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="CallReminderSwitch"
+            android:text="CallReminderSwitch"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="ScheduleReminder"
+            android:text="ScheduleReminder"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setWorldTime"
+            android:text="setWorldTime"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setSCreenBrightnessConfig"
+            android:text="setSCreenBrightnessConfig"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setcameraPermission"
+            android:text="setcameraPermission"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setNoisePara"
+            android:text="setNoisePara"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setNightTemperatureMonitoringPara"
+            android:text="setNightTemperatureMonitoringPara"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setSPO2Param"
+            android:text="setSPO2Param"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setCalorieAndDistanceGoal"
+            android:text="setCalorieAndDistanceGoal"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -299,11 +315,7 @@
             android:layout_height="wrap_content"
             android:onClick="setOneKeyReset"
             android:text="@string/set_para_one_key_reset"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="setUpHandGesture"
-            android:text="@string/set_para_up_hand_gesture"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -328,49 +340,17 @@
                 android:text="@string/set_para_music_switch"/>
         </LinearLayout>
 
-
-        <LinearLayout
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/size10dp"
-            android:layout_marginBottom="@dimen/size10dp"
-            android:background="@color/aaa">
-            <RadioGroup
-                android:id="@+id/set_para_display_mode_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checkedButton="@+id/set_para_display_mode_default"
-                android:orientation="vertical">
+            android:onClick="setMusicControlInfo"
+            android:text="setMusicControlInfo"/>
 
-                <RadioButton
-                    android:id="@+id/set_para_display_mode_default"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/display_mode_default"/>
-                <RadioButton
-                    android:id="@+id/set_para_display_mode_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/display_mode_horizontal"/>
-                <RadioButton
-                    android:id="@+id/set_para_display_mode_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/display_mode_vertical"/>
-                <RadioButton
-                    android:id="@+id/set_para_display_mode_over_180"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/display_mode_MODE_OVER_180"/>
-            </RadioGroup>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="setDisplayMode"
-                android:text="@string/set_para_display_mode"/>
-        </LinearLayout>
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setPhoneVoice"
+            android:text="setPhoneVoice"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -389,6 +369,22 @@
                 android:text="@string/set_para_one_key_sos"/>
         </LinearLayout>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setWalkReminder"
+            android:text="setWalkReminder"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setMenstrualRemind"
+            android:text="setMenstrualRemind"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setMotionintelligent"
+            android:text="Motion intelligent recognition set"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -418,12 +414,12 @@
                 android:id="@+id/set_weather_city_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="深圳"/>
+                android:text="shenzhen"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="setWeatherCityName"
-                android:text="设置城市名称（天气）"/>
+                android:text="setWeatherCytiName"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -432,58 +428,11 @@
             android:layout_marginTop="@dimen/size10dp"
             android:layout_marginBottom="@dimen/size10dp"
             android:background="@color/aaa">
-            <EditText
-                android:id="@+id/set_precipitation_probability"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red"
-                android:inputType="number"
-                android:text="10"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="setWeatherPrecipitation"
-                android:text="设置降水率"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/size10dp"
-            android:layout_marginBottom="@dimen/size10dp"
-            android:background="@color/aaa">
-            <EditText
-                android:id="@+id/set_today_uv_intensity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red"
-                android:inputType="number"
-                android:text="10"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="setWeatherUVintensity"
-                android:text="设置紫外线"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/size10dp"
-            android:layout_marginBottom="@dimen/size10dp"
-            android:background="@color/aaa">
-            <EditText
-                android:id="@+id/set_wind_speed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red"
-                android:inputType="number"
-                android:text="10"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="setWeatherWindSpeed"
-                android:text="设置风速"/>
+                android:onClick="setWearther"
+                android:text="setWearther"/>
         </LinearLayout>
 
         <LinearLayout
@@ -505,19 +454,17 @@
                 android:onClick="setScreenBrightness"
                 android:text="setScreenBrightness"/>
         </LinearLayout>
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setMenstrual"
+            android:text="setMenstrual"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="setQuickSportMode"
             android:text="@string/set_para_quick_sport_mode"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="setNoticeSwitch"
-            android:enabled="false"
-            android:visibility="gone"
-            android:text="@string/set_para_notice_switch"/>
+
 
         <Button
             android:layout_width="match_parent"
@@ -539,7 +486,7 @@
             android:layout_height="wrap_content"
             android:onClick="setSportModeSort"
             android:visibility="visible"
-            android:text="设置运动模式排序"/>
+            android:text="setSportModeSort"/>
 
         <Button
             android:layout_width="match_parent"

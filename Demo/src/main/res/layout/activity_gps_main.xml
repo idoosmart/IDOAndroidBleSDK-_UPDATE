@@ -10,30 +10,16 @@
         android:layout_height="50dp"
         android:background="@color/black"
         android:textColor="@color/white"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="synGpsData"
-        android:text="同步GPS数据"/>
+        android:onClick="tranAgpsFileonline"
+        android:text="Agps online trans"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="tranAgpsFile"
-        android:text="传输Agps文件(自定义)"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="autoTranAgpsFile"
-        android:text="传输Agps文件(自动)"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="创建模拟GPS数据"
-        android:onClick="createTestGpsData"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="showDataOnMap"
-        android:text="把数据加载到地图上"/>
+        android:onClick="tranAgpsFileoffline"
+        android:text="Agps offline trans"/>
 
 </LinearLayout>

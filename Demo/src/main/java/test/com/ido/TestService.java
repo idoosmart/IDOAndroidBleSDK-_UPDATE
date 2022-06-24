@@ -12,9 +12,6 @@ import android.os.IBinder;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-//import com.ido.ble.R;
-import com.ido.ble.logs.LogTool;
-
 public class TestService extends Service{
 //    private BroadcastReceiver mBluetoothStatusReceiver = new BroadcastReceiver() {
 //
@@ -88,7 +85,7 @@ public class TestService extends Service{
         builder.setContentTitle(title);
         builder.setContentText(title + progress);
         builder.setContentIntent(pendingIntent);
-//        builder.setSmallIcon(R.drawable.ic_stat_notify_dfu);
+        builder.setSmallIcon(R.drawable.ido_bg);
         if (progress >= 0) {
             // 当progress 大于0时才需要显示下载进度
             builder.setContentText(progress + "%");
@@ -111,7 +108,6 @@ public class TestService extends Service{
                         e.printStackTrace();
                     }
                     update(i);
-//                    LogTool.p("Test", i+"");
                 }
             }
         }).start();

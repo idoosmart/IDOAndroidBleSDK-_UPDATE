@@ -6,44 +6,25 @@
     android:orientation="vertical"
     tools:context="test.com.ido.dfu.MainUpgradeActivity">
 
-    <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:onClick="downloadFile"-->
-        <!--android:text="下载固件包"/>-->
-
-    <EditText
-        android:layout_marginTop="@dimen/size20dp"
-        android:id="@+id/min_energy_value_et"
-        android:text="30"
-        android:inputType="number"
-        android:enabled="false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:onClick="dfu_nodic"-->
-        <!--android:text="固件升级Nodic"/>-->
-
     <Button
+        android:id="@+id/nodicUpgrade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="to_dfu_mode"
-        android:text="进入升级模式"/>
+        android:onClick="nodicUpgrade"
+        android:text="nodicUpgrade"/>
 
     <Button
-        android:id="@+id/to_dfu_nodic_page_bt"
+        android:id="@+id/ApolloUpgrade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="to_dfu"
-        android:text="固件升级"/>
+        android:onClick="ApolloUpgrade"
+        android:text="ApolloUpgrade"/>
 
-    <!--<Button-->
-        <!--android:id="@+id/to_dfu_rtk_page_bt"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:onClick="dfu_rtk"-->
-        <!--android:text="固件升级RTK"/>-->
+    <Button
+        android:id="@+id/realtekUpgrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="realtekUpgrade"
+        android:text="realtekUpgrade"/>
 
 </LinearLayout>

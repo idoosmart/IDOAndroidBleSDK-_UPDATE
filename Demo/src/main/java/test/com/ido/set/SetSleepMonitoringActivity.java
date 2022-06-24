@@ -51,18 +51,7 @@ public class SetSleepMonitoringActivity extends BaseAutoConnectActivity {
 
     public void toSetSleepPara(View v){
 
-//        int startHour=Integer.parseInt(edStartHour.getText().toString());
-//        int startMin=Integer.parseInt(edStartMin.getText().toString());
-//        int endHour=Integer.parseInt(edEndHour.getText().toString());
-//        int endMin=Integer.parseInt(edEndMin.getText().toString());
-//
-//        SleepMonitoringPara sleepMonitoringPara = new SleepMonitoringPara();
-//        sleepMonitoringPara.onOff = switchSleep.isChecked() ? NotDisturbPara.STATE_ON : NotDisturbPara.STATE_OFF;
-//        sleepMonitoringPara.startHour = startHour;
-//        sleepMonitoringPara.startMinute = startMin;
-//        sleepMonitoringPara.endHour = endHour;
-//        sleepMonitoringPara.endMinute = endMin;
-//
-//        BLEManager.setSleepMonitoringPara(sleepMonitoringPara);
+
+
     }
 }

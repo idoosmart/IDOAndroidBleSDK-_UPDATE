@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">IDO Demo</string>
+    <string name="app_name">IDO Demo Custom</string>
 
     <!--扫描-->
     <string name="scan_refresh">Refresh</string>
@@ -48,7 +48,7 @@
     <string name="get_info_activity_count">Activity count</string>
     <string name="get_walk_reminder">Walk Reminder</string>
     <string name="get_sport_three_circle_goal">Sport Three Circle Goal</string>
-
+    <string name="get_user_habit">用户习惯打点</string>
     <!--绑定、解绑-->
     <string name="unbind_unbind">Unbind</string>
     <string name="unbind_force_unbind">Force unbind</string>
@@ -184,7 +184,7 @@
     <!--提醒命令-->
     <string name="phone_notice_incoming_call">phone incoming notice</string>
     <string name="phone_notice_calling_stop">stop calling notice</string>
-    <string name="phone_notice_new_message">new message notice</string>
+    <string name="phone_notice_new_message">message notice</string>
     <string name="phone_notice_unread_message">unread message notice</string>
     <string name="phone_notice_tip_msg_ok">notice ok</string>
     <string name="phone_notice_tip_msg_failed">notice failed</string>
@@ -228,7 +228,7 @@
     <string name="device_control_app_event_hand_up_phone">hand up</string>
 
     <!--交换数据-->
-    <string name="exchange_data">exchange data ></string>
+    <string name="exchange_data"> sport exchange data ></string>
     <string name="main_exchange_data_app">APP send data ></string>
     <string name="main_exchange_data_device">Device send data ></string>
     <string name="app_exchange_data_start">start</string>
@@ -262,7 +262,7 @@
     <string name="reboot_device_tip_failed">reboot failed</string>
 
 
-    <string name="device_upgrade">device upgrade</string>
+    <string name="device_upgrade">ota upgrade</string>
 
     <string name="get_local_data">query local data ></string>
     <string name="get_internal_test">internal test ></string>
@@ -309,7 +309,7 @@
 
     <string name="systolic_pressure">systolic pressure</string>
     <string name="diastolic_pressure">diastolic pressure</string>
-
+    <string name="set_para_one_phone_sos">设置Doro sos</string>
     <string name="antil_lost_off">off</string>
     <string name="antil_lost_short">short distance</string>
     <string name="antil_lost_middle">middle distance</string>

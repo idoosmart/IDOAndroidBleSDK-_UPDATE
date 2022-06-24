@@ -22,21 +22,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="zhou"
-                android:hint="联系人姓名"/>
+                android:hint="name"/>
             <EditText
                 android:id="@+id/phone_notice_incoming_phone_number_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="15812348888"
                 android:inputType="phone"
-                android:hint="电话号码"/>
+                android:hint="phone"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="noticeIncomingCall"
                 android:text="@string/phone_notice_incoming_call"/>
-        </LinearLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="v3noticeIncomingCall"
+                android:text="v3 phone incoming notice"/>
+        </LinearLayout>
 
 
         <Button
@@ -44,17 +49,6 @@
             android:layout_height="wrap_content"
             android:onClick="setStopInComingCall"
             android:text="@string/phone_notice_calling_stop"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="v3noticeIncomingCall"
-            android:text="V3 Phone incoming"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="v3setStopInComingCall"
-            android:text="V3 stop calling"/>
 
 
         <LinearLayout
@@ -76,17 +70,17 @@
                     android:id="@+id/phone_notice_new_msg_type_sms_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="短信"/>
+                    android:text="sms"/>
                 <RadioButton
                     android:id="@+id/phone_notice_new_msg_type_email_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="邮件"/>
+                    android:text="mail"/>
                 <RadioButton
                     android:id="@+id/phone_notice_new_msg_type_wx_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="微信"/>
+                    android:text="weixin"/>
 
 
             </RadioGroup>
@@ -98,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="消息类型"/>
+                    android:text="mgs_type"/>
 
                 <EditText
                     android:id="@+id/phone_notice_new_msg_type_et"
@@ -114,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="zhou"
-                android:hint="姓名"/>
+                android:hint="name"/>
 
             <EditText
                 android:id="@+id/phone_notice_new_msg_number_et"
@@ -122,13 +116,13 @@
                 android:layout_height="wrap_content"
                 android:text="243147030"
                 android:inputType="phone"
-                android:hint="号码"/>
+                android:hint="phone"/>
             <EditText
                 android:id="@+id/phone_notice_new_msg_content_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="hello link"
-                android:hint="信息内容"/>
+                android:hint="content"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,31 +130,6 @@
                 android:text="@string/phone_notice_new_message"/>
         </LinearLayout>
 
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="noticeUnreadMsg"
-            android:visibility="gone"
-            android:text="@string/phone_notice_unread_message"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="v3noticeNewMsg"
-            android:text="V3 new message"/>
-
-        <Button
-            android:layout_marginTop="@dimen/size20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="OpenDeviceNoticeSwitch"
-            android:text="打开设备通知开关"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="IconAndNameMsg"
-            android:text="IconAndNameMsg"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -209,7 +178,30 @@
     TYPE_ZOMATO = 0X33;\n
     TYPE_MAKEMYTRIP = 0X34;\n
     TYPE_JIOTV = 0X35;\n
-    TYPE_KEEP = 0X36;\n"/>
+    TYPE_KEEP = 0X36;\n
+    TYPE_MICROSOFT = 0X37;\n
+    TYPE_WHATSAPP_BUSINESS = 0x38;\n
+    TYPE_MISSED_CALL = 0X3A;\n
+    TYPE_GPAP = 0X3B;\n
+    TYPE_YT_MUSIC = 0X3C;\n
+    TYPE_UBER = 0X3D;\n
+    TYPE_OLA = 0X3E;\n
+    TYPE_MATTER = 0X3F;\n
+    TYPE_GOOGLE_MEET = 0X40;\n
+     TYPE_Mormaii_Smartwatch = 0X41;\n
+    TYPE_Technos_Connect = 0X42;\n
+    TYPE_Magalu = 0X43;\n
+    TYPE_Americanas = 0X44;\n
+    TYPE_Enjoei = 0X45;\n
+    TYPE_Aliexpress = 0X46;\n
+    TYPE_Shopee = 0X47;\n
+    TYPE_Teams = 0X48;\n
+    TYPE_99taxi = 0X49;\n
+    TYPE_Uber_Eats = 0X4A;\n
+    TYPE_lfood = 0X4B;\n
+    TYPE_Rappi = 0X4C;\n
+    TYPE_Mercado_livre = 0X4D;\n
+    TYPE_Yahoo = 0X4E;"/>
     </LinearLayout>
 
 

@@ -115,18 +115,4 @@ public class AppControlDeviceActivity extends BaseAutoConnectActivity {
 //        BLEManager.closeANCS();
     }
 
-    public void sendCustomCmds(View view){
-        String source = etCustomCmdData.getText().toString();
-        String bytesStrings[] = source.split("-");
-        byte[] cmd = new byte[bytesStrings.length];
-        for (int i = 0; i < bytesStrings.length; i ++){
-            System.out.print(bytesStrings[i] + " ");
-            int parseInt = Integer.parseInt(bytesStrings[i], 16);
-//            System.out.print(parseInt + " ");
-            byte b = (byte) parseInt;
-//            System.out.println(b);
-            cmd[i] = b;
-        }
-//        DeviceManager.writeForce(cmd);
-    }
 }

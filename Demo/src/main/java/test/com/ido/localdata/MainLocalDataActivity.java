@@ -7,10 +7,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.ido.ble.LocalDataManager;
-//import com.ido.ble.data.manage.DataBaseManager;
 import com.ido.ble.data.manage.database.HealthHeartRateSecond;
 import com.ido.ble.data.manage.database.HealthHeartRateSecondItem;
-//import com.ido.ble.data.manage.presenter.HealthHeartRateItemPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,26 +102,6 @@ public class MainLocalDataActivity extends BaseAutoConnectActivity {
         HealthHeartRateSecond second = LocalDataManager.getHealthHeartRateSecondByDay(2019, 8, 16);
 
         query(dataQueryType);
-    }
-
-    public void get139Data(View view){
-//        Intent intent = new Intent();
-//        intent.setClass(this, SimpleMpChart.class);
-//        startActivity(intent);
-
-        HealthHeartRateSecond second = new HealthHeartRateSecond();
-        second.year = 2019;
-        second.month = 8;
-        second.day = 16;
-        second.items = new ArrayList<>();
-        for (int i = 0; i < 20000; i ++){
-            HealthHeartRateSecondItem item = new HealthHeartRateSecondItem();
-            item.heartRateVal = 255;
-            item.offset = 100000;
-            second.items.add(item);
-        }
-
-//        DataBaseManager.getInstance().addHealthHeartRateSecond(second);
     }
 
     private void query(DataQueryType dataQueryType){

@@ -24,13 +24,16 @@
         android:orderInCategory="100"
         android:title="安装日志工具"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/share_log"
+        android:orderInCategory="100"
+        android:title="分享日志"
+        app:showAsAction="never" />
     <item
         android:id="@+id/share_tool"
         android:orderInCategory="100"
         android:title="分享日志工具"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/export_db"
         android:orderInCategory="100"

@@ -16,6 +16,7 @@ import com.ido.ble.LocalDataManager;
 import com.ido.ble.callback.SettingCallBack;
 import com.ido.ble.protocol.model.Alarm;
 import com.ido.ble.protocol.model.AlarmV3;
+import com.ido.ble.protocol.model.SupportFunctionInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -218,22 +219,27 @@ public class SetAlarmV3Activity extends BaseAutoConnectActivity  implements andr
             public void onClick(View arg0) {
 
                 showProgressDialog("Add...");
+                List<AlarmV3> alarms = new ArrayList<>();
                 // 设置闹钟
                 mAlarm = new AlarmV3();
                 int hour = Integer.parseInt(edHour.getText().toString());
                 int min = Integer.parseInt(edMin.getText().toString());
-                mAlarm.setOn_off(onOff);
+                 mAlarm.setOn_off(true);
+                mAlarm.hour = hour;
+                mAlarm.minute = min;
+                mAlarm.status = AlarmV3.STATUS_DISPLAY;
                 mAlarm.setWeekRepeat(weeks);
-
-
-                List<AlarmV3> alarms = DataUtils.getInstance().getAlarmV3();
-                if (alarms == null){
-                    alarms = new ArrayList<>();
-                }else {
-                    mAlarm.alarm_id = alarms.size();
-                }
-                mAlarm.alarm_id= alarms.size() + 1;
+                mAlarm.alarm_id = 1;
                 alarms.add(mAlarm);
+                int size = 1;
+                if (size < getMaxAlarmCount()) {
+                    for (int i = size; i < getMaxAlarmCount(); i++) {
+                        AlarmV3 alarmV3 = new AlarmV3();
+                        alarmV3.status = AlarmV3.STATUS_NOT_DISPLAY;
+                        alarmV3.alarm_id = i + 1;
+                        alarms.add(alarmV3);
+                    }
+                }
 
                 BLEManager.setAlarmV3(alarms);
 
@@ -241,6 +247,15 @@ public class SetAlarmV3Activity extends BaseAutoConnectActivity  implements andr
         });
     }
 
+    /**
+     * 获取最大闹钟个数
+     *
+     * @return
+     */
+    public int getMaxAlarmCount() {
+        SupportFunctionInfo functionInfo = LocalDataManager.getSupportFunctionInfo();
+        return functionInfo == null ? 10 : functionInfo.alarmCount;
+    }
     @Override
     public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
         // TODO Auto-generated method stub

@@ -135,6 +135,11 @@ public class ShowAlarmsV3Activity extends BaseAutoConnectActivity {
         public void onGetBtA2dpHfpStatus(BtA2dpHfpStatus btA2dpHfpStatus) {
 
         }
+
+        @Override
+        public void onGetContactReceiveTime(boolean needToSendContact) {
+
+        }
     };
 
     @Override

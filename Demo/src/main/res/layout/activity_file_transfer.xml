@@ -15,7 +15,7 @@
 
         <TextView
             android:layout_marginTop="@dimen/size20dp"
-            android:text="请输入固件设别的文件名："
+            android:text="input file name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -37,7 +37,7 @@
 
         <TextView
             android:layout_marginTop="@dimen/size20dp"
-            android:text="0: 不压缩 1：zlib 2：fastlz"
+            android:text="0: unzip 1：zlib 2：fastlz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -48,7 +48,7 @@
 
         <TextView
             android:layout_marginTop="@dimen/size20dp"
-            android:text="数据类型"
+            android:text="data type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="selectFile"
-            android:text="选择文件"/>
+            android:text="select file"/>
         <TextView
             android:id="@+id/transfer_file_progress"
             android:layout_width="wrap_content"
@@ -85,14 +85,14 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:onClick="startTransFile"
-                android:text=" [BLE]开始传输 "/>
+                android:text=" [BLE] start transfile "/>
 
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:onClick="stopTransFile"
-                android:text=" [BLE]停止传输 "/>
+                android:text=" [BLE] stopTransFile"/>
 
         </LinearLayout>
 
@@ -106,13 +106,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="startSPPTransFile"
-                android:text="SPP传输"/>
+                android:text="SPP transsFile"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="stopSPPTransFile"
-                android:text="SPP停止"/>
+                android:text="SPP stop"/>
 
         </LinearLayout>
 
@@ -121,7 +121,7 @@
             android:layout_marginTop="@dimen/size30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1:消息 2：运动小图标 3：运动大图标 4：运动动画"/>
+            android:text="1:message 2：sport icon 3：sport large icon 4：sport inimation"/>
         <LinearLayout
 
             android:layout_width="match_parent"
@@ -129,7 +129,7 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/transfer_icon_type"
-                android:hint="图标类型"
+                android:hint="icon type"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:inputType="number"
@@ -138,7 +138,7 @@
                 android:id="@+id/transfer_icon_value"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:hint="图标对应的value"
+                android:hint="icon value"
                 android:inputType="number"
                 android:layout_height="wrap_content"/>
 
@@ -147,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="startTransICON"
-            android:text="传输ICON"/>
+            android:text=" startTransICON"/>
 
     </LinearLayout>
 </ScrollView>

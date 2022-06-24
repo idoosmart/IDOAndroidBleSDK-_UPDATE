@@ -34,22 +34,22 @@ public class MusicFolderActivity extends BaseAutoConnectActivity {
         BLEManager.registerOperateCallBack(new OperateCallBack.ICallBack() {
             @Override
             public void onSetResult(OperateCallBack.OperateType type, boolean isSuccess) {
-                tvInfo.setText(isSuccess ? "成功":"失败");
+                tvInfo.setText(isSuccess ? "success":"fail");
             }
 
             @Override
             public void onAddResult(OperateCallBack.OperateType type, boolean isSuccess) {
-                tvInfo.setText(isSuccess ? "成功":"失败");
+                tvInfo.setText(isSuccess ? "success":"fail");
             }
 
             @Override
             public void onDeleteResult(OperateCallBack.OperateType type, boolean isSuccess) {
-                tvInfo.setText(isSuccess ? "成功":"失败");
+                tvInfo.setText(isSuccess ? "success":"fail");
             }
 
             @Override
             public void onModifyResult(OperateCallBack.OperateType type, boolean isSuccess) {
-                tvInfo.setText(isSuccess ? "成功":"失败");
+                tvInfo.setText(isSuccess ? "success":"fail");
             }
 
             @Override

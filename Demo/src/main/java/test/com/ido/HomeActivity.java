@@ -18,7 +18,9 @@ import test.com.ido.connect.ConnectManageActivity;
 import test.com.ido.device2app.DeviceControlAppActivity;
 import test.com.ido.dfu.MainUpgradeActivity;
 import test.com.ido.exgdata.ExchangeDataMainActivity;
+import test.com.ido.file.transfer.BTTransferActivity;
 import test.com.ido.file.transfer.FileTransferActivity;
+import test.com.ido.file.transfer.MultLangTrainActivity;
 import test.com.ido.get.GetInfoActivity;
 import test.com.ido.gps.GpsMainActivity;
 import test.com.ido.localdata.MainLocalDataActivity;
@@ -41,20 +43,7 @@ public class HomeActivity extends BaseAutoConnectActivity {
         public void onChanged(DeviceChangedPara deviceParaChange) {
             Toast.makeText(HomeActivity.this, deviceParaChange.toString(), Toast.LENGTH_LONG).show();
         }
-    }
-    ;
-    private RebootCallback.ICallBack iCallBack = new RebootCallback.ICallBack() {
-        @Override
-        public void onSuccess() {
-            Toast.makeText(HomeActivity.this, R.string.reboot_device_tip_ok, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onFailed() {
-            Toast.makeText(HomeActivity.this, R.string.reboot_device_tip_failed, Toast.LENGTH_SHORT).show();
-        }
     };
-
 
 
     @Override
@@ -69,16 +58,12 @@ public class HomeActivity extends BaseAutoConnectActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        BLEManager.registerRebootCallBack(iCallBack);
         BLEManager.registerDeviceParaChangedCallBack(changeC);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BLEManager.unregisterRebootCallBack(iCallBack);
-
-//        BLEManager.destroy();
 
         BluetoothLogoutManager.getManager().stop();
 
@@ -97,37 +82,19 @@ public class HomeActivity extends BaseAutoConnectActivity {
         startActivity(new Intent(this, GetInfoActivity.class));
     }
 
-    public void setPara(View v) {
-        startActivity(new Intent(this, MainSetActivity.class));
-    }
-
     public void notice(View v) {
         startActivity(new Intent(this, PhoneNoticeActivity.class));
-    }
-
-    public void appControlDevice(View v) {
-        startActivity(new Intent(this, AppControlDeviceActivity.class));
-    }
-
-    public void deviceControlApp(View v) {
-        startActivity(new Intent(this, DeviceControlAppActivity.class));
     }
 
     public void syncData(View v) {
         startActivity(new Intent(this, SyncDataActivity.class));
     }
 
-    public void appSendData(View v) {
-        startActivity(new Intent(this, AppSendDataActivity.class));
-    }
-
     public void exchangeData(View v) {
         startActivity(new Intent(this, ExchangeDataMainActivity.class));
     }
-
-    public void reboot(View v) {
-        BLEManager.reBoot();
-        isRebooting = true;
+    public void setPara(View v) {
+        startActivity(new Intent(this, MainSetActivity.class));
     }
 
     public void upgrade(View view){
@@ -139,10 +106,6 @@ public class HomeActivity extends BaseAutoConnectActivity {
     public void gps(View view){
         startActivity(new Intent(this, GpsMainActivity.class));
     }
-    public void getLocalData(View v){
-        startActivity(new Intent(this, MainLocalDataActivity.class));
-    }
-
     public void watchPlate(View view){
         startActivity(new Intent(this, WatchPlateActivity.class));
     }
@@ -151,20 +114,18 @@ public class HomeActivity extends BaseAutoConnectActivity {
         startActivity(new Intent(this, FileTransferActivity.class));
     }
 
-//    public void multLangTrain(View view){
-//        startActivity(new Intent(this, MultLangTrainActivity.class));
-//    }
-//
-//    public void voice(View view){
-//        startActivity(new Intent(this, MainVoiceActivity.class));
-//    }
+    public void multLangTrain(View view){
+        startActivity(new Intent(this, MultLangTrainActivity.class));
+    }
 
-    public void musicFolder(View view){
+
+    public void musicTrans(View view){
         startActivity(new Intent(this, MusicFolderActivity.class));
     }
 
-//    public void png2bmp(View view){
-//        startActivity(new Intent(this, Png2BmpActivity.class));
-//    }
+   public void btUpgrade(View view){
+       startActivity(new Intent(this, BTTransferActivity.class));
+
+   }
 
 }
