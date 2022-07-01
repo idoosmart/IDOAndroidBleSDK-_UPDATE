@@ -152,6 +152,7 @@ public class MainSetActivity extends BaseAutoConnectActivity {
         if (pressureAdjustPara != null){
             etDiastolic.setText(pressureAdjustPara.diastolic+ "");
             etSystolic.setText(pressureAdjustPara.systolic+ "");
+            etSystolic.setText(pressureAdjustPara.systolic+ "");
         }
 
         HandWearMode handWearMode = LocalDataManager.getHandWearMode();
@@ -309,7 +310,9 @@ public class MainSetActivity extends BaseAutoConnectActivity {
     public void setMusicControlInfo(View v){
         MusicControlInfo musicInfo = new MusicControlInfo();
         musicInfo.status = MusicControlInfo.STATUS_PLAY;
-        musicInfo.musicName = "boy";
+        musicInfo.musicName = "hello android";
+        musicInfo.curTimeSecond = 30;
+        musicInfo.totalTimeSecond = 100;
         //musicInfo.singerName = "";//V3_music_control_02_add_singer_name = true 才支
         BLEManager.setMusicControlInfo(musicInfo);
     }

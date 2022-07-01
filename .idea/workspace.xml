@@ -9,64 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e5786c3-0dd4-4a74-8fba-b72f89f5b497" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/libs/IDoBLELib-Custom-2.65.40.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/libs/arm64-v8a/libVeryFitMulti.so" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/libs/arm64-v8a/libVeryFitMulti.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/libs/armeabi-v7a/libVeryFitMulti.so" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/libs/armeabi-v7a/libVeryFitMulti.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/libs/armeabi/libVeryFitMulti.so" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/libs/armeabi/libVeryFitMulti.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/APP.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/APP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/HomeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/SplashActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/TestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/TestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/app2device/AppControlDeviceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/app2device/AppControlDeviceActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/appsenddata/AppSendDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/appsenddata/AppSendDataActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/BaseAutoConnectActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/BaseAutoConnectActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/ConnectManageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/ConnectManageActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/DeviceManageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/DeviceManageActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/ScanDeviceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/connect/ScanDeviceActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/dfu/MainDfuActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/dfu/MainDfuActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/dfu/MainUpgradeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/dfu/MainUpgradeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/exgdata/ExchangeDataMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/exgdata/ExchangeDataMainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/file/transfer/FileTransferActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/file/transfer/FileTransferActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/font/upgrade/present/FontUpgradePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/font/upgrade/present/FontUpgradePresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/get/GetInfoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/get/GetInfoActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/gps/AGpsSectionTranslateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/gps/AGpsSectionTranslateActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/gps/GpsMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/gps/GpsMainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/localdata/MainLocalDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/localdata/MainLocalDataActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/logoutput/LogOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/logoutput/LogOutput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/notice/PhoneNoticeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/notice/PhoneNoticeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/MainSetActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/MainSetActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/MusicFolderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/MusicFolderActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/SetAlarmV3Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/SetAlarmV3Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/SetSleepMonitoringActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/SetSleepMonitoringActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/ShowAlarmsV3Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/ShowAlarmsV3Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/WatchPlateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/WatchPlateActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/sync/SyncDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/sync/SyncDataActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/utils/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/utils/FileUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_connect_manage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_connect_manage.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_exchange_data_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_exchange_data_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_file_transfer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_file_transfer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_get_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_get_info.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_gps_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_gps_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_home.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_main_dfu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_main_dfu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_main_upgrade.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_main_upgrade.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_mult_lang_train.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_mult_lang_train.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_music_folder.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_music_folder.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_phone_notice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_phone_notice.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_set_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_set_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_sync_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_sync_data.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_watch_plate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_watch_plate.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/menu/base_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/menu/base_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/menu/scan_device_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/menu/scan_device_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/values-zh/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/values-zh/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-    </list>
+    <list default="true" id="6e5786c3-0dd4-4a74-8fba-b72f89f5b497" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
