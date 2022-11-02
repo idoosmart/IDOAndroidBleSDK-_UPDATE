@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="test.com.ido">
 
     <uses-feature
@@ -39,7 +40,10 @@
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" /> <!-- 判断相机是否 可以使用 如果不加以下配置 那么captureIntent.resolveActivity(context.getPackageManager())==null -->
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
 
     <application
         android:name=".APP"
@@ -47,7 +51,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".set.MusicFolderActivity"
+        <activity
+            android:name=".file.transfer.SportIconTransferActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".file.transfer.NotificationIconTransferActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".file.transfer.IconTransferActivity"
+            android:exported="false">
+        </activity>
+        <activity android:name=".dial.DialActivity" />
+        <activity
+            android:name=".set.MusicFolderActivity"
             android:launchMode="singleTask" />
         <activity android:name=".set.SetAlarmV3Activity" />
         <activity android:name=".set.ShowAlarmsV3Activity" />

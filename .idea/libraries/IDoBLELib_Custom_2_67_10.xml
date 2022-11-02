@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="IDoBLELib-Custom-2.67.10">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Demo/libs/IDoBLELib-Custom-2.67.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

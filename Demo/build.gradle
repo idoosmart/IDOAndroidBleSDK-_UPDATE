@@ -70,7 +70,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.squareup.okio:okio:1.9.0'
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation files('libs\\IDoBLELib-Custom-2.66.43.jar')
+    implementation files('libs\\IDoBLELib-Custom-2.67.10.jar')
     implementation files('libs/BaiduLBS_Android.jar')
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.tencent.bugly:crashreport:latest.release'

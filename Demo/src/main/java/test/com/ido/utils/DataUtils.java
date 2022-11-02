@@ -31,6 +31,8 @@ public class DataUtils extends CommonPreferences {
     private static final String KEY_FONT_UPGRADE_NRF_PRN = "KEY_FONT_UPGRADE_NRF_PRN";
     private static final String KEY_FONT_UPGRADE_BIN_PRN = "KEY_FONT_UPGRADE_BIN_PRN";
     private static final String KEY_SAVE_FILE_PATH = "KEY_SAVE_FILE_PATH";
+    private static final String KEY_SAVE_DIAL_FILE_PATH = "KEY_SAVE_DIAL_FILE_PATH";
+    private static final String KEY_SAVE_DIAL_NAME = "KEY_SAVE_DIAL_NAME";
 
 
     public void init(Context context) {
@@ -127,5 +129,20 @@ public class DataUtils extends CommonPreferences {
 
     public void saveFilePath(String path){
         setValue(KEY_SAVE_FILE_PATH, path);
+    }
+
+    public String getDialPackagePath(){
+        return getValue(KEY_SAVE_DIAL_FILE_PATH,"");
+    }
+
+    public void saveDialPackagePath(String path){
+        setValue(KEY_SAVE_DIAL_FILE_PATH, path);
+    }
+    public String getDialName(){
+        return getValue(KEY_SAVE_DIAL_NAME,"");
+    }
+
+    public void saveDialName(String path){
+        setValue(KEY_SAVE_DIAL_NAME, path);
     }
 }

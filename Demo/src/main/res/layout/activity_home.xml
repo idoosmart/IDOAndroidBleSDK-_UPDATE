@@ -108,9 +108,20 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="BT upgrade"
-            android:onClick="btUpgrade"/>
+            android:onClick="btUpgrade"
+            android:text="BT upgrade" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btDial"
+            android:text="Dial" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btIconTrans"
+            android:text="Icon Transfer" />
     </LinearLayout>
 
 </ScrollView>

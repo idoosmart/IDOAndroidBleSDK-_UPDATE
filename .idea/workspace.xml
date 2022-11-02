@@ -9,7 +9,41 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e5786c3-0dd4-4a74-8fba-b72f89f5b497" name="Default Changelist" comment="" />
+    <list default="true" id="6e5786c3-0dd4-4a74-8fba-b72f89f5b497" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/IDoBLELib_Custom_2_67_10.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.gradle/6.1.1/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.gradle/6.1.1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.gradle/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.idea/modules/Demo.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/libs/IDoBLELib-Custom-2.66.43.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/HomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/get/GetInfoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/get/GetInfoActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/ShowAlarmsV3Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/set/ShowAlarmsV3Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/sync/SyncDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/sync/SyncDataActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/utils/DataUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/java/test/com/ido/utils/DataUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Demo/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,6 +96,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
@@ -100,8 +135,6 @@
       <option name="MODE" value="default_activity" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
       <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
@@ -159,6 +192,9 @@
       <updated>1645259608263</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>

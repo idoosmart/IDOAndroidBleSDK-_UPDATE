@@ -17,6 +17,7 @@ import com.ido.ble.protocol.model.ActivitySwitch;
 import com.ido.ble.protocol.model.AlarmV3;
 import com.ido.ble.protocol.model.AllHealthMonitorSwitch;
 import com.ido.ble.protocol.model.CalorieAndDistanceGoal;
+import com.ido.ble.protocol.model.DeviceBeepInfo;
 import com.ido.ble.protocol.model.DeviceUpgradeState;
 import com.ido.ble.protocol.model.FirmwareAndBt3Version;
 import com.ido.ble.protocol.model.BtA2dpHfpStatus;
@@ -138,6 +139,11 @@ public class ShowAlarmsV3Activity extends BaseAutoConnectActivity {
 
         @Override
         public void onGetContactReceiveTime(boolean needToSendContact) {
+
+        }
+
+        @Override
+        public void onGetDeviceBeepInfo(DeviceBeepInfo deviceBeepInfo) {
 
         }
     };

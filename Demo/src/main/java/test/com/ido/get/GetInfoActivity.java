@@ -25,6 +25,7 @@ import com.ido.ble.protocol.model.BasicInfo;
 import com.ido.ble.protocol.model.BatteryInfo;
 import com.ido.ble.protocol.model.CalorieAndDistanceGoal;
 import com.ido.ble.protocol.model.CanDownLangInfo;
+import com.ido.ble.protocol.model.DeviceBeepInfo;
 import com.ido.ble.protocol.model.DeviceChangedPara;
 import com.ido.ble.protocol.model.DeviceSummarySoftVersionInfo;
 import com.ido.ble.protocol.model.DeviceUpgradeState;
@@ -208,6 +209,11 @@ public class GetInfoActivity extends BaseAutoConnectActivity {
 
         @Override
         public void onGetContactReceiveTime(boolean needToSendContact) {
+
+        }
+
+        @Override
+        public void onGetDeviceBeepInfo(DeviceBeepInfo deviceBeepInfo) {
 
         }
     };

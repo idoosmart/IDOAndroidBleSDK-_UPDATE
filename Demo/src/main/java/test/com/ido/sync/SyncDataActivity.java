@@ -18,6 +18,7 @@ import com.ido.ble.data.manage.database.HealthBloodPressedItem;
 import com.ido.ble.data.manage.database.HealthBloodPressureV3;
 import com.ido.ble.data.manage.database.HealthBodyPower;
 import com.ido.ble.data.manage.database.HealthGpsV3;
+import com.ido.ble.data.manage.database.HealthHRVdata;
 import com.ido.ble.data.manage.database.HealthHeartRate;
 import com.ido.ble.data.manage.database.HealthHeartRateItem;
 import com.ido.ble.data.manage.database.HealthHeartRateSecond;
@@ -166,6 +167,11 @@ public class SyncDataActivity extends BaseAutoConnectActivity {
 
             @Override
             public void onGetHealthBodyPower(HealthBodyPower healthBodyPower) {
+
+            }
+
+            @Override
+            public void onGetHealthHRV(HealthHRVdata healthHRVdata) {
 
             }
         };

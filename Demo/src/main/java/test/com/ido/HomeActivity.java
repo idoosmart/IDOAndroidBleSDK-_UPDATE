@@ -17,9 +17,11 @@ import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.connect.ConnectManageActivity;
 import test.com.ido.device2app.DeviceControlAppActivity;
 import test.com.ido.dfu.MainUpgradeActivity;
+import test.com.ido.dial.DialActivity;
 import test.com.ido.exgdata.ExchangeDataMainActivity;
 import test.com.ido.file.transfer.BTTransferActivity;
 import test.com.ido.file.transfer.FileTransferActivity;
+import test.com.ido.file.transfer.IconTransferActivity;
 import test.com.ido.file.transfer.MultLangTrainActivity;
 import test.com.ido.get.GetInfoActivity;
 import test.com.ido.gps.GpsMainActivity;
@@ -127,5 +129,13 @@ public class HomeActivity extends BaseAutoConnectActivity {
        startActivity(new Intent(this, BTTransferActivity.class));
 
    }
+
+   public void btDial(View view){
+       startActivity(new Intent(this, DialActivity.class));
+   }
+
+    public void btIconTrans(View view) {
+        startActivity(new Intent(this, IconTransferActivity.class));
+    }
 
 }
