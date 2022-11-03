@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <EditText
+                android:id="@+id/etResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:minHeight="@dimen/size50dp"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btQuery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btQuery"
+                android:text="query" />
+
+            <EditText
+                android:id="@+id/et_delete_dial_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size20dp"
+                android:background="@color/black"
+                android:hint="input dial name (with .iwf)"
+                android:minHeight="@dimen/size50dp"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btDelete"
+                android:text="delete" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etDialPath"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/black"
+                    android:hint="input dial package path"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="btSelect"
+                    android:text="select" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_set_dial_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size2dp"
+                android:background="@color/black"
+                android:hint="input dial name (no .iwf)"
+                android:minHeight="@dimen/size50dp"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btSet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size5dp"
+                android:onClick="btSet"
+                android:text="set" />
+
+            <TextView
+                android:id="@+id/tvSetStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_color_text_gray" />
+
+            <EditText
+                android:id="@+id/et_switch_dial_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size20dp"
+                android:background="@color/black"
+                android:hint="input dial name (with .iwf)"
+                android:minHeight="@dimen/size50dp"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btSwitch"
+                android:text="switch" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
