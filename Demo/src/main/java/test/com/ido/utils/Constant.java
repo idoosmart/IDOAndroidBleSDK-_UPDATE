@@ -12,4 +12,5 @@ public class Constant {
     public static final String CRASH_PATH = APP_ROOT_PATH + "/crash/";
     public static final String LOG_OUTPUT_TOOL_PATH = APP_ROOT_PATH + "/tool/";
     public static final String TOOL_APK_NAME = "Logoutput-debug.apk";
+    public static final String PREFIX_MOTION_RESOURCE = "motion_";//运动类型资源前缀
 }

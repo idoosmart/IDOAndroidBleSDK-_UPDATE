@@ -33,6 +33,7 @@ public class DataUtils extends CommonPreferences {
     private static final String KEY_SAVE_FILE_PATH = "KEY_SAVE_FILE_PATH";
     private static final String KEY_SAVE_DIAL_FILE_PATH = "KEY_SAVE_DIAL_FILE_PATH";
     private static final String KEY_SAVE_DIAL_NAME = "KEY_SAVE_DIAL_NAME";
+    private static final String KEY_MOTION_TYPE_VERSION = "KEY_MOTION_TYPE_VERSION";
 
 
     public void init(Context context) {
@@ -144,5 +145,13 @@ public class DataUtils extends CommonPreferences {
 
     public void saveDialName(String path){
         setValue(KEY_SAVE_DIAL_NAME, path);
+    }
+
+    public int getMotionTypeVersion() {
+        return getValue(KEY_MOTION_TYPE_VERSION, 0);
+    }
+
+    public void saveMotionTypeVersion(int version) {
+        setValue(KEY_MOTION_TYPE_VERSION, version);
     }
 }

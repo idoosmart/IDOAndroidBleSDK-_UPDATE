@@ -28,11 +28,11 @@ public class IconTransferActivity extends BaseAutoConnectActivity {
         } else {
             btNoticeIconTrans.setVisibility(View.GONE);
         }
-//        if (func.V3_set_100_sport_sort) {
-//            btSportIconTrans.setVisibility(View.VISIBLE);
-//        } else {
-//            btSportIconTrans.setVisibility(View.GONE);
-//        }
+        if (func.V3_set_100_sport_sort) {
+            btSportIconTrans.setVisibility(View.VISIBLE);
+        } else {
+            btSportIconTrans.setVisibility(View.GONE);
+        }
 
     }
 
