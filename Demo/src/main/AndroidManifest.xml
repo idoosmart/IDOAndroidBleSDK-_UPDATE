@@ -43,7 +43,25 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" /> <!-- 判断相机是否 可以使用 如果不加以下配置 那么captureIntent.resolveActivity(context.getPackageManager())==null -->
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission" />
+        tools:ignore="QueryAllPackagesPermission" /> <!-- 判断相机是否 可以使用 如果不加以下配置 那么captureIntent.resolveActivity(context.getPackageManager())==null -->
+    <!--
+ <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE"/>
+        </intent>
+
+        <intent>
+            <action android:name="android.media.action.VIDEO_CAPTURE"/>
+        </intent>
+    </queries>
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
 
     <application
         android:name=".APP"
@@ -52,17 +70,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".file.transfer.SportIconTransferActivity"
+            android:name=".MusicManagerActivity"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
+        <activity
+            android:name=".file.transfer.SportIconTransferActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".file.transfer.NotificationIconTransferActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".file.transfer.IconTransferActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity android:name=".dial.DialActivity" />
         <activity
             android:name=".set.MusicFolderActivity"
@@ -258,29 +280,12 @@
         <activity android:name=".gps.BaiDuMapActivity" />
         <activity android:name=".gps.StaticMapActivity" />
         <activity android:name=".dfu.RTKDfuActivity" />
+        <activity android:name=".set.MusicManagerActivity" />
 
         <service
             android:name="com.realsil.sdk.dfu.DfuService"
             android:enabled="true"
             android:exported="false" />
     </application>
-
-    <!-- 判断相机是否 可以使用 如果不加以下配置 那么captureIntent.resolveActivity(context.getPackageManager())==null -->
-   <!-- <queries>
-        <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE"/>
-        </intent>
-
-        <intent>
-            <action android:name="android.media.action.VIDEO_CAPTURE"/>
-        </intent>
-    </queries>-->
-
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:mimeType="*/*" />
-        </intent>
-    </queries>
 
 </manifest>

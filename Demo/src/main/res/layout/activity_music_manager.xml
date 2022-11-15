@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".set.MusicManagerActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:minHeight="@dimen/size50dp"
+                android:textColor="@color/white" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:onClick="btQueryMusic"
+                android:text="查询歌曲信息" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size30dp"
+                android:layout_marginBottom="8dp"
+                android:text="歌单管理"
+                android:textColor="@color/base_color_text_gray" />
+
+            <EditText
+                android:id="@+id/etSheetName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size40dp"
+                android:background="@color/black"
+                android:hint="输入歌单名称"
+                android:textColor="@color/white" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btNewSheet"
+                android:text="新建歌单" />
+
+            <EditText
+                android:id="@+id/etSheetId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size40dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/black"
+                android:hint="输入歌单ID（查询结果中获取）"
+                android:inputType="number"
+                android:textColor="@color/white" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btDeleteSheet"
+                android:text="删除歌单" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size30dp"
+                android:layout_marginBottom="8dp"
+                android:text="歌曲管理"
+                android:textColor="@color/base_color_text_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etMusicPath"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btSelectMusicFile"
+                    android:background="@color/black"
+                    android:hint="请选择歌曲文件..."
+                    android:minHeight="@dimen/size40dp"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btSelectMusicFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/size10dp"
+                    android:onClick="btSelectMusicFile"
+                    android:text="选择" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/etMusicName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/size10dp"
+                android:layout_toLeftOf="@+id/cbAddMusic2Sheet"
+                android:background="@color/black"
+                android:hint="输入歌曲文件名称(后缀.mp3)"
+                android:minHeight="@dimen/size40dp"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <CheckBox
+                    android:id="@+id/cbAddMusic2Sheet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="加入歌单" />
+
+                <Spinner
+                    android:id="@+id/sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minWidth="100dp"
+                    android:tooltipText="选择歌单" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btAddMusic"
+                android:text="添加歌曲" />
+
+            <EditText
+                android:id="@+id/etMusicId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size40dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/black"
+                android:hint="输入歌曲ID（查询结果中获取）"
+                android:inputType="number"
+                android:textColor="@color/white" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btDeleteMusic"
+                android:text="删除歌曲" />
+
+
+            <EditText
+                android:id="@+id/etAddMusicId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size40dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/black"
+                android:hint="输入歌曲ID（查询结果中获取）"
+                android:inputType="number"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/etAddSheetId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size40dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/black"
+                android:hint="输入歌单ID（查询结果中获取）"
+                android:inputType="number"
+                android:textColor="@color/white" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btAddMusic2Folder"
+                android:text="歌曲添加到歌单" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

@@ -30,6 +30,7 @@ import test.com.ido.logoutput.bluetooth.BluetoothLogoutManager;
 import test.com.ido.notice.PhoneNoticeActivity;
 import test.com.ido.set.MainSetActivity;
 import test.com.ido.set.MusicFolderActivity;
+import test.com.ido.set.MusicManagerActivity;
 import test.com.ido.set.WatchPlateActivity;
 import test.com.ido.sync.SyncDataActivity;
 import test.com.ido.unbind.UnbindActivity;
@@ -122,7 +123,7 @@ public class HomeActivity extends BaseAutoConnectActivity {
 
 
     public void musicTrans(View view){
-        startActivity(new Intent(this, MusicFolderActivity.class));
+        startActivity(new Intent(this, MusicManagerActivity.class));
     }
 
    public void btUpgrade(View view){
