@@ -344,5 +344,34 @@
 
     <string name="sport_time">sport time:%s</string>
 
-
+    <string name="shortcut_app_add_app_title">Add applications</string>
+    <string name="shortcut_app_title">Tiles</string>
+    <string name="shortcut_app_health_title">Health</string>
+    <string name="shortcut_app_tricyclic">Fitness</string>
+    <string name="shortcut_app_heart_rate">HR</string>
+    <string name="shortcut_app_steps">Steps</string>
+    <string name="shortcut_app_spressure">Stress</string>
+    <string name="shortcut_app_noise">Ambient sound level</string>
+    <string name="shortcut_app_body_temperature">Body temperature</string>
+    <string name="shortcut_app_blood_oxygen">SpO2</string>
+    <string name="shortcut_app_sleep">Sleep</string>
+    <string name="shortcut_app_sports">Exercise</string>
+    <string name="shortcut_app_tools_title">Tools</string>
+    <string name="shortcut_app_timer">Timer</string>
+    <string name="shortcut_app_battery_power">Battery level</string>
+    <string name="shortcut_app_weather">Weather</string>
+    <string name="shortcut_app_alarm_clock">Alarm Clock</string>
+    <string name="shortcut_app_reminders">Event reminder</string>
+    <string name="shortcut_app_music">Music Control</string>
+    <string name="shortcut_app_phone">Calls</string>
+    <string name="shortcut_app_Alexa">Alexa</string>
+    <string name="shortcut_app_world_time">World time</string>
+    <string name="shortcut_app_contact">Contacts</string>
+    <string name="shortcut_app_current_location">Current location</string>
+    <string name="shortcut_app_today">Today</string>
+    <string name="shortcut_app_remind_content">Go for a run on Wednesday afternoon</string>
+    <string name="shortcut_app_remind_time">Mon 10:00</string>
+    <string name="shortcut_app_heart_rate_unit">bpm</string>
+    <string name="shortcut_app_alexa_content">Hello</string>
+    <string name="home_steps_tittle">Steps</string>
 </resources>

@@ -345,5 +345,34 @@
     <string name="local_data_last_n_week">上N周</string>
 
     <string name="sport_time">运动时间:%s</string>
-
+    <string name="shortcut_app_add_app_title">添加应用</string>
+    <string name="shortcut_app_title">快捷应用</string>
+    <string name="shortcut_app_health_title">健康</string>
+    <string name="shortcut_app_tricyclic">健身</string>
+    <string name="shortcut_app_heart_rate">心率</string>
+    <string name="shortcut_app_steps">步数</string>
+    <string name="shortcut_app_spressure">压力</string>
+    <string name="shortcut_app_noise">环境音量</string>
+    <string name="shortcut_app_body_temperature">体温</string>
+    <string name="shortcut_app_blood_oxygen">血氧</string>
+    <string name="shortcut_app_sleep">睡眠</string>
+    <string name="shortcut_app_sports">运动</string>
+    <string name="shortcut_app_tools_title">工具</string>
+    <string name="shortcut_app_timer">计时器</string>
+    <string name="shortcut_app_battery_power">电量</string>
+    <string name="shortcut_app_weather">天气</string>
+    <string name="shortcut_app_alarm_clock">闹钟</string>
+    <string name="shortcut_app_reminders">提醒事项</string>
+    <string name="shortcut_app_music">音乐控制</string>
+    <string name="shortcut_app_phone">电话</string>
+    <string name="shortcut_app_Alexa">Alexa</string>
+    <string name="shortcut_app_world_time">世界时间</string>
+    <string name="shortcut_app_contact">联系人</string>
+    <string name="shortcut_app_current_location">当前位置</string>
+    <string name="shortcut_app_today">今天</string>
+    <string name="shortcut_app_remind_content">周三下午去跑步</string>
+    <string name="shortcut_app_remind_time">周一 10:00</string>
+    <string name="shortcut_app_heart_rate_unit">次/分钟</string>
+    <string name="shortcut_app_alexa_content">你好</string>
+    <string name="home_steps_tittle">步数</string>
 </resources>

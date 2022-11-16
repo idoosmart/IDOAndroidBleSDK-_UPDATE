@@ -70,6 +70,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".WidgetsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MusicManagerActivity"
             android:exported="false">
             <meta-data
@@ -78,13 +85,13 @@
         </activity>
         <activity
             android:name=".file.transfer.SportIconTransferActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".file.transfer.NotificationIconTransferActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".file.transfer.IconTransferActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity android:name=".dial.DialActivity" />
         <activity
             android:name=".set.MusicFolderActivity"
@@ -281,6 +288,7 @@
         <activity android:name=".gps.StaticMapActivity" />
         <activity android:name=".dfu.RTKDfuActivity" />
         <activity android:name=".set.MusicManagerActivity" />
+        <activity android:name=".widgets.WidgetsActivity" />
 
         <service
             android:name="com.realsil.sdk.dfu.DfuService"

@@ -34,6 +34,7 @@ import test.com.ido.set.MusicManagerActivity;
 import test.com.ido.set.WatchPlateActivity;
 import test.com.ido.sync.SyncDataActivity;
 import test.com.ido.unbind.UnbindActivity;
+import test.com.ido.widgets.WidgetsActivity;
 
 public class HomeActivity extends BaseAutoConnectActivity {
 
@@ -137,6 +138,10 @@ public class HomeActivity extends BaseAutoConnectActivity {
 
     public void btIconTrans(View view) {
         startActivity(new Intent(this, IconTransferActivity.class));
+    }
+
+    public void btMiniWidgets(View view) {
+        startActivity(new Intent(this, WidgetsActivity.class));
     }
 
 }

@@ -16,94 +16,99 @@
             android:id="@+id/home_btn_connect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_connect_manage"
             android:onClick="connectManage"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
+            android:text="@string/home_connect_manage"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <Button
             android:id="@+id/home_btn_unbind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_unbind"
             android:onClick="unbind"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
+            android:text="@string/home_unbind"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <Button
             android:id="@+id/home_btn_sync_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_sync_data"
             android:onClick="syncData"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
+            android:text="@string/home_sync_data"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
 
         <Button
             android:id="@+id/home_btn_get_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_get_info"
             android:onClick="getInfo"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
+            android:text="@string/home_get_info"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
+
         <Button
             android:id="@+id/home_btn_set_para"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_set_para"
             android:onClick="setPara"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="watchPlate"
-            android:onClick="watchPlate"/>
+            android:text="@string/home_set_para"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/device_upgrade"
-            android:onClick="upgrade"/>
+            android:onClick="watchPlate"
+            android:text="watchPlate" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="upgrade"
+            android:text="@string/device_upgrade" />
+
         <Button
             android:id="@+id/home_btn_app_exchange_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/exchange_data"
-            android:onClick="exchangeData"/>
+            android:onClick="exchangeData"
+            android:text="@string/exchange_data" />
+
         <Button
             android:id="@+id/home_btn_notice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_notice"
             android:onClick="notice"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="8dp" />
+            android:text="@string/home_notice"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GPS"
-            android:onClick="gps"/>
+            android:onClick="gps"
+            android:text="GPS" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="fileTransfer"
-            android:onClick="fileTransfer"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="langauge"
-            android:onClick="multLangTrain"/>
+            android:onClick="fileTransfer"
+            android:text="fileTransfer" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="music trans"
-            android:onClick="musicTrans"/>
+            android:onClick="multLangTrain"
+            android:text="langauge" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="musicTrans"
+            android:text="music trans" />
 
         <Button
             android:layout_width="match_parent"
@@ -122,6 +127,12 @@
             android:layout_height="wrap_content"
             android:onClick="btIconTrans"
             android:text="Icon Transfer" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btMiniWidgets"
+            android:text="小组件" />
     </LinearLayout>
 
 </ScrollView>
