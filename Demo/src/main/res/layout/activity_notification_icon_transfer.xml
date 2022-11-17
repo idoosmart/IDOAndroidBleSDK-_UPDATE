@@ -37,42 +37,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
-                android:textColor="@color/white"
-                android:hint="输入消息"
-                android:minHeight="@dimen/size50dp" />
+                android:hint="@string/notice_input"
+                android:minHeight="@dimen/size50dp"
+                android:textColor="@color/white" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size5dp"
                 android:onClick="btSendMsg"
-                android:text="模拟通知发送" />
+                android:text="@string/notice_mock" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:onClick="btPermitNotification"
-                android:text="允许通知" />
+                android:text="@string/notice_permit_1" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="btSilenceNotification"
-                android:text="静默通知" />
+                android:text="@string/notice_silence_1" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="btCloseNotification"
-                android:text="关闭通知" />
+                android:text="@string/notice_close_1" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size20dp"
                 android:onClick="btClose"
-                android:text="关闭" />
+                android:text="@string/notice_close" />
         </LinearLayout>
     </FrameLayout>
 

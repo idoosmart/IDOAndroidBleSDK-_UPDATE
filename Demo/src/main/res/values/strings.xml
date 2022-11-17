@@ -423,4 +423,13 @@
     <string name="music_tips_new_sheet_first">Please create playlist first！</string>
     <string name="music_tips_music_not_exist">song does not exist！</string>
     <string name="music_tips_music_exist_in_sheet">The song already exists in the playlist！</string>
+
+    <string name="notice_permit">allow</string>
+    <string name="notice_silence">silence</string>
+    <string name="notice_close">closure</string>
+    <string name="notice_input">enter message</string>
+    <string name="notice_mock">Simulate notification sending</string>
+    <string name="notice_permit_1">Allow notifications</string>
+    <string name="notice_silence_1">silent notification</string>
+    <string name="notice_close_1">close notification</string>
 </resources>

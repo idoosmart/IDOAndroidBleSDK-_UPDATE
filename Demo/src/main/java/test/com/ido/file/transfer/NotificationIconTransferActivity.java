@@ -3,17 +3,11 @@ package test.com.ido.file.transfer;
 import static android.content.pm.ApplicationInfo.FLAG_SYSTEM;
 import static android.content.pm.ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
 
-import static com.veryfit.multi.nativeprotocol.b.v;
 
-
-import android.app.Notification;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,8 +15,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -43,10 +35,8 @@ import com.ido.ble.callback.OperateCallBack;
 import com.ido.ble.icon.transfer.IIconTransferListener;
 import com.ido.ble.icon.transfer.IconTranConfig;
 import com.ido.ble.protocol.model.CanDownLangInfoV3;
-import com.ido.ble.protocol.model.DeviceChangedPara;
 import com.ido.ble.protocol.model.MessageNotifyState;
 import com.ido.ble.protocol.model.MessageNotifyStateCmdParaWrapper;
-import com.ido.ble.protocol.model.NewMessageInfo;
 import com.ido.ble.protocol.model.NotificationPara;
 import com.ido.ble.protocol.model.NotifyType;
 
@@ -62,7 +52,6 @@ import test.com.ido.R;
 import test.com.ido.utils.BitmapUtil;
 import test.com.ido.utils.ExecutorDispatcher;
 import test.com.ido.connect.BaseAutoConnectActivity;
-import test.com.ido.utils.ViewHolder;
 
 public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
     private static String TAG = "NotificationIconTransfer";
@@ -555,7 +544,7 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
             TranIconBean data = apps.get(position);
             holder.ivIcon.setImageDrawable(data.icon);
             holder.tvName.setText(data.appName);
-            holder.tvStatus.setText(data.status == NotifyType.ALLOW ? "允许" : data.status == NotifyType.SLIENT ? "静默" : "关闭");
+            holder.tvStatus.setText(data.status == NotifyType.ALLOW ? R.string.notice_permit : data.status == NotifyType.SLIENT ? R.string.notice_silence : R.string.notice_close);
             return convertView;
         }
     }
