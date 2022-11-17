@@ -347,4 +347,7 @@ public class BaseAutoConnectActivity extends Activity {
     protected void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+    protected void showToast(int msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }

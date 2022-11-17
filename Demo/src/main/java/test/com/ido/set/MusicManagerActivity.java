@@ -84,10 +84,10 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
         cbAddMusic2Sheet.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 if (musicAndFolderInfo == null) {
-                    showToast("请先点击”查询歌曲信息“");
+                    showToast(R.string.music_tips_query_first);
                     cbAddMusic2Sheet.setChecked(false);
                 } else if (musicAndFolderInfo.folder_num == 0) {
-                    showToast("您还没有创建歌单");
+                    showToast(R.string.music_tips_no_sheet);
                     cbAddMusic2Sheet.setChecked(false);
                 }
             }
@@ -121,13 +121,13 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
 
         @Override
         public void onDeleteMusic(OperateCallBack.OperateType operateType, boolean b) {
-            showToast(b ? "歌曲删除成功！" : "歌曲删除失败！");
+            showToast(b ? R.string.music_tips_delete_success : R.string.music_tips_delete_failed);
             refresh();
         }
 
         @Override
         public void onAddMusic(OperateCallBack.OperateType operateType, boolean b, int i) {
-            showToast(b && i > 0 ? "歌曲添加成功！" : "歌曲添加失败！");
+            showToast(b && i > 0 ? R.string.music_tips_add_success : R.string.music_tips_add_failed);
             if (b && i > 0) {
 //            BLEManager.queryMusicAndFolderInfo();
                 musicId = i;
@@ -139,31 +139,31 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
 
         @Override
         public void onDeleteFolder(OperateCallBack.OperateType operateType, boolean b) {
-            showToast(b ? "歌单删除成功！" : "歌单删除失败！");
+            showToast(b ? R.string.music_tips_delete_sheet_success : R.string.music_tips_delete_sheet_failed);
             refresh();
         }
 
         @Override
         public void onAddFolder(OperateCallBack.OperateType operateType, boolean b) {
-            showToast(b ? "歌单创建成功！" : "歌单创建失败！");
+            showToast(b ? R.string.music_tips_new_sheet_success : R.string.music_tips_new_sheet_failed);
             refresh();
         }
 
         @Override
         public void onModifyFolder(OperateCallBack.OperateType operateType, boolean b) {
-            showToast(b ? "歌单编辑成功！" : "歌单编辑失败！");
+            showToast(b ? R.string.music_tips_edit_sheet_success : R.string.music_tips_edit_sheet_failed);
             refresh();
         }
 
         @Override
         public void onImportFolder(OperateCallBack.OperateType operateType, boolean b) {
-            showToast(b ? "歌曲导入成功！" : "歌曲导入失败！");
+            showToast(b ? R.string.music_tips_import_success : R.string.music_tips_import_failed);
             refresh();
         }
 
         @Override
         public void onDeleteFolderMusic(OperateCallBack.OperateType operateType, boolean b) {
-            showToast(b ? "删除成功！" : "删除失败！");
+            showToast(b ? R.string.music_tips_delete_sheet_music_success : R.string.music_tips_delete_sheet_music_failed);
             refresh();
         }
     };
@@ -198,11 +198,11 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
     private void transferMusicFile() {
         Log.d(TAG, "transferMusicFile, musicPath = " + musicPath + ", musicName = " + musicName);
         if (TextUtils.isEmpty(musicPath) || TextUtils.isEmpty(musicName)) {
-            showToast("传输歌曲信息为空!");
+            showToast(R.string.music_tips_empty_music);
             closeProgressDialog();
             return;
         }
-        progressDialog.setTitle("正在传输歌曲...");
+        progressDialog.setTitle(R.string.music_tips_tranferring);
         SPPFileTransferConfig config = SPPFileTransferConfig.getDefaultMusicFileConfig(musicPath, new IFileTransferListener() {
             @Override
             public void onStart() {
@@ -213,14 +213,14 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
             public void onProgress(int i) {
                 Log.d(TAG, "transferMusicFile onProgress: " + i);
                 if (!progressDialog.isShowing()) {
-                    showProgressDialog("正在传输歌曲...");
+                    showProgressDialog(getResources().getString(R.string.music_tips_tranferring));
                 }
             }
 
             @Override
             public void onSuccess() {
                 Log.d(TAG, "transferMusicFile onSuccess");
-                showToast("歌曲文件传输完成！");
+                showToast(R.string.music_tips_tranfer_success);
                 Log.d(TAG, "isChecked = " + cbAddMusic2Sheet.isChecked() + ", musicId = " + musicId + ", musicAndFolderInfo = " + musicAndFolderInfo + ", selectMusicFolderPosition = " + selectMusicFolderPosition);
                 //添加歌曲到歌单
                 if (cbAddMusic2Sheet.isChecked() && musicId > 0 && musicAndFolderInfo != null && musicAndFolderInfo.folder_num > 0 && selectMusicFolderPosition >= 0) {
@@ -240,7 +240,7 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
             @Override
             public void onFailed(String s) {
                 Log.d(TAG, "transferMusicFile onFailed: " + s);
-                showToast("歌曲文件传输失败，请确认BT蓝牙是否连接正常！");
+                showToast(R.string.music_tips_tranfer_failed);
                 refresh();
             }
         });
@@ -256,7 +256,7 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
     public void btNewSheet(View view) {
         String name = etSheetName.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            showToast("请输入歌单名称");
+            showToast(R.string.music_tips_input_sheet_name);
             etSheetName.requestFocus();
             return;
         }
@@ -281,17 +281,17 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
     public void btDeleteSheet(View view) {
         String id = etSheetId.getText().toString().trim();
         if (TextUtils.isEmpty(id)) {
-            showToast("请输入歌单ID");
+            showToast(R.string.music_tips_input_sheet_id);
             etSheetId.requestFocus();
             return;
         } else if (!TextUtils.isDigitsOnly(id)) {
-            showToast("歌单ID只能是数字，参考歌曲信息！");
+            showToast(R.string.music_tips_error_sheet_id);
             etSheetId.requestFocus();
             return;
         }
 
         if (musicAndFolderInfo == null) {
-            showToast("请先查下歌曲信息！");
+            showToast(R.string.music_tips_query_first);
             return;
         }
         boolean exist = false;
@@ -306,7 +306,7 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
             }
         }
         if (!exist) {
-            showToast("歌单不存在！");
+            showToast(R.string.music_tips_sheet_not_exist);
             return;
         }
         MusicOperate.MusicFolder folder = new MusicOperate.MusicFolder();
@@ -323,25 +323,25 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
     public void btAddMusic(View view) {
         String path = etMusicPath.getText().toString().trim();
         if (TextUtils.isEmpty(path)) {
-            showToast("请选择歌曲文件");
+            showToast(R.string.music_tips_select_file_first);
             etMusicPath.requestFocus();
             return;
         }
 
         String name = etMusicName.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            showToast("请输入歌曲名称");
+            showToast(R.string.music_tips_input_music_name);
             etMusicName.requestFocus();
             return;
         } else if (!name.toLowerCase(Locale.ROOT).endsWith(".mp3")) {
-            showToast("歌曲文件只支持MP3");
+            showToast(R.string.music_tips_only_mp3);
             etMusicName.requestFocus();
             return;
         }
 
         File file = new File(path);
         if (!file.exists()) {
-            showToast("歌曲文件不存在！");
+            showToast(R.string.music_tips_file_not_exist);
             return;
         }
         musicPath = path;
@@ -357,11 +357,11 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
     public void btDeleteMusic(View view) {
         String id = etMusicId.getText().toString().trim();
         if (TextUtils.isEmpty(id)) {
-            showToast("请输入歌曲ID");
+            showToast(R.string.music_tips_input_music_id);
             etMusicId.requestFocus();
             return;
         } else if (!TextUtils.isDigitsOnly(id)) {
-            showToast("歌曲ID只能是数字，参考歌曲信息！");
+            showToast(R.string.music_tips_musid_id_only_digst);
             etMusicId.requestFocus();
             return;
         }
@@ -373,32 +373,32 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
 
     public void btAddMusic2Folder(View view) {
         if (musicAndFolderInfo.folder_num == 0) {
-            showToast("请先创建歌单！");
+            showToast(R.string.music_tips_new_sheet_first);
             return;
         }
         String musicId = etAddMusicId.getText().toString().trim();
         if (TextUtils.isEmpty(musicId)) {
-            showToast("请输入歌曲ID");
+            showToast(R.string.music_tips_input_music_id);
             etAddMusicId.requestFocus();
             return;
         } else if (!TextUtils.isDigitsOnly(musicId)) {
-            showToast("歌曲ID只能是数字，参考歌曲信息！");
+            showToast(R.string.music_tips_musid_id_only_digst);
             etAddMusicId.requestFocus();
             return;
         }
 
         String folderId = etAddSheetId.getText().toString().trim();
         if (TextUtils.isEmpty(folderId)) {
-            showToast("请输入歌单ID");
+            showToast(R.string.music_tips_input_sheet_id);
             etAddSheetId.requestFocus();
             return;
         } else if (!TextUtils.isDigitsOnly(folderId)) {
-            showToast("歌单ID只能是数字，参考歌曲信息！");
+            showToast(R.string.music_tips_error_sheet_id);
             etAddSheetId.requestFocus();
             return;
         }
         if (musicAndFolderInfo == null) {
-            showToast("请先查下歌曲信息！");
+            showToast(R.string.music_tips_query_first);
             return;
         }
 
@@ -413,12 +413,12 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
         }
 
         if (selectedFolder == null) {
-            showToast("歌单不存在！");
+            showToast(R.string.music_tips_sheet_not_exist);
             return;
         }
 
         if (musicAndFolderInfo.music_num == 0) {
-            showToast("歌曲不存在！");
+            showToast(R.string.music_tips_music_not_exist);
             return;
         }
         MusicOperate.MusicFile music = null;
@@ -432,7 +432,7 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
         }
 
         if (music == null) {
-            showToast("歌曲不存在！");
+            showToast(R.string.music_tips_music_not_exist);
             return;
         }
 
@@ -441,7 +441,7 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
         }
 
         if (selectedFolder.music_index.contains(music.music_id)) {
-            showToast("歌单中已存在该歌曲！");
+            showToast(R.string.music_tips_music_exist_in_sheet);
             return;
         }
         selectedFolder.music_num++;
