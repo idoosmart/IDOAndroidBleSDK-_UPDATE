@@ -33,7 +33,6 @@ import java.lang.reflect.Method;
 import test.com.ido.R;
 import test.com.ido.dfu.MainDfuActivity;
 import test.com.ido.logoutput.LogOutput;
-import test.com.ido.set.MusicManagerActivity;
 import test.com.ido.utils.FileUtilLib;
 import test.com.ido.utils.HidConncetUtil;
 

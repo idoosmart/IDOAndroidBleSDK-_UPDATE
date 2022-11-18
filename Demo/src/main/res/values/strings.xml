@@ -424,6 +424,21 @@
     <string name="music_tips_music_not_exist">song does not exist！</string>
     <string name="music_tips_music_exist_in_sheet">The song already exists in the playlist！</string>
 
+    <string name="music_control">音乐控制</string>
+    <string name="music_manager">设备音乐管理</string>
+    <string name="music_control_switch_title">音乐控制开关：</string>
+    <string name="music_control_listener">下发音乐信息：</string>
+    <string name="music_control_tips">提示</string>
+    <string name="music_control_msg">监听媒体播放数据需要开启【%s】的【通知使用权】，去开启？</string>
+    <string name="music_player">当前播放器列表：</string>
+    <string name="music_pre">上一曲</string>
+    <string name="music_pause">暂停</string>
+    <string name="music_next">下一曲</string>
+    <string name="music_play">播放</string>
+    <string name="music_buffering">缓冲中...</string>
+
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
     <string name="notice_permit">allow</string>
     <string name="notice_silence">silence</string>
     <string name="notice_close">closure</string>
@@ -432,4 +447,5 @@
     <string name="notice_permit_1">Allow notifications</string>
     <string name="notice_silence_1">silent notification</string>
     <string name="notice_close_1">close notification</string>
+
 </resources>

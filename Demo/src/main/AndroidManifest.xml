@@ -69,20 +69,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".WidgetsActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MusicManagerActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
+        <service
+            android:name=".music.MusicService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter android:priority="1000">
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".file.transfer.SportIconTransferActivity"
             android:exported="false" />
@@ -287,8 +284,10 @@
         <activity android:name=".gps.BaiDuMapActivity" />
         <activity android:name=".gps.StaticMapActivity" />
         <activity android:name=".dfu.RTKDfuActivity" />
-        <activity android:name=".set.MusicManagerActivity" />
+        <activity android:name=".music.MusicManagerActivity" />
         <activity android:name=".widgets.WidgetsActivity" />
+        <activity android:name=".music.MusicActivity" />
+        <activity android:name=".music.MusicControlActivity" />
 
         <service
             android:name="com.realsil.sdk.dfu.DfuService"

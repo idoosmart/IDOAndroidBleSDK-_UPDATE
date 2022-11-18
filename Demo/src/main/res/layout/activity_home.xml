@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="musicTrans"
-            android:text="music trans" />
+            android:text="music" />
 
         <Button
             android:layout_width="match_parent"

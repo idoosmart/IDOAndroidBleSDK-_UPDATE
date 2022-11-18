@@ -36,6 +36,7 @@ public class DataUtils extends CommonPreferences {
     private static final String KEY_SAVE_MUSIC_NAME = "KEY_SAVE_MUSIC_NAME";
     private static final String KEY_SAVE_MUSIC_PATH = "KEY_SAVE_MUSIC_PATH";
     private static final String KEY_MOTION_TYPE_VERSION = "KEY_MOTION_TYPE_VERSION";
+    private static final String KEY_SAVE_MUSIC_NAME_SWITCH = "KEY_SAVE_MUSIC_NAME_SWITCH";
 
 
     public void init(Context context) {
@@ -171,5 +172,13 @@ public class DataUtils extends CommonPreferences {
 
     public void saveMotionTypeVersion(int version) {
         setValue(KEY_MOTION_TYPE_VERSION, version);
+    }
+
+    public boolean getMusicNameSwitch() {
+        return getValue(KEY_SAVE_MUSIC_NAME_SWITCH, false);
+    }
+
+    public void saveMusicNameSwitch(boolean status) {
+        setValue(KEY_SAVE_MUSIC_NAME_SWITCH, status);
     }
 }

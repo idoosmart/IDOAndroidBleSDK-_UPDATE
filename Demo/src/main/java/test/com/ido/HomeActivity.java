@@ -8,14 +8,10 @@ import android.widget.Toast;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.callback.DeviceParaChangedCallBack;
-import com.ido.ble.callback.RebootCallback;
 import com.ido.ble.protocol.model.DeviceChangedPara;
 
-import test.com.ido.app2device.AppControlDeviceActivity;
-import test.com.ido.appsenddata.AppSendDataActivity;
 import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.connect.ConnectManageActivity;
-import test.com.ido.device2app.DeviceControlAppActivity;
 import test.com.ido.dfu.MainUpgradeActivity;
 import test.com.ido.dial.DialActivity;
 import test.com.ido.exgdata.ExchangeDataMainActivity;
@@ -25,12 +21,11 @@ import test.com.ido.file.transfer.IconTransferActivity;
 import test.com.ido.file.transfer.MultLangTrainActivity;
 import test.com.ido.get.GetInfoActivity;
 import test.com.ido.gps.GpsMainActivity;
-import test.com.ido.localdata.MainLocalDataActivity;
 import test.com.ido.logoutput.bluetooth.BluetoothLogoutManager;
+import test.com.ido.music.MusicActivity;
 import test.com.ido.notice.PhoneNoticeActivity;
 import test.com.ido.set.MainSetActivity;
-import test.com.ido.set.MusicFolderActivity;
-import test.com.ido.set.MusicManagerActivity;
+import test.com.ido.music.MusicManagerActivity;
 import test.com.ido.set.WatchPlateActivity;
 import test.com.ido.sync.SyncDataActivity;
 import test.com.ido.unbind.UnbindActivity;
@@ -124,7 +119,7 @@ public class HomeActivity extends BaseAutoConnectActivity {
 
 
     public void musicTrans(View view){
-        startActivity(new Intent(this, MusicManagerActivity.class));
+        startActivity(new Intent(this, MusicActivity.class));
     }
 
    public void btUpgrade(View view){

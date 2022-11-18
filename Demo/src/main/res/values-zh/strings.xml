@@ -425,6 +425,9 @@
     <string name="music_tips_music_not_exist">歌曲不存在！</string>
     <string name="music_tips_music_exist_in_sheet">歌单中已存在该歌曲！</string>
 
+    <string name="music_control">音乐控制</string>
+    <string name="music_manager">设备音乐管理</string>
+
     <string name="notice_permit">允许</string>
     <string name="notice_silence">静默</string>
     <string name="notice_close">关闭</string>

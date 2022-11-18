@@ -1,4 +1,4 @@
-package test.com.ido.set;
+package test.com.ido.music;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,10 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.callback.OperateCallBack;
@@ -32,7 +30,6 @@ import test.com.ido.utils.DataUtils;
 import test.com.ido.utils.FileUtil;
 import test.com.ido.utils.GetFilePathFromUri;
 import test.com.ido.utils.GsonUtil;
-import test.com.ido.utils.MusicUtils;
 
 public class MusicManagerActivity extends BaseAutoConnectActivity {
     private static final String TAG = "MusicManagerActivity";
