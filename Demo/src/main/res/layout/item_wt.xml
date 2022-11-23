@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_wt_item"
+    android:padding="@dimen/size10dp">
+
+    <TextView
+        android:id="@+id/tvCountryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/driver_gray_color"
+        android:textSize="10sp"
+        tools:text="中国" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCountryName"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        tools:text="深圳" />
+
+    <TextView
+        android:id="@+id/tvSunrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tvName"
+        android:layout_marginStart="@dimen/size10dp"
+        android:layout_toEndOf="@+id/tvName"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tvLatLon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tvName"
+        android:layout_marginStart="@dimen/size20dp"
+        android:layout_toEndOf="@+id/tvSunrise"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        tools:text="111" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"
+        tools:text="19:00" />
+</RelativeLayout>

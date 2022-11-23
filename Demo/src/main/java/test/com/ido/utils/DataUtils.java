@@ -38,6 +38,8 @@ public class DataUtils extends CommonPreferences {
     private static final String KEY_MOTION_TYPE_VERSION = "KEY_MOTION_TYPE_VERSION";
     private static final String KEY_SAVE_MUSIC_NAME_SWITCH = "KEY_SAVE_MUSIC_NAME_SWITCH";
 
+    private static final String KEY_WORLD_TIME_LIST = "KEY_WORLD_TIME_LIST";
+
 
     public void init(Context context) {
         super.init(context, SP_NAME);
@@ -180,5 +182,17 @@ public class DataUtils extends CommonPreferences {
 
     public void saveMusicNameSwitch(boolean status) {
         setValue(KEY_SAVE_MUSIC_NAME_SWITCH, status);
+    }
+
+    public List<Integer> getWorldTimeList() {
+        String json = getValue(KEY_WORLD_TIME_LIST, "[]");
+        if (TextUtils.isEmpty(json)) {
+            return new ArrayList<>();
+        }
+        return GsonUtil.analysisJsonArrayToList(json, Integer[].class);
+    }
+
+    public void saveWorldTimeList(List<Integer> ids) {
+        setValue(KEY_WORLD_TIME_LIST, GsonUtil.toJson(ids));
     }
 }

@@ -2,6 +2,8 @@ package test.com.ido.utils;
 
 import android.content.Context;
 
+import test.com.ido.APP;
+
 /**
  * @author tianwei
  * @date 2022/11/3
@@ -9,16 +11,24 @@ import android.content.Context;
  * 用途:
  */
 public class ResUtils {
-    public static int getStringResId(Context context, String name) {
-        return context.getResources().getIdentifier(name, "string",
-                context.getPackageName());
+    public static int getStringResId(String name) {
+        return APP.getAppContext().getResources().getIdentifier(name, "string",
+                APP.getAppContext().getPackageName());
     }
 
-    public static int getResIdByName(Context context, String name, String type) {
-        return context.getResources().getIdentifier(name, type, context.getPackageName());
+    public static int getResIdByName(String name, String type) {
+        return APP.getAppContext().getResources().getIdentifier(name, type, APP.getAppContext().getPackageName());
     }
 
-    public static int getMipmapResId(Context context, String name) {
-        return getResIdByName(context, name, "mipmap");
+    public static int getMipmapResId(String name) {
+        return getResIdByName(name, "mipmap");
+    }
+
+    public static String getString(String name) {
+        return APP.getAppContext().getString(getStringResId(name));
+    }
+
+    public static String getString(int resId) {
+        return APP.getAppContext().getString(resId);
     }
 }

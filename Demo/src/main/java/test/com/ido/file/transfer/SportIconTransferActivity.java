@@ -552,8 +552,8 @@ public class SportIconTransferActivity extends BaseAutoConnectActivity {
         @Override
         public void onBindViewHolder(@NonNull VH holder, int position) {
             Sport100TypeItem sportType = list.get(position);
-            holder.ivIcon.setImageResource(ResUtils.getMipmapResId(SportIconTransferActivity.this, "motion_" + sportType.type));
-            holder.tvName.setText(ResUtils.getStringResId(SportIconTransferActivity.this, "motion_" + sportType.type));
+            holder.ivIcon.setImageResource(ResUtils.getMipmapResId("motion_" + sportType.type));
+            holder.tvName.setText(ResUtils.getStringResId( "motion_" + sportType.type));
             holder.ivAdded.setImageResource(added ? R.drawable.delete : R.drawable.add);
         }
 

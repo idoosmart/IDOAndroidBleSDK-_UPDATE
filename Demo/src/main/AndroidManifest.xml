@@ -69,6 +69,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".WorldTimeChooseActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".WorldTimeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <service
             android:name=".music.MusicService"
@@ -288,6 +302,8 @@
         <activity android:name=".widgets.WidgetsActivity" />
         <activity android:name=".music.MusicActivity" />
         <activity android:name=".music.MusicControlActivity" />
+        <activity android:name=".worldtime.WorldTimeActivity" />
+        <activity android:name=".worldtime.WorldTimeChooseActivity" />
 
         <service
             android:name="com.realsil.sdk.dfu.DfuService"

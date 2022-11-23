@@ -449,4 +449,33 @@
     <string name="notice_permit_1">允许通知</string>
     <string name="notice_silence_1">静默通知</string>
     <string name="notice_close_1">关闭通知</string>
+
+    <string name="widget_title">小组件</string>
+    <string name="public_time_today">今天</string>
+    <string name="public_time_yesterday">昨天</string>
+    <string name="public_time_monday">周一</string>
+    <string name="public_time_tuesday">周二</string>
+    <string name="public_time_wednesday">周三</string>
+    <string name="public_time_thursday">周四</string>
+    <string name="public_time_friday">周五</string>
+    <string name="public_time_saturday">周六</string>
+    <string name="public_time_sunday">周日</string>
+
+    <string name="world_time_title">世界时钟</string>
+    <string name="world_time_max_item">最多添加%1$s个世界时钟</string>
+    <string name="world_time_city_choose_title">选取城市</string>
+    <string name="world_time_time_diff">%1$s %2$s%3$d小时</string>
+    <string name="world_time_time_am">上午 %1$s:%2$s</string>
+    <string name="world_time_time_pm">下午 %1$s:%2$s</string>
+    <string name="world_time_date_week">%1$d/%2$d %3$s</string>
+    <string name="public_time_tomorrow">明天</string>
+    <string name="world_time_sun_rise">日出 %1$s</string>
+    <string name="world_time_sun_set">日落 %1$s</string>
+    <string name="public_delete_confirm_content">是否确认删除</string>
+    <string name="sync_to_device">同步到设备</string>
+    <string name="fertile_period">易孕期</string>
+    <string name="mens_record_desc">每个月持续记录经期，能够预测下次的经期</string>
+    <string name="wt_added_title">已添加的世界时钟：</string>
+    <string name="submit">提交</string>
+    <string name="select">选择</string>
 </resources>

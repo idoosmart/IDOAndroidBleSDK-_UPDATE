@@ -132,7 +132,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="btMiniWidgets"
-            android:text="小组件" />
+            android:text="@string/widget_title" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btWorldTime"
+            android:text="@string/world_time_title" />
     </LinearLayout>
 
 </ScrollView>

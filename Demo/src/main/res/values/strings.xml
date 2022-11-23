@@ -448,4 +448,37 @@
     <string name="notice_silence_1">silent notification</string>
     <string name="notice_close_1">close notification</string>
 
+    <string name="widget_title">Mini Widgets</string>
+
+    <string name="wt_added_title">已添加的世界时钟：</string>
+    <string name="world_time_time_am">%1$s:%2$s AM</string>
+    <string name="world_time_time_pm">%1$s:%2$s PM</string>
+    <string name="world_time_date_week">%1$d/%2$d %3$s</string>
+    <string name="public_time_monday">Monday</string>
+    <string name="public_time_tuesday">Tuesday</string>
+    <string name="public_time_wednesday">Wednesday</string>
+    <string name="public_time_thursday">Thursday</string>
+    <string name="public_time_friday">Friday</string>
+    <string name="public_time_saturday">Saturday</string>
+    <string name="public_time_sunday">Sunday</string>
+    <string name="public_time_today">Today</string>
+
+    <string name="wt_sunrise">日出：%1$s  日落：%1$s</string>
+    <string name="public_time_yesterday">Yesterday</string>
+    <string name="world_time_title">World clock</string>
+    <string name="world_time_max_item">Up to %1$s world clocks can be added</string>
+    <string name="world_time_min_item">Keep at least %1$s world clock</string>
+    <string name="world_time_city_choose_title">Select your city</string>
+    <string name="world_time_time_diff">%1$s %2$s%3$d hrs</string>
+    <string name="public_time_tomorrow">Tomorrow</string>
+    <string name="world_time_sun_rise">Sunrise %1$s</string>
+    <string name="world_time_sun_set">Sunset %1$s</string>
+    <string name="public_delete_confirm_content">Are you sure to delete?</string>
+    <string name="sync_to_device">Sync To Device</string>
+    <string name="fertile_period">Ovulation</string>
+    <string name="mens_record_desc">Continuously record your menstrual periods every month to predict your next one more accurately</string>
+    <string name="set_tip_success">设置成功</string>
+    <string name="set_tip_failed">设置失败</string>
+    <string name="submit">提交</string>
+    <string name="select">选择</string>
 </resources>

@@ -30,6 +30,7 @@ import test.com.ido.set.WatchPlateActivity;
 import test.com.ido.sync.SyncDataActivity;
 import test.com.ido.unbind.UnbindActivity;
 import test.com.ido.widgets.WidgetsActivity;
+import test.com.ido.worldtime.WorldTimeActivity;
 
 public class HomeActivity extends BaseAutoConnectActivity {
 
@@ -139,4 +140,7 @@ public class HomeActivity extends BaseAutoConnectActivity {
         startActivity(new Intent(this, WidgetsActivity.class));
     }
 
+    public void btWorldTime(View view) {
+        startActivity(new Intent(this, WorldTimeActivity.class));
+    }
 }
