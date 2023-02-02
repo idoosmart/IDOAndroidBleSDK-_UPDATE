@@ -455,6 +455,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //set
         WatchPlateSetConfig config = new WatchPlateSetConfig();
         config.filePath = cwDialDir + "zip/tmp.zip";
         config.uniqueID = "tmp.zip";
