@@ -111,6 +111,7 @@ public class BaseAutoConnectActivity extends Activity {
         public void onInitCompleted(String macAddress) {
 
             Toast.makeText(BaseAutoConnectActivity.this, "device init ok", Toast.LENGTH_SHORT).show();
+            BLEManager.getFunctionTables();
             initCompleted();
         }
 

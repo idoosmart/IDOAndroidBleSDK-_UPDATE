@@ -78,5 +78,20 @@ public class GsonUtil {
         }
         return gson.fromJson(json, clazz);
     }
+    /**
+     * @param gsonStr json字符串
+     * @param clazz   返回的类型
+     * @param <T>
+     * @return 解析错误返回null
+     */
+    public static <T> T fromJson(String gsonStr, Class<T> clazz) {
+        Gson gson = new Gson();
+        try {
+            return gson.fromJson(gsonStr, clazz);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
+    }
 }

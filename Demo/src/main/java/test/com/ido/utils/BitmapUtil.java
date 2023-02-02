@@ -1,15 +1,24 @@
 package test.com.ido.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.view.View;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * @author tianwei
@@ -18,6 +27,90 @@ import java.io.FileOutputStream;
  * 用途:
  */
 public class BitmapUtil {
+    // 压缩图片大小k
+    public static final int IMAGE_SIZE = 25;
+
+    /**
+     * bitmap写入到文件。
+     * <p>该方法适用于写入小文件，因为这是一次性的</p>
+     *
+     * @param file  文件实例
+     * @param image 写入图片
+     * @param file  文件实例
+     * @return file存在则删除，写入新的内容
+     */
+    public static void savePngBitmap(Bitmap image, File file, boolean isCompressBit) {
+        if (file.exists()) {
+            file.delete();
+        }
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(file);
+            if (isCompressBit) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                if (baos.toByteArray().length > IMAGE_SIZE * 2) {//图片小于50，不进行压缩。
+                    int options = 100;
+                    while (baos.toByteArray().length / 1024 > IMAGE_SIZE) { //图片很大，质量最低压倒40%。
+                        baos.reset();//重置baos即清空baos
+                        image.compress(Bitmap.CompressFormat.PNG, options, baos);
+                        options -= 10;
+                    }
+                }
+                ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+                Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
+                if (bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)) {
+                    out.flush();
+                    out.close();
+                }
+            } else {
+                if (image.compress(Bitmap.CompressFormat.PNG, 100, out)) {
+                    out.flush();
+                    out.close();
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    public static Bitmap view2BitmapBlackBg(final View view, int width, int height) {
+        if (view == null) return null;
+        Bitmap ret = Bitmap.createBitmap(width,
+                height,
+                Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(ret);
+        canvas.drawColor(Color.BLACK);
+        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        view.draw(canvas);
+        return ret;
+    }
+
+    public static Bitmap view2BitmapWithAlpha(final View view, int width, int height) {
+        if (view == null) return null;
+        Bitmap ret = Bitmap.createBitmap(width,
+                height,
+                Bitmap.Config.ARGB_8888);
+        ret.eraseColor(Color.argb(0, 0, 0, 0));
+        Canvas canvas = new Canvas(ret);
+        canvas.drawColor(Color.TRANSPARENT);
+        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
+        view.draw(canvas);
+        return ret;
+    }
+
     public static Bitmap drawableToBitmap(Drawable drawable) {
         if (drawable == null) return null;
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),

@@ -27,7 +27,73 @@ public class ZipUtils {
 
     private static final int BUFF_SIZE = 4 * 1024;
     private Zip zip;
+    
+    /**
+     * 解压Zip文件
+     *
+     * @param desPath 解压目的地目录
+     * @param zipFile zip文件名(包含去路径)
+     * @return true 表示解压成功,false 表示解压失败.
+     */
+    public static boolean unpackCopyZip(String desPath, String zipFile) {
+        if (!zipFile.endsWith(".zip")) {
+            return false;
+        }
+        File des = new File(desPath);
+        if (!des.exists()) {
+            des.mkdirs();
+        }
+        InputStream is = null;
+        ZipInputStream zis = null;
+        FileOutputStream fout = null;
+        try {
+            String filename;
+            is = new FileInputStream(zipFile);
+            zis = new ZipInputStream(new BufferedInputStream(is));
+            ZipEntry ze;
+            byte[] buffer = new byte[1024];
+            int count;
 
+            while ((ze = zis.getNextEntry()) != null) {
+                String zeName = ze.getName();
+                if (zeName.contains(File.separator)) {
+                    filename = zeName.substring(0, zeName.lastIndexOf(File.separator));
+                    File file = new File(desPath + File.separator + filename);
+                    if (!file.exists()) {
+                        file.mkdirs();
+                    }
+                } else {
+                    filename = zeName;
+                }
+
+                // Need to create directories if not exists, or
+                // it will generate an Exception...
+                if (ze.isDirectory()) {
+                    File fmd = new File(desPath + ze);
+                    fmd.mkdirs();
+                    continue;
+                }
+
+                fout = new FileOutputStream(desPath + zeName);
+
+                while ((count = zis.read(buffer)) != -1) {
+                    fout.write(buffer, 0, count);
+                }
+
+                fout.close();
+                zis.closeEntry();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            IOUtil.close(is);
+            IOUtil.close(zis);
+            IOUtil.close(fout);
+        }
+
+        return true;
+    }
     /**
      * 递归压缩文件夹
      *

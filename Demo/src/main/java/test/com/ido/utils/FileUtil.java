@@ -22,14 +22,20 @@ import androidx.core.content.FileProvider;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.nio.channels.FileChannel;
 import java.util.Locale;
 import java.util.Objects;
@@ -47,6 +53,227 @@ public class FileUtil {
 
 	private static final String TAG = "FileUtil";
 
+	public static String readStringFromFile(String path) {
+		File file = new File(path);
+		if (!file.exists()) {
+			return null;
+		}
+		try {
+			FileReader fileReader = new FileReader(file);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			StringBuilder stringBuilder = new StringBuilder();
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				stringBuilder.append(line);
+			}
+
+			bufferedReader.close();
+			return stringBuilder.toString();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static boolean writeStringToFile(String path, String data) {
+		boolean isSuccess = true;
+		File file = new File(path);
+		if (!file.exists()) {
+			try {
+				isSuccess = file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+				isSuccess = false;
+			}
+		}
+		if (isSuccess) {
+			try {
+				FileWriter writer = new FileWriter(path);
+				writer.write(data);
+				writer.flush();
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				isSuccess = false;
+			}
+		}
+
+		return isSuccess;
+	}
+
+	/**
+	 * 保存对象到文件中
+	 *
+	 * @param obj
+	 */
+	public static boolean writeObjectToFile(String path, Object obj) {
+		boolean isSuccess = true;
+		File file = new File(path);
+		if (!file.exists()) {
+			try {
+				isSuccess = file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+				isSuccess = false;
+			}
+		}
+		if (isSuccess) {
+			FileOutputStream out = null;
+			try {
+				out = new FileOutputStream(file);
+				ObjectOutputStream objOut = new ObjectOutputStream(out);
+				objOut.writeObject(obj);
+				objOut.flush();
+				objOut.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				isSuccess = false;
+			} finally {
+				closeStream(out);
+			}
+		}
+
+		return isSuccess;
+	}
+
+	public static void closeStream(Object stream) {
+		if (stream == null) {
+			return;
+		}
+		try {
+			if (stream instanceof Reader) {
+				((Reader) stream).close();
+			} else if (stream instanceof Writer) {
+				((Writer) stream).close();
+			} else if (stream instanceof InputStream) {
+				((InputStream) stream).close();
+			} else if (stream instanceof OutputStream) {
+				((OutputStream) stream).close();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 复制文件夹及其中的文件
+	 *
+	 * @param oldPath String 原文件夹路径 如：data/user/0/com.test/files
+	 * @param newPath String 复制后的路径 如：data/user/0/com.test/cache
+	 * @return <code>true</code> if and only if the directory and files were copied;
+	 * <code>false</code> otherwise
+	 */
+	public static boolean copyFolder(String oldPath, String newPath) {
+		try {
+			File newFile = new File(newPath);
+			if (!newFile.exists()) {
+				if (!newFile.mkdirs()) {
+					Log.e("--Method--", "copyFolder: cannot create directory.");
+					return false;
+				}
+			}
+			File oldFile = new File(oldPath);
+			String[] files = oldFile.list();
+			File temp;
+			for (String file : files) {
+				if (oldPath.endsWith(File.separator)) {
+					temp = new File(oldPath + file);
+				} else {
+					temp = new File(oldPath + File.separator + file);
+				}
+
+				if (temp.isDirectory()) {   //如果是子文件夹
+					copyFolder(oldPath + "/" + file, newPath + "/" + file);
+				} else if (!temp.exists()) {
+					Log.e("--Method--", "copyFolder:  oldFile not exist.");
+					return false;
+				} else if (!temp.isFile()) {
+					Log.e("--Method--", "copyFolder:  oldFile not file.");
+					return false;
+				} else if (!temp.canRead()) {
+					Log.e("--Method--", "copyFolder:  oldFile cannot read.");
+					return false;
+				} else {
+					FileInputStream fileInputStream = new FileInputStream(temp);
+					FileOutputStream fileOutputStream = new FileOutputStream(newPath + "/" + temp.getName());
+					byte[] buffer = new byte[1024];
+					int byteRead;
+					while ((byteRead = fileInputStream.read(buffer)) != -1) {
+						fileOutputStream.write(buffer, 0, byteRead);
+					}
+					fileInputStream.close();
+					fileOutputStream.flush();
+					fileOutputStream.close();
+				}
+
+            /* 如果不需要打log，可以使用下面的语句
+            if (temp.isDirectory()) {   //如果是子文件夹
+                copyFolder(oldPath + "/" + file, newPath + "/" + file);
+            } else if (temp.exists() && temp.isFile() && temp.canRead()) {
+                FileInputStream fileInputStream = new FileInputStream(temp);
+                FileOutputStream fileOutputStream = new FileOutputStream(newPath + "/" + temp.getName());
+                byte[] buffer = new byte[1024];
+                int byteRead;
+                while ((byteRead = fileInputStream.read(buffer)) != -1) {
+                    fileOutputStream.write(buffer, 0, byteRead);
+                }
+                fileInputStream.close();
+                fileOutputStream.flush();
+                fileOutputStream.close();
+            }
+            */
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * 文件拷贝
+	 * @param fromFilePath
+	 * @param toFilePath
+	 */
+	public static void copyFile(String fromFilePath,String toFilePath) {
+		File toFile = new File(toFilePath);
+		FileInputStream fis = null;
+		FileOutputStream bos = null;
+		try {
+			if (!toFile.exists()) {
+				File parens =   new File(toFile.getParent());
+				parens.mkdirs();
+			}
+			byte[] bytes = new byte[1024];
+			int len = 0;
+			fis = new FileInputStream(fromFilePath);
+			bos = new FileOutputStream(toFilePath);
+			while ((len = fis.read(bytes)) != -1) {
+				bos.write(bytes, 0, len);
+			}
+			bos.close();
+			fis.close();
+		} catch (Exception e) {
+
+		} finally {
+			if (bos != null) {
+				try {
+					bos.flush();
+					bos.close();
+				} catch (Exception e) {
+				}
+			}
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+	}
 	/**
 	 * Cleans a directory without deleting it.
 	 *

@@ -5,47 +5,88 @@ import static com.ido.ble.LocalDataManager.getSupportFunctionInfo;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
-import com.ido.ble.dfu.BleDFUConfig;
 import com.ido.ble.file.transfer.FileTransferConfig;
 import com.ido.ble.file.transfer.IFileTransferListener;
-import com.ido.ble.protocol.model.WallpaperFileCreateConfig;
 import com.ido.ble.watch.custom.WatchPlateSetConfig;
 import com.ido.ble.watch.custom.callback.WatchPlateCallBack;
 import com.ido.ble.watch.custom.model.DialPlateParam;
 import com.ido.ble.watch.custom.model.WatchPlateFileInfo;
 import com.ido.ble.watch.custom.model.WatchPlateScreenInfo;
+import com.ido.life.util.BackgroundType;
+import com.ido.life.util.WallpaperDialManager;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.localdata.Wallpaper;
 import test.com.ido.log.LogPathImpl;
+import test.com.ido.model.CwdAppBean;
+import test.com.ido.model.CwdIwfBean;
+import test.com.ido.model.IwfItemType;
+import test.com.ido.utils.BitmapUtil;
 import test.com.ido.utils.DataUtils;
+import test.com.ido.utils.FileUtil;
 import test.com.ido.utils.GetFilePathFromUri;
 import test.com.ido.utils.GsonUtil;
 import test.com.ido.utils.ImageUtil;
+import test.com.ido.utils.ZipUtils;
 
 public class WatchPlateActivity extends BaseAutoConnectActivity {
+    private static final String TAG = "WatchPlateActivity";
     private String filePath;
-    private TextView tvFilePath, tvState, tvOperateTv, tvUniqueID ,tvPhoto;
+    private TextView tvFilePath, tvState, tvOperateTv, tvUniqueID, tvPhoto, tv_progress;
+    private EditText et_cw_file, et_cw_img, et_cw_color;
+    private ImageView iv_date, iv_cw;
+    private RecyclerView recyclerview;
+    private ProgressBar progress_bar;
+    private FrameLayout fl_cw;
     WatchPlateScreenInfo mScreenInfo;
+    private CwdAppBean app;
+    private CwdIwfBean iwf;
+    private List<String> colorList = getColorList();
+    private int selectedColorIndex;
+    private ColorAdapter colorAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_plate);
 
+        tv_progress = findViewById(R.id.tv_progress);
+        progress_bar = findViewById(R.id.progress_bar);
+        fl_cw = findViewById(R.id.fl_cw);
+        recyclerview = findViewById(R.id.recyclerview);
+        iv_date = findViewById(R.id.iv_date);
+        iv_cw = findViewById(R.id.iv_cw);
+        et_cw_color = findViewById(R.id.et_cw_color);
+        et_cw_file = findViewById(R.id.et_cw_file);
+        et_cw_img = findViewById(R.id.et_cw_img);
         tvFilePath = findViewById(R.id.file_path_tv);
         tvState = findViewById(R.id.state_tv);
         tvOperateTv = findViewById(R.id.operate_info_tv);
@@ -53,13 +94,57 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         tvPhoto = findViewById(R.id.photo_tv);
         BLEManager.getFunctionTables();
         BLEManager.registerWatchOperateCallBack(iOperateCallBack);
-
+        cwDir = getFilesDir().getPath() + "/wallpaper/";
+        cwDialDir = cwDir + cwName + "/";
+        cwTmpDir = cwDialDir + "tmp/";
         BLEManager.getWatchPlateScreenInfo();
         filePath = DataUtils.getInstance().getFilePath();
-        if (TextUtils.isEmpty(filePath)){
+        if (TextUtils.isEmpty(filePath)) {
             tvFilePath.setText("please select watch file(.zip)");
-        }else {
+        } else {
             tvFilePath.setText(filePath);
+        }
+        colorAdapter = new ColorAdapter();
+        LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerview.setLayoutManager(lm);
+        recyclerview.setAdapter(colorAdapter);
+    }
+
+    private class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.VH> {
+        @NonNull
+        @Override
+        public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new VH(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_color, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull VH holder, int position) {
+            holder.view.setBackgroundColor(Color.parseColor(colorList.get(position)));
+            holder.ivSelector.setVisibility(position == selectedColorIndex ? View.VISIBLE : View.GONE);
+        }
+
+        @Override
+        public int getItemCount() {
+            return colorList.size();
+        }
+
+        class VH extends RecyclerView.ViewHolder {
+            View view;
+            ImageView ivSelector;
+
+            public VH(@NonNull View itemView) {
+                super(itemView);
+                view = itemView.findViewById(R.id.vColor);
+                ivSelector = itemView.findViewById(R.id.ivColorSelector);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectedColorIndex = getAdapterPosition();
+                        colorAdapter.notifyDataSetChanged();
+                        updateColor();
+                    }
+                });
+            }
         }
     }
 
@@ -69,11 +154,11 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         BLEManager.unregisterWatchOperateCallBack(iOperateCallBack);
     }
 
-    public void selectFile(View view){
-        openFileChooser();
+    public void selectFile(View view) {
+        openFileChooser(SELECT_FILE_REQ);
     }
 
-    public void startSet(View view){
+    public void startSet(View view) {
         WatchPlateSetConfig config = new WatchPlateSetConfig();
         File file = new File(filePath);
         config.uniqueID = file.getName().replace(".zip", "");
@@ -104,30 +189,30 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     }
 
 
-
     private static final int SELECT_FILE_REQ = 1;
     private static final int SELECT_IMAGE_REQ = 2;
     private String photoInputPath = "";
-    private String photoInputPath_crop = LogPathImpl.getInstance().getPicPath()+"input.png";
-    private void openFileChooser() {
+    private String photoInputPath_crop = LogPathImpl.getInstance().getPicPath() + "input.png";
+
+    private void openFileChooser(int code) {
         final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("application/zip");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         if (intent.resolveActivity(getPackageManager()) != null) {
             // file browser has been found on the device
-            startActivityForResult(intent, SELECT_FILE_REQ);
+            startActivityForResult(intent, code);
         }
     }
 
-    private void openImageChooser() {
+    private void openImageChooser(int code) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             startActivityForResult(new Intent(Intent.ACTION_GET_CONTENT).setType("image/*"),
-                    SELECT_IMAGE_REQ);
+                    code);
         } else {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("image/*");
-            startActivityForResult(intent, SELECT_IMAGE_REQ);
+            startActivityForResult(intent, code);
         }
     }
 
@@ -146,29 +231,33 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
                 if (uri.getScheme().equals("file") || uri.getScheme().equals("content")) {
                     // the direct path to the file has been returned
-                  //  final String path = uri.getPath();
+                    //  final String path = uri.getPath();
                     String path = GetFilePathFromUri.getFileAbsolutePath(this, uri);
                     filePath = path;
                     tvFilePath.setText(path);
                     DataUtils.getInstance().saveFilePath(path);
                 }
-                 break;
-            case  SELECT_IMAGE_REQ:
+                break;
+            case SELECT_CW_FILE_REQ:
+                // and read new one
+                processCwFile(data);
+                break;
+            case SELECT_CW_IMAGE_REQ:
+                processCwImage(data);
+                break;
+            case SELECT_IMAGE_REQ:
                 final Uri image_url = data.getData();
                 photoInputPath = GetFilePathFromUri.getFileAbsolutePath(this, image_url);
                 tvPhoto.setText(photoInputPath);
                 Bitmap wallPaper = BitmapFactory.decodeFile(photoInputPath);
-                if(mScreenInfo != null && mScreenInfo.width>0){//Crop the watch screen size picture
-                    ImageUtil.saveWallPaper(Bitmap.createScaledBitmap(wallPaper, mScreenInfo.width
-                            ,  mScreenInfo.height, true), photoInputPath_crop);
-                }else {
-                    Toast.makeText(this,"please CALL BLEManager.getWatchPlateScreenInfo();",Toast.LENGTH_LONG).show();
+                if (mScreenInfo != null && mScreenInfo.width > 0) {//Crop the watch screen size picture
+                    ImageUtil.saveWallPaper(Bitmap.createScaledBitmap(wallPaper, mScreenInfo.width, mScreenInfo.height, true), photoInputPath_crop);
+                } else {
+                    Toast.makeText(this, "please CALL BLEManager.getWatchPlateScreenInfo();", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
     }
-
-
 
     WatchPlateCallBack.IOperateCallBack iOperateCallBack = new WatchPlateCallBack.IOperateCallBack() {
 //        @Override
@@ -178,7 +267,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
         @Override
         public void onGetPlateFileInfo(WatchPlateFileInfo watchPlateFileInfo) {
-            if (watchPlateFileInfo == null || watchPlateFileInfo.fileNameList == null){
+            if (watchPlateFileInfo == null || watchPlateFileInfo.fileNameList == null) {
                 return;
             }
             tvOperateTv.setText(watchPlateFileInfo.toString());
@@ -192,7 +281,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
         @Override
         public void onGetCurrentPlate(String uniqueID) {
-            tvOperateTv.setText("当前使用的表盘："  + uniqueID);
+            tvOperateTv.setText("当前使用的表盘：" + uniqueID);
         }
 
         @Override
@@ -211,7 +300,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         }
     };
 
-    public void getPlateList(View view){
+    public void getPlateList(View view) {
         BLEManager.getWatchPlateList();
         if (LocalDataManager.getSupportFunctionInfo().V3_get_watch_list_new) {  //根据功能表盘判断，调用不同的方法
             BLEManager.getDialPlateParam();
@@ -220,47 +309,47 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         }
     }
 
-    public void getScreenInfo(View view){
+    public void getScreenInfo(View view) {
         BLEManager.getWatchPlateScreenInfo();
     }
 
-    public void getCurrentPlate(View view){
+    public void getCurrentPlate(View view) {
         BLEManager.getCurrentWatchPlate();
     }
 
 
-    public void deletePlate(View view){
+    public void deletePlate(View view) {
         //the name must contain .iwf ,example "watch.iwf"
         BLEManager.deleteWatchPlate(tvUniqueID.getText().toString());
     }
 
 
-    public void setPlate(View view){
+    public void setPlate(View view) {
         BLEManager.setWatchPlate(tvUniqueID.getText().toString());
     }
 
-    public void selectImage(View view){
-        openImageChooser();
+    public void selectImage(View view) {
+        openImageChooser(SELECT_IMAGE_REQ);
     }
 
     /**
      * 设置壁纸表盘
      */
-    public void setPhotoWatch(View view){
-       if(TextUtils.isEmpty(photoInputPath_crop)){
-           Toast.makeText(this,"please select imamge",Toast.LENGTH_LONG).show();
-           return;
-       }
-        String outfile = LogPathImpl.getInstance().getPicPath()+"output.png";
+    public void setPhotoWatch(View view) {
+        if (TextUtils.isEmpty(photoInputPath_crop)) {
+            Toast.makeText(this, "please select imamge", Toast.LENGTH_LONG).show();
+            return;
+        }
+        String outfile = LogPathImpl.getInstance().getPicPath() + "output.png";
         Wallpaper wallpaper = new Wallpaper();
         wallpaper.setFileName(photoInputPath_crop);// 裁剪的图片存储的地方
         wallpaper.setSaveFileName(outfile);
         wallpaper.setFormat(5);
         String json = GsonUtil.toJson(wallpaper);
         BLEManager.setParaToDeviceByTypeAndJson(5500, json);//请求制作照片
-        Log.e("ddd",outfile);
+        Log.e("ddd", outfile);
         //制作完成，传输壁纸文件到设备
-        FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(outfile+".lz", new IFileTransferListener() {
+        FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(outfile + ".lz", new IFileTransferListener() {
             @Override
             public void onStart() {
 
@@ -268,12 +357,12 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
             @Override
             public void onProgress(int progress) {
-                Log.e("ddd",progress+"watch file");
+                Log.e("ddd", progress + "watch file");
             }
 
             @Override
             public void onSuccess() {
-                Log.e("ddd","success");
+                Log.e("ddd", "success");
             }
 
             @Override
@@ -282,5 +371,229 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             }
         });
         BLEManager.startTranCommonFile(config1);
+    }
+
+    private static final int SELECT_CW_FILE_REQ = 11;
+    private static final int SELECT_CW_IMAGE_REQ = 21;
+    private String cwFilePath;
+    private String cwImgPath;
+    private String cwImgPath_crop = LogPathImpl.getInstance().getPicPath() + "cw_input.png";
+    private String cwImgPath_show = LogPathImpl.getInstance().getPicPath() + "cw_show.png";
+    private String cwName = "custom1";
+    private String cwDir;
+    private String cwTmpDir;
+    private String cwDialDir;
+
+    public void selectCwFile(View view) {
+        openFileChooser(SELECT_CW_FILE_REQ);
+    }
+
+    private void processCwFile(Intent data) {
+        final Uri cw_uri = data.getData();
+
+        if (cw_uri.getScheme().equals("file") || cw_uri.getScheme().equals("content")) {
+            String path = GetFilePathFromUri.getFileAbsolutePath(this, cw_uri);
+            cwFilePath = path;
+            et_cw_file.setText(path);
+
+            ZipUtils.unpackCopyZip(cwDir, cwFilePath);
+            //xxx/wallpaper/custom1/custom.zip
+            ZipUtils.unpackCopyZip(cwTmpDir, cwDialDir + cwName + ".zip");
+            app = getCwdAppBean();
+            iwf = getCwdIwfBean();
+            selectedColorIndex = app.getSelect().getTimeColorIndex();
+            colorAdapter.notifyDataSetChanged();
+            File previewImgFile = new File(cwDialDir + "images/bg.png");
+            iv_cw.setImageURI(Uri.fromFile(previewImgFile));
+            updateColor();
+            Log.e("Davy", "app = " + GsonUtil.toJson(app) + ", iwf = " + GsonUtil.toJson(iwf));
+            Log.e("Davy", "iwf = " + GsonUtil.toJson(iwf));
+        }
+    }
+
+    private void updateColor() {
+        iv_date.setColorFilter(Color.parseColor(colorList.get(selectedColorIndex)));
+    }
+
+
+    private void processCwImage(Intent data) {
+        final Uri cw_image_url = data.getData();
+        cwImgPath = GetFilePathFromUri.getFileAbsolutePath(this, cw_image_url);
+        et_cw_img.setText(cwImgPath);
+        Bitmap cw_wallPaper = BitmapFactory.decodeFile(cwImgPath);
+        if (mScreenInfo != null && mScreenInfo.width > 0) {//Crop the watch screen size picture
+            ImageUtil.saveWallPaper(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), cwImgPath_crop);
+            ImageUtil.saveWallPaper(ImageUtil.transform2CornerBitmap(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), 28), cwImgPath_show);
+        } else {
+            Toast.makeText(this, "please CALL BLEManager.getWatchPlateScreenInfo();", Toast.LENGTH_LONG).show();
+        }
+        iv_cw.setImageURI(Uri.fromFile(new File(cwImgPath_show)));
+    }
+
+
+    public void selectCwImage(View view) {
+        openImageChooser(SELECT_CW_IMAGE_REQ);
+    }
+
+    public void setCw(View view) {
+        //替换背景图和预览图
+        replacePreviewImage();
+        replaceBgImage();
+        //替换时间颜色
+        replaceTempCwdConfig();
+        packAndTransfer();
+    }
+
+    private void packAndTransfer() {
+        //pack
+        try {
+            ZipUtils.zip(
+                    cwTmpDir,
+                    cwDialDir + "zip/",
+                    "tmp.zip"
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        WatchPlateSetConfig config = new WatchPlateSetConfig();
+        config.filePath = cwDialDir + "zip/tmp.zip";
+        config.uniqueID = "tmp.zip";
+        progress_bar.setProgress(0);
+        config.stateListener = new WatchPlateCallBack.IAutoSetPlateCallBack() {
+            @Override
+            public void onStart() {
+                tv_progress.setText("start");
+            }
+
+            @Override
+            public void onProgress(int i) {
+                tv_progress.setText("" + i);
+                progress_bar.setProgress(i);
+            }
+
+            @Override
+            public void onSuccess() {
+                tv_progress.setText("success");
+            }
+
+            @Override
+            public void onFailed() {
+                tv_progress.setText("failed");
+            }
+        };
+        config.errorCallback = new WatchPlateCallBack.ISetPlatErrorCallback() {
+            @Override
+            public void onFailed(int i) {
+                tv_progress.setText("failed, code = " + i);
+            }
+        };
+        config.isOnlyTranslateWatchFile = false;
+        BLEManager.startSetPlateFileToWatch(config);
+    }
+
+    private void replaceTempCwdConfig() {
+        CwdIwfBean mCwdIwfBean = iwf;
+        if (mCwdIwfBean != null && !mCwdIwfBean.getItem().isEmpty()) {
+            List<CwdIwfBean.Item> items = mCwdIwfBean.getItem();
+            for (CwdIwfBean.Item item : items) {
+                if (IwfItemType.ICON.equals(item.getType())) {
+                    item.setBg(item.getBg());
+                } else if (IwfItemType.TIME.equals(item.getType())) {
+                    item.setFgcolor(WallpaperDialManager.colorTo16(colorList.get(selectedColorIndex)));
+                } else if (IwfItemType.DAY.equals(item.getType())) {
+                    item.setFgcolor(WallpaperDialManager.colorTo16(colorList.get(selectedColorIndex)));
+                } else if (IwfItemType.WEEK.equals(item.getType())) {
+                    item.setFgcolor(WallpaperDialManager.colorTo16(colorList.get(selectedColorIndex)));
+                }
+            }
+            saveTempCwdIwf(mCwdIwfBean);
+        }
+    }
+
+    private void replaceBgImage() {
+        boolean isUseBmpBg = true;
+        String bgName = WallpaperDialManager.TEMP_BG_BMP;
+        if (iwf != null && !iwf.getItem().isEmpty()) {
+            List<CwdIwfBean.Item> items = iwf.getItem();
+            for (CwdIwfBean.Item item : items) {
+                if (IwfItemType.ICON.equals(item.getType())) {
+                    String bg = item.getBg();
+                    if (!TextUtils.isEmpty(bg)) {
+                        bgName = bg;
+                        isUseBmpBg = bg.toLowerCase().endsWith(BackgroundType.BMP);
+                    }
+                    break;
+                }
+            }
+        }
+        String des = cwTmpDir + bgName;
+        WallpaperDialManager.replaceCwrBgImageWithTemp(cwImgPath_crop, des, isUseBmpBg);
+    }
+
+    private void replacePreviewImage() {
+        String previewName = iwf.getPreview();
+        Pair<Integer, Integer> size = WallpaperDialManager.getImageSize(cwTmpDir + previewName);
+        if (size == null) {
+            size = new Pair<>(fl_cw.getWidth(), fl_cw.getHeight());
+        }
+        Log.d(TAG, "preview size = " + size);
+        //存储预览图原始大小，透明背景
+        File bitmapFile = new File(cwDialDir + "preview.png");
+        int width = mScreenInfo != null ? mScreenInfo.width : fl_cw.getWidth();
+        int height = mScreenInfo != null ? mScreenInfo.height : fl_cw.getHeight();
+        //存储预览图原始大小，透明背景
+//        BitmapUtil.savePngBitmap(BitmapUtil.zoomImg(BitmapUtil.view2BitmapWithAlpha(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), width, height), bitmapFile, false);
+        //存储按照固件预览图大小缩放的预览图，用于生产bmp
+        BitmapUtil.savePngBitmap(BitmapUtil.zoomImg(BitmapUtil.view2BitmapBlackBg(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), size.first, size.second), bitmapFile, false);
+        WallpaperDialManager.replaceCwrPreviewImageWithTemp(bitmapFile.getAbsolutePath(), cwTmpDir + previewName, previewName.endsWith(".bmp"));
+    }
+
+    private CwdAppBean getCwdAppBean() {
+        try {
+            String json = FileUtil.readStringFromFile(cwDialDir + "app.json");
+            if (!TextUtils.isEmpty(json)) {
+                return GsonUtil.fromJson(json, CwdAppBean.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 解析临时表盘包iwf.json
+     *
+     * @return
+     */
+    private CwdIwfBean getCwdIwfBean() {
+        try {
+            String json = FileUtil.readStringFromFile(cwTmpDir + "iwf.json");
+            if (!TextUtils.isEmpty(json)) {
+                return GsonUtil.fromJson(json, CwdIwfBean.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private boolean saveTempCwdIwf(CwdIwfBean data) {
+        try {
+            return FileUtil.writeStringToFile(cwTmpDir + "iwf.json", GsonUtil.toJson(data));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<String> getColorList() {
+        List<String> mColorList = new ArrayList<>();
+        mColorList.add("#F2F2F2");
+        mColorList.add("#000000");
+        mColorList.add("#FC1E58");
+        mColorList.add("#FF9501");
+        mColorList.add("#0091FF");
+        mColorList.add("#44D7B6");
+        return mColorList;
     }
 }
