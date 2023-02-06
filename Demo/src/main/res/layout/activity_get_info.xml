@@ -73,7 +73,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="getScreenBrightness"
-            android:text="getScreenBrightness"/>
+            android:text="getScreenBrightness" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getDNDMode"
+            android:text="getDNDMode" />
 
     </LinearLayout>
 

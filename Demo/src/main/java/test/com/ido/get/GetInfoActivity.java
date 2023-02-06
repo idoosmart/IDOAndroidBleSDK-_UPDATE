@@ -53,6 +53,7 @@ import java.io.File;
 import java.util.List;
 
 import test.com.ido.CallBack.BaseGetDeviceInfoCallBack;
+import test.com.ido.CallBack.BaseGetDeviceParaCallBack;
 import test.com.ido.R;
 import test.com.ido.app2device.AppControlDeviceActivity;
 import test.com.ido.connect.BaseAutoConnectActivity;
@@ -317,6 +318,18 @@ public class GetInfoActivity extends BaseAutoConnectActivity {
     public void getScreenBrightness(View view){
         tvResult.setText("getScreenBrightness...");
         BLEManager.getScreenBrightness();
+    }
+
+    public void getDNDMode(View view) {
+        BLEManager.registerGetDeviceParaCallBack(new BaseGetDeviceParaCallBack() {
+            @Override
+            public void onGetDoNotDisturbPara(NotDisturbPara notDisturbPara) {
+                super.onGetDoNotDisturbPara(notDisturbPara);
+                tvResult.setText(GsonUtil.toJson(notDisturbPara));
+            }
+        });
+        BLEManager.getDoNotDisturbPara();
+        tvResult.setText("getDNDMode...");
     }
 
 }
