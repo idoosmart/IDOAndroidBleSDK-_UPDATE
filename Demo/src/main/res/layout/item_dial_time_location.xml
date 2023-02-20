@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lay_location"
+    android:layout_width="66dp"
+    android:layout_height="80dp"
+    android:layout_marginRight="2dp"
+    android:background="@drawable/bg_usage_dial"
+    android:padding="6dp">
+
+    <View
+        android:id="@+id/ivWallpaperDial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_e2e3ea_10_corner" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:text="10:08"
+        android:textColor="#82868F"
+        android:textSize="12sp" />
+</FrameLayout>

@@ -463,4 +463,5 @@
     <!--血压界面颜色-->
 
     <color name="circle_line_color">#FC6935</color>
+    <color name="color_FF4A00">#FF4A00</color>
 </resources>

@@ -36,7 +36,8 @@ import java.util.*
  */
 object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
     private const val WALLPAPER_DIAL_PREFIX = "wallpaper_dial_function_"
-    private const val WALLPAPER_DIAL_ICON_PREFIX = "icon_wallpaper_dial_function_"
+    private const val WALLPAPER_DIAL_ICON_PREFIX =
+        "icon_wallpaper_dial_function_"
 
     /////////////////////////云壁纸表盘
     private const val BMP_FORMAT_16 = 5
@@ -150,28 +151,61 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      */
     @JvmStatic
     fun getLayoutRulesByLocation(@WallpaperDialConstants.WidgetLocation location: Int): IntArray {
-        var rules = intArrayOf(RelativeLayout.ALIGN_END, RelativeLayout.ALIGN_TOP)
+        var rules =
+            intArrayOf(RelativeLayout.ALIGN_END, RelativeLayout.ALIGN_TOP)
         when (location) {
-            WallpaperDialConstants.WidgetLocation.CENTER_TOP -> rules = intArrayOf(
-                RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.CENTER_HORIZONTAL
-            )
+            WallpaperDialConstants.WidgetLocation.CENTER_TOP -> rules =
+                intArrayOf(
+                    RelativeLayout.ALIGN_PARENT_TOP,
+                    RelativeLayout.CENTER_HORIZONTAL
+                )
             WallpaperDialConstants.WidgetLocation.CENTER -> rules = intArrayOf(
                 RelativeLayout.CENTER_IN_PARENT
             )
-            WallpaperDialConstants.WidgetLocation.CENTER_BOTTOM -> rules = intArrayOf(
-                RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.CENTER_HORIZONTAL
-            )
-            WallpaperDialConstants.WidgetLocation.LEFT_TOP -> rules = intArrayOf(
-                RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.ALIGN_PARENT_TOP
-            )
+            WallpaperDialConstants.WidgetLocation.CENTER_BOTTOM -> rules =
+                intArrayOf(
+                    RelativeLayout.ALIGN_PARENT_BOTTOM,
+                    RelativeLayout.CENTER_HORIZONTAL
+                )
+            WallpaperDialConstants.WidgetLocation.LEFT_TOP -> rules =
+                intArrayOf(
+                    RelativeLayout.ALIGN_PARENT_LEFT,
+                    RelativeLayout.ALIGN_PARENT_TOP
+                )
             WallpaperDialConstants.WidgetLocation.LEFT_BOTTOM -> rules =
-                intArrayOf(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.ALIGN_PARENT_BOTTOM)
+                intArrayOf(
+                    RelativeLayout.ALIGN_PARENT_LEFT,
+                    RelativeLayout.ALIGN_PARENT_BOTTOM
+                )
             WallpaperDialConstants.WidgetLocation.RIGHT_TOP -> rules =
-                intArrayOf(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.ALIGN_PARENT_TOP)
+                intArrayOf(
+                    RelativeLayout.ALIGN_PARENT_RIGHT,
+                    RelativeLayout.ALIGN_PARENT_TOP
+                )
             WallpaperDialConstants.WidgetLocation.RIGHT_BOTTOM -> rules =
-                intArrayOf(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.ALIGN_PARENT_BOTTOM)
+                intArrayOf(
+                    RelativeLayout.ALIGN_PARENT_RIGHT,
+                    RelativeLayout.ALIGN_PARENT_BOTTOM
+                )
         }
         return rules
+    }
+
+    /**
+     * 获取布局规则
+     */
+    @JvmStatic
+    fun getLayoutGravityByLocation(@WallpaperDialConstants.WidgetLocation location: Int): Int {
+        return when (location) {
+            WallpaperDialConstants.WidgetLocation.CENTER_TOP -> Gravity.CENTER_HORIZONTAL or Gravity.TOP
+            WallpaperDialConstants.WidgetLocation.CENTER -> Gravity.CENTER
+            WallpaperDialConstants.WidgetLocation.CENTER_BOTTOM -> Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
+            WallpaperDialConstants.WidgetLocation.LEFT_TOP -> Gravity.LEFT or Gravity.TOP
+            WallpaperDialConstants.WidgetLocation.LEFT_BOTTOM -> Gravity.LEFT or Gravity.BOTTOM
+            WallpaperDialConstants.WidgetLocation.RIGHT_TOP -> Gravity.RIGHT or Gravity.TOP
+            WallpaperDialConstants.WidgetLocation.RIGHT_BOTTOM -> Gravity.RIGHT or Gravity.BOTTOM
+            else -> Gravity.RIGHT or Gravity.TOP
+        }
     }
 
     @JvmStatic
@@ -226,7 +260,11 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      */
     @JvmStatic
     fun getCwdBgImageName(name: String) =
-        if (name.endsWith(BackgroundType.BMP, true)) TEMP_BG_BMP else TEMP_BG_PNG
+        if (name.endsWith(
+                BackgroundType.BMP,
+                true
+            )
+        ) TEMP_BG_BMP else TEMP_BG_PNG
 
     /**
      * 根目录
@@ -252,7 +290,8 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      * 获取临时zip包
      */
     @JvmStatic
-    fun getTempZipPath() = getTempCwdBaseDir() + ZIP_DIR + TEMP_NAME + CWD_PACK_SUFFIX
+    fun getTempZipPath() =
+        getTempCwdBaseDir() + ZIP_DIR + TEMP_NAME + CWD_PACK_SUFFIX
 
     /**
      * 临时bg.png
@@ -277,7 +316,8 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      * 临时preview.png
      */
     @JvmStatic
-    fun getTempCwdZoomedPreviewImagePath() = getTempCwdBaseDir() + TEMP_ZOOMED_PREVIEW_IMAGE
+    fun getTempCwdZoomedPreviewImagePath() =
+        getTempCwdBaseDir() + TEMP_ZOOMED_PREVIEW_IMAGE
 
     /**
      * 临时表盘包预览图
@@ -382,7 +422,8 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
     fun unpackCwdPackage(otaFaceName: String): Boolean {
         try {
             val path = getDeviceCwdBaseDir()
-            var result = ZipUtils.unpackCopyZip(path, getCwdPackFilePath(otaFaceName))
+            var result =
+                ZipUtils.unpackCopyZip(path, getCwdPackFilePath(otaFaceName))
 //            if (result) {
 //                val file = File(path + otaFaceName)
 //                if (file.exists()) {
@@ -415,7 +456,8 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      * 获取云壁纸表盘压缩包文件对象
      */
     @JvmStatic
-    fun getCwdPackFile(otaFaceName: String) = File(getCwdPackFilePath(otaFaceName))
+    fun getCwdPackFile(otaFaceName: String) =
+        File(getCwdPackFilePath(otaFaceName))
 
     /**
      * 判断云壁纸表盘压缩包是否存在
@@ -488,7 +530,10 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
     @WorkerThread
     @JvmStatic
     fun clearCwd(otaFaceName: String): Boolean {
-        Log.d(TAG, "clearCwd：deviceId = $deviceUniqueCode, otaFaceName = $otaFaceName")
+        Log.d(
+            TAG,
+            "clearCwd：deviceId = $deviceUniqueCode, otaFaceName = $otaFaceName"
+        )
         val deleteDeviceCwdFileResult = deleteDeviceCwdFile(otaFaceName)
         Log.d(TAG, "deleteDeviceCwdFile：$deleteDeviceCwdFileResult")
         val deleteCwdPackFileResult = deleteCwdPackFile(otaFaceName)
@@ -531,7 +576,8 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      */
     @JvmStatic
     fun getDeviceBackgroundImagePath(otaFaceName: String): String {
-        val path = getDeviceCwdParentDir(otaFaceName) + PREVIEW_IMAGE_DIR + TEMP_BG_PNG
+        val path =
+            getDeviceCwdParentDir(otaFaceName) + PREVIEW_IMAGE_DIR + TEMP_BG_PNG
         return if (File(path).exists()) {
             path
         } else {
@@ -568,7 +614,8 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      * 拷贝目录
      */
     @JvmStatic
-    fun copyDir(srcDir: String, desDir: String) = FileUtil.copyFolder(srcDir, desDir)
+    fun copyDir(srcDir: String, desDir: String) =
+        FileUtil.copyFolder(srcDir, desDir)
 
     /**
      * 拷贝文件
@@ -588,7 +635,11 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      * 转换bmp
      */
     @JvmStatic
-    fun replaceCwrBgImageWithTemp(src: String, des: String, isUseBmpBg: Boolean): Boolean {
+    fun replaceCwrBgImageWithTemp(
+        src: String,
+        des: String,
+        isUseBmpBg: Boolean
+    ): Boolean {
         try {
             if (isUseBmpBg) {
                 return convertImage2Bmp(src, des)
@@ -608,7 +659,11 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      * 转换bmp
      */
     @JvmStatic
-    fun replaceCwrPreviewImageWithTemp(src: String, des: String, isUseBmpBg: Boolean): Boolean {
+    fun replaceCwrPreviewImageWithTemp(
+        src: String,
+        des: String,
+        isUseBmpBg: Boolean
+    ): Boolean {
         try {
             if (isUseBmpBg) {
                 return convertImage2Bmp(src, des)
@@ -695,7 +750,11 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
 
 }
 
-@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FIELD, AnnotationTarget.FUNCTION)
+@Target(
+    AnnotationTarget.VALUE_PARAMETER,
+    AnnotationTarget.FIELD,
+    AnnotationTarget.FUNCTION
+)
 @StringDef(
     CustomFaceType.CUSTOM_PHOTO,
     CustomFaceType.CUSTOM_FIXED_PHOTO
@@ -711,7 +770,11 @@ annotation class CustomFaceType {
     }
 }
 
-@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FIELD, AnnotationTarget.FUNCTION)
+@Target(
+    AnnotationTarget.VALUE_PARAMETER,
+    AnnotationTarget.FIELD,
+    AnnotationTarget.FUNCTION
+)
 @StringDef(
     BackgroundType.PNG,
     BackgroundType.BMP
@@ -725,7 +788,11 @@ annotation class BackgroundType {
 }
 
 
-@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FIELD, AnnotationTarget.FUNCTION)
+@Target(
+    AnnotationTarget.VALUE_PARAMETER,
+    AnnotationTarget.FIELD,
+    AnnotationTarget.FUNCTION
+)
 @IntDef(
     FunctionGroupType.HEALTH,
     FunctionGroupType.SPORTS,

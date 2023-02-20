@@ -10,8 +10,6 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.realsil.sdk.core.utility.PermissionUtil;
-
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.log.LogPathImpl;
