@@ -70,6 +70,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SetPhoneBookActivity"
+            android:exported="false" />
+        <activity
             android:name=".WorldTimeChooseActivity"
             android:exported="false">
             <meta-data
@@ -304,6 +307,7 @@
         <activity android:name=".music.MusicControlActivity" />
         <activity android:name=".worldtime.WorldTimeActivity" />
         <activity android:name=".worldtime.WorldTimeChooseActivity" />
+        <activity android:name=".set.SetPhoneBookActivity" />
 
         <service
             android:name="com.realsil.sdk.dfu.DfuService"

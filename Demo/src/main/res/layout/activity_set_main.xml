@@ -11,6 +11,11 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="setContact"
+            android:text="@string/set_para_contact"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="setTime"
             android:text="@string/set_para_time"/>
         <Button

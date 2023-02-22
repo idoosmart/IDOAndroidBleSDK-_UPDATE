@@ -224,6 +224,9 @@ public class MainSetActivity extends BaseAutoConnectActivity {
         BLEManager.unregisterQueryStatusCallBack(queryCallBack);
         BLEManager.unregisterOtherProtocolCallBack(otherICallBack);
     }
+    public void setContact(View v){
+        startActivity(new Intent(this, SetPhoneBookActivity.class));
+    }
 
     /**
      * 1 setTime

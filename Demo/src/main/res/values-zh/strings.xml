@@ -63,6 +63,7 @@
     <string name="unit_hour">小时</string>
 
     <string name="set_para_time">设置时间 ></string>
+    <string name="set_para_contact">设置电话本 ></string>
 
     <!--闹钟-->
     <string name="set_para_alarm">设置闹钟 ></string>

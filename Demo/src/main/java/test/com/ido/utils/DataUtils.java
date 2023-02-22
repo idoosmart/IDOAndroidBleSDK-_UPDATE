@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import test.com.ido.APP;
+import test.com.ido.model.ContactBean;
 
 /**
  * @author: zhouzj
@@ -39,6 +40,9 @@ public class DataUtils extends CommonPreferences {
     private static final String KEY_SAVE_MUSIC_NAME_SWITCH = "KEY_SAVE_MUSIC_NAME_SWITCH";
 
     private static final String KEY_WORLD_TIME_LIST = "KEY_WORLD_TIME_LIST";
+
+    private static final String KEY_CONTACTS_IN_DEVICE = "KEY_CONTACTS_IN_DEVICE";
+
 
 
     public void init(Context context) {
@@ -194,5 +198,21 @@ public class DataUtils extends CommonPreferences {
 
     public void saveWorldTimeList(List<Integer> ids) {
         setValue(KEY_WORLD_TIME_LIST, GsonUtil.toJson(ids));
+    }
+
+
+    public void saveContactsForDevice(List<ContactBean> list) {
+//        putJsonWithMac(KEY_CONTACTS_IN_DEVICE,list);
+        setValue(KEY_CONTACTS_IN_DEVICE, GsonUtil.toJson(list));
+    }
+
+    public List<ContactBean> getContactsForDevice() {
+        String json = getValue(KEY_CONTACTS_IN_DEVICE, "[]");
+        List<ContactBean> list = GsonUtil.analysisJsonObjectToList(json, ContactBean.class);
+        return list == null ? new ArrayList<>() : new ArrayList<>(list);
+    }
+
+    public void removeContactsForDevice() {
+        remove(KEY_CONTACTS_IN_DEVICE);
     }
 }
