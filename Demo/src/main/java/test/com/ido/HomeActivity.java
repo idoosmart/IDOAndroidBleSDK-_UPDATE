@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.ido.ble.BLEManager;
+import com.ido.ble.LocalDataManager;
 import com.ido.ble.callback.DeviceParaChangedCallBack;
 import com.ido.ble.protocol.model.DeviceChangedPara;
+import com.ido.ble.protocol.model.SupportFunctionInfo;
 
+import test.com.ido.CallBack.BaseGetDeviceInfoCallBack;
 import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.connect.ConnectManageActivity;
 import test.com.ido.dfu.MainUpgradeActivity;
@@ -19,6 +23,8 @@ import test.com.ido.file.transfer.BTTransferActivity;
 import test.com.ido.file.transfer.FileTransferActivity;
 import test.com.ido.file.transfer.IconTransferActivity;
 import test.com.ido.file.transfer.MultLangTrainActivity;
+import test.com.ido.file.transfer.NotificationIconTransferActivity;
+import test.com.ido.file.transfer.SportIconTransferActivity;
 import test.com.ido.get.GetInfoActivity;
 import test.com.ido.gps.GpsMainActivity;
 import test.com.ido.logoutput.bluetooth.BluetoothLogoutManager;
@@ -26,6 +32,7 @@ import test.com.ido.music.MusicActivity;
 import test.com.ido.notice.PhoneNoticeActivity;
 import test.com.ido.set.MainSetActivity;
 import test.com.ido.music.MusicManagerActivity;
+import test.com.ido.set.SetSportActivity;
 import test.com.ido.set.WatchPlateActivity;
 import test.com.ido.sync.SyncDataActivity;
 import test.com.ido.unbind.UnbindActivity;
@@ -34,6 +41,8 @@ import test.com.ido.worldtime.WorldTimeActivity;
 
 public class HomeActivity extends BaseAutoConnectActivity {
 
+    private Button btSetSport;
+    private Button btSetNotification;
 
     private boolean isRebooting = false;
     private Handler mHander = new Handler();
@@ -42,6 +51,29 @@ public class HomeActivity extends BaseAutoConnectActivity {
         @Override
         public void onChanged(DeviceChangedPara deviceParaChange) {
             Toast.makeText(HomeActivity.this, deviceParaChange.toString(), Toast.LENGTH_LONG).show();
+        }
+    };
+
+    private BaseGetDeviceInfoCallBack infoCallBack = new BaseGetDeviceInfoCallBack(){
+        @Override
+        public void onGetFunctionTable(SupportFunctionInfo supportFunctionInfo) {
+            super.onGetFunctionTable(supportFunctionInfo);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (supportFunctionInfo == null) return;
+                    if (supportFunctionInfo.V3_support_set_v3_notify_add_app_name) {
+                        btSetNotification.setVisibility(View.VISIBLE);
+                    } else {
+                        btSetNotification.setVisibility(View.GONE);
+                    }
+                    if (supportFunctionInfo.V3_set_100_sport_sort) {
+                        btSetSport.setVisibility(View.VISIBLE);
+                    } else {
+                        btSetSport.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
     };
 
@@ -59,6 +91,9 @@ public class HomeActivity extends BaseAutoConnectActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         BLEManager.registerDeviceParaChangedCallBack(changeC);
+        btSetSport = findViewById(R.id.btSetSport);
+        btSetNotification = findViewById(R.id.btSetNotification);
+        BLEManager.registerGetDeviceInfoCallBack(infoCallBack);
     }
 
     @Override
@@ -142,5 +177,13 @@ public class HomeActivity extends BaseAutoConnectActivity {
 
     public void btWorldTime(View view) {
         startActivity(new Intent(this, WorldTimeActivity.class));
+    }
+
+    public void setSport(View view) {
+        startActivity(new Intent(this, SetSportActivity.class));
+    }
+
+    public void setNotification(View view) {
+        startActivity(new Intent(this, NotificationIconTransferActivity.class));
     }
 }

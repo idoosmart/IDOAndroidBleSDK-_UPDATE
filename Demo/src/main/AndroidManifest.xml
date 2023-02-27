@@ -308,6 +308,9 @@
         <activity android:name=".worldtime.WorldTimeActivity" />
         <activity android:name=".worldtime.WorldTimeChooseActivity" />
         <activity android:name=".set.SetPhoneBookActivity" />
+        <activity android:name=".set.SetSportActivity" />
+        <activity android:name=".set.SetSportDataItemActivity" />
+        <activity android:name=".set.SetSportDataItemDetailActivity" />
 
         <service
             android:name="com.realsil.sdk.dfu.DfuService"

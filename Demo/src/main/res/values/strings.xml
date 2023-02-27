@@ -481,4 +481,6 @@
     <string name="set_tip_failed">设置失败</string>
     <string name="submit">提交</string>
     <string name="select">选择</string>
+    <string name="key_2266">Exercise data added to your device</string>
+    <string name="key_2974">Not added</string>
 </resources>

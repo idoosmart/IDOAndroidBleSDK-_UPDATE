@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="motion_type_detail_1">Music</string>
+    <string name="motion_type_detail_2">Duration</string>
+    <string name="motion_type_detail_3">Calories</string>
+    <string name="motion_type_detail_4">Distance</string>
+    <string name="motion_type_detail_5">Laps</string>
+    <string name="motion_type_detail_6">Swimming stroke</string>
+    <string name="motion_type_detail_7">SWOLF</string>
+    <string name="motion_type_detail_8">Real-time pace</string>
+    <string name="motion_type_detail_9">Average pace</string>
+    <string name="motion_type_detail_10">Rolling pace</string>
+    <string name="motion_type_detail_11">HR</string>
+    <string name="motion_type_detail_12">Real-time cadence</string>
+    <string name="motion_type_detail_13">Steps</string>
+    <string name="motion_type_detail_14">Cadence</string>
+    <string name="motion_type_detail_15">浆次</string>
+    <string name="motion_type_detail_16">浆频</string>
+    <string name="motion_type_detail_17">Aerobic training effect</string>
+    <string name="motion_type_detail_18">AI Robot</string>
+    <string name="motion_type_detail_19">Real-time speed</string>
+    <string name="motion_type_detail_20">Average speed</string>
+</resources>

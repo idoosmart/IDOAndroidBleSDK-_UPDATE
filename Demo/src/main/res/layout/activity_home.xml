@@ -123,10 +123,18 @@
             android:text="Dial" />
 
         <Button
+            android:id="@+id/btSetSport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="btIconTrans"
-            android:text="Icon Transfer" />
+            android:onClick="setSport"
+            android:text="Set Sport" />
+
+        <Button
+            android:id="@+id/btSetNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setNotification"
+            android:text=" Set Notification" />
 
         <Button
             android:layout_width="match_parent"

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/lay_content"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+        <ImageView
+            android:id="@+id/ivMotionIcon"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:padding="2dp"
+            android:visibility="visible"
+            app:tint="#B0FF50"
+            tools:src="@mipmap/motion_4" />
+
+        <TextView
+            android:id="@+id/tvMotionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_toLeftOf="@+id/ivOptIcon"
+            android:layout_toRightOf="@+id/ivMotionIcon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size16sp" />
+
+
+        <ImageView
+            android:id="@+id/ivOptIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/arrow_r"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+
+</LinearLayout>
