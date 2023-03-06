@@ -74,7 +74,6 @@ public class MusicControlActivity extends BaseAutoConnectActivity {
         }
         boolean musicNameSwitch = DataUtils.getInstance().getMusicNameSwitch();
         mNameSwitch.setChecked(musicNameSwitch);
-        startService();
         mNameSwitch.setChecked(musicNameSwitch && isNotificationEnabled());
         mNameSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {

@@ -33,6 +33,7 @@ public class DataUtils extends CommonPreferences {
     private static final String KEY_FONT_UPGRADE_BIN_PRN = "KEY_FONT_UPGRADE_BIN_PRN";
     private static final String KEY_SAVE_FILE_PATH = "KEY_SAVE_FILE_PATH";
     private static final String KEY_SAVE_DIAL_FILE_PATH = "KEY_SAVE_DIAL_FILE_PATH";
+    private static final String KEY_SAVE_GPS_FILE_PATH = "KEY_SAVE_GPS_FILE_PATH";
     private static final String KEY_SAVE_DIAL_NAME = "KEY_SAVE_DIAL_NAME";
     private static final String KEY_SAVE_MUSIC_NAME = "KEY_SAVE_MUSIC_NAME";
     private static final String KEY_SAVE_MUSIC_PATH = "KEY_SAVE_MUSIC_PATH";
@@ -42,6 +43,9 @@ public class DataUtils extends CommonPreferences {
     private static final String KEY_WORLD_TIME_LIST = "KEY_WORLD_TIME_LIST";
 
     private static final String KEY_CONTACTS_IN_DEVICE = "KEY_CONTACTS_IN_DEVICE";
+
+    private static final String KEY_EPO_LAST_UPGRADE_TIME = "KEY_EPO_LAST_UPGRADE_TIME";
+    private static final String KEY_EPO_MODE = "KEY_EPO_MODE";
 
 
 
@@ -148,8 +152,17 @@ public class DataUtils extends CommonPreferences {
     public void saveDialPackagePath(String path){
         setValue(KEY_SAVE_DIAL_FILE_PATH, path);
     }
-    public String getDialName(){
-        return getValue(KEY_SAVE_DIAL_NAME,"");
+
+    public String getGPSPath() {
+        return getValue(KEY_SAVE_GPS_FILE_PATH, "");
+    }
+
+    public void saveGPSPath(String path) {
+        setValue(KEY_SAVE_GPS_FILE_PATH, path);
+    }
+
+    public String getDialName() {
+        return getValue(KEY_SAVE_DIAL_NAME, "");
     }
 
     public void saveDialName(String path){
@@ -178,6 +191,22 @@ public class DataUtils extends CommonPreferences {
 
     public void saveMotionTypeVersion(int version) {
         setValue(KEY_MOTION_TYPE_VERSION, version);
+    }
+
+    public long getEPOLastUpgradeTime() {
+        return getValue(KEY_EPO_LAST_UPGRADE_TIME, 0L);
+    }
+
+    public void saveEPOUpgradeTime() {
+        setValue(KEY_EPO_LAST_UPGRADE_TIME, System.currentTimeMillis());
+    }
+
+    public boolean isAutoUpgradeEPO() {
+        return getValue(KEY_EPO_MODE, true);
+    }
+
+    public void saveEPOUpgradeMode(boolean auto) {
+        setValue(KEY_EPO_MODE, auto);
     }
 
     public boolean getMusicNameSwitch() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,17 +10,117 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/black"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="tranAgpsFileonline"
-        android:text="Agps online trans"/>
+        android:text="Agps online trans" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="tranAgpsFileoffline"
-        android:text="Agps offline trans"/>
+        android:text="Agps offline trans" />
+
+    <LinearLayout
+        android:id="@+id/llGPS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="GPS Upgrade"
+            android:textColor="@color/base_color_text_gray" />
+
+        <TextView
+            android:id="@+id/tvGPSVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etGPSPath"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/black"
+                android:hint="input or select GPS fw path"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btGPSSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="btGPSSelect"
+                android:text="Select GPS" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvGPSProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btUpgradeGPS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btUpgradeGPS"
+            android:text="Start Upgrade GPS" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llEPO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="EPO Upgrade"
+            android:textColor="@color/base_color_text_gray" />
+
+        <TextView
+            android:id="@+id/tvLastEPOUpgradeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size20dp" />
+
+        <Switch
+            android:id="@+id/swEPOMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Automatic upgrade EPO" />
+
+
+        <TextView
+            android:id="@+id/tvEPOProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btUpgradeEPO"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size10dp"
+            android:onClick="btUpgradeEPO"
+            android:text="Manually upgrade EPO" />
+    </LinearLayout>
 
 </LinearLayout>

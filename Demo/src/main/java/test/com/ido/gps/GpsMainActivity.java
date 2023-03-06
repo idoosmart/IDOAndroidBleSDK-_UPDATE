@@ -2,10 +2,18 @@ package test.com.ido.gps;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
@@ -15,6 +23,8 @@ import com.ido.ble.file.transfer.IFileTransferListener;
 import com.ido.ble.gps.callback.GpsCallBack;
 import com.ido.ble.gps.database.HealthGps;
 import com.ido.ble.gps.database.HealthGpsItem;
+import com.ido.ble.gps.gps.GpsFileTransferConfig;
+import com.ido.ble.gps.gps.GpsFileTransferListener;
 import com.ido.ble.gps.model.GPSInfo;
 import com.ido.ble.gps.model.GpsHotStartParam;
 import com.ido.ble.gps.model.GpsStatus;
@@ -24,12 +34,22 @@ import java.util.List;
 
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
+import test.com.ido.utils.DataUtils;
 import test.com.ido.utils.FileUtil;
+import test.com.ido.utils.GetFilePathFromUri;
+import test.com.ido.utils.GpsUtils;
 import test.com.ido.utils.SPUtils;
 
-public class GpsMainActivity extends BaseAutoConnectActivity {
+public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallBack.IGetGpsInfoCallBack, EpoUpgradeListener {
 
     private TextView tvSyncGpsDataStatus;
+
+    private EditText etGPSPath;
+    private Button btGPSSelect, btUpgradeGPS, btUpgradeEPO;
+    private TextView tvGPSProgress, tvGPSVersion, tvLastEPOUpgradeTime, tvEPOProgress;
+    private LinearLayout llGPS, llEPO;
+    private Switch swEPOMode;
+
     /**
      * 一天的毫秒值
      */
@@ -39,11 +59,61 @@ public class GpsMainActivity extends BaseAutoConnectActivity {
      * 4小时的毫秒值
      */
     private static final int TIME_MILLIONS_OF_4_HOUR = 1000 * 60 * 60 * 4;
+
+    private static final int SELECT_GPS_FILE_REQ = 1;
+
+    private void openFileChooser(int requestCode) {
+        final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        intent.setType("application/bin");
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            // file browser has been found on the device
+            startActivityForResult(intent, requestCode);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps_main);
         tvSyncGpsDataStatus = findViewById(R.id.sync_gps_status_tv);
+        btUpgradeEPO = findViewById(R.id.btUpgradeEPO);
+        llGPS = findViewById(R.id.llGPS);
+        etGPSPath = findViewById(R.id.etGPSPath);
+        llEPO = findViewById(R.id.llEPO);
+        swEPOMode = findViewById(R.id.swEPOMode);
+        tvLastEPOUpgradeTime = findViewById(R.id.tvLastEPOUpgradeTime);
+        tvEPOProgress = findViewById(R.id.tvEPOProgress);
+        tvGPSVersion = findViewById(R.id.tvGPSVersion);
+        btGPSSelect = findViewById(R.id.btGPSSelect);
+        btUpgradeGPS = findViewById(R.id.btUpgradeGPS);
+        tvGPSProgress = findViewById(R.id.tvGPSProgress);
+        etGPSPath.setText(DataUtils.getInstance().getGPSPath());
+        BLEManager.registerGetGpsInfoCallBack(this);
+        if (isSupportGPSUpgrade()) {
+            llGPS.setVisibility(View.VISIBLE);
+            if (BLEManager.isConnected()) {
+                BLEManager.getGpsInfo();
+            }
+        }
+
+        if (isSupportEPO()) {
+            llEPO.setVisibility(View.VISIBLE);
+            boolean isAutoUpgradeEPO = DataUtils.getInstance().isAutoUpgradeEPO();
+            swEPOMode.setChecked(isAutoUpgradeEPO);
+            btUpgradeEPO.setEnabled(!isAutoUpgradeEPO);
+            swEPOMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                btUpgradeEPO.setEnabled(!isChecked);
+                DataUtils.getInstance().saveEPOUpgradeMode(isChecked);
+            });
+            EpoUpgradeHelper.getInstance().setEpoUpgradeListener(this);
+            if (isAutoUpgradeEPO) {
+                EpoUpgradeHelper.getInstance().startUpgradeEpo();
+            }
+        }
+
     }
 
     @Override
@@ -51,7 +121,7 @@ public class GpsMainActivity extends BaseAutoConnectActivity {
         super.onDestroy();
     }
 
-    public void tranAgpsFileonline(View view){
+    public void tranAgpsFileonline(View view) {
         BLEManager.registerGetGpsInfoCallBack(new GpsCallBack.IGetGpsInfoCallBack() {
             @Override
             public void onGetGpsInfo(GPSInfo gpsInfo) {
@@ -89,8 +159,7 @@ public class GpsMainActivity extends BaseAutoConnectActivity {
             //file name muse  "agps.ubx"
             // TODO: 2022/6/21 The logic of downloading files is supplemented by yourself
             //transferAgpsFile2Device(String path) after  download complete
-        }
-        else if (isSupportOnlineUpgrade() && Math.abs(getLastAgpsOnlineUpgradeTime() - timeMillis) >= TIME_MILLIONS_OF_4_HOUR) {
+        } else if (isSupportOnlineUpgrade() && Math.abs(getLastAgpsOnlineUpgradeTime() - timeMillis) >= TIME_MILLIONS_OF_4_HOUR) {
             String AGPS_ONLINE_FILE_URL = "http://online-live1.services.u-blox.com/GetOnlineData.ashx?token=vB6zs0P4F0ayAYBMCzx4rw&gnss=gps,qzss,glo,bds,gal&datatype=eph&format=mga";//online file url
             //download online file
             //file name must "online.ubx"
@@ -100,8 +169,8 @@ public class GpsMainActivity extends BaseAutoConnectActivity {
     }
 
     /**
+     * transfile
      *
-     *transfile
      * @param path filepath
      */
     private void transferAgpsFile2Device(String path) {
@@ -124,7 +193,7 @@ public class GpsMainActivity extends BaseAutoConnectActivity {
 
             @Override
             public void onSuccess() {
-                 // success
+                // success
             }
 
             @Override
@@ -155,7 +224,8 @@ public class GpsMainActivity extends BaseAutoConnectActivity {
      */
     private boolean isSupportOnlineUpgrade() {
         SupportFunctionInfo functionInfo = LocalDataManager.getSupportFunctionInfo();
-        return functionInfo != null && functionInfo.ex_gps && functionInfo.agps_online;    }
+        return functionInfo != null && functionInfo.ex_gps && functionInfo.agps_online;
+    }
 
 
     /**
@@ -193,6 +263,7 @@ public class GpsMainActivity extends BaseAutoConnectActivity {
     public static long getLastAgpsOfflineUpgradeTime() {
         return (long) SPUtils.get(AGPS_OFFLINE_UPGRADE_TIME, 0L);
     }
+
     /**
      * Agps online升级的时间戳
      */
@@ -202,5 +273,135 @@ public class GpsMainActivity extends BaseAutoConnectActivity {
      * Agps offline升级的时间戳
      */
     private static final String AGPS_OFFLINE_UPGRADE_TIME = "agps_offline_upgrade_time";
+
+
+    private boolean isSupportEPO() {
+        SupportFunctionInfo functionInfo = LocalDataManager.getSupportFunctionInfo();
+        return functionInfo != null && functionInfo.Airoha_gps_chip;
+    }
+
+    private boolean isSupportGPSUpgrade() {
+        SupportFunctionInfo functionInfo = LocalDataManager.getSupportFunctionInfo();
+        return functionInfo != null && functionInfo.support_update_gps;
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        if (resultCode != RESULT_OK)
+            return;
+
+        switch (requestCode) {
+            case SELECT_GPS_FILE_REQ: {
+                Uri uri = data.getData();
+                String path = GetFilePathFromUri.getFileAbsolutePath(this, uri);
+                if (!TextUtils.isEmpty(path)) {
+                    etGPSPath.setText(path);
+                    DataUtils.getInstance().saveGPSPath(path);
+                }
+            }
+        }
+    }
+
+    public void btUpgradeGPS(View view) {
+        String filepath = etGPSPath.getText().toString().trim();
+        if (!TextUtils.isEmpty(filepath)) {
+            GpsFileTransferConfig config = new GpsFileTransferConfig();
+            config.filePath = filepath;
+            config.stateListener = new GpsFileTransferListener() {
+                @Override
+                public void onStart() {
+
+                }
+
+                @Override
+                public void onProgress(int i) {
+                    tvGPSProgress.setText("" + i);
+                }
+
+                @Override
+                public void onSuccess() {
+                    tvGPSProgress.setText("success");
+                    btUpgradeGPS.setEnabled(true);
+                }
+
+                @Override
+                public void onFailed(int i, String s) {
+                    tvGPSProgress.setText("failed: " + i);
+                    btUpgradeGPS.setEnabled(true);
+                }
+            };
+            tvGPSProgress.setText("starting...");
+            btUpgradeGPS.setEnabled(false);
+            BLEManager.startTranGpsFile(config);
+        }
+    }
+
+    public void btGPSSelect(View view) {
+        openFileChooser(SELECT_GPS_FILE_REQ);
+    }
+
+    @Override
+    public void onGetGpsInfo(GPSInfo gpsInfo) {
+        tvGPSVersion.setText("GPS Version: " + GpsUtils.getGpsVersion(gpsInfo.fwVersion));
+    }
+
+    @Override
+    public void onGetHotStartGpsPara(GpsHotStartParam gpsHotStartParam) {
+
+    }
+
+    @Override
+    public void onGetGpsStatus(GpsStatus gpsStatus) {
+
+    }
+
+    public void btUpgradeEPO(View view) {
+        EpoUpgradeHelper.getInstance().startUpgradeEpo();
+    }
+
+    @Override
+    public void onDownloadStart() {
+        tvEPOProgress.setText("starting...");
+    }
+
+    @Override
+    public void onDownloadProgress(int index, int totalCount, int progress) {
+        tvEPOProgress.setText("(" + index + "/" + totalCount + ")download progress = " + progress + "");
+    }
+
+    @Override
+    public void onDownloadSuccess() {
+        tvEPOProgress.setText("download success!");
+    }
+
+    @Override
+    public void onPackaging() {
+        tvEPOProgress.setText("packaging...");
+    }
+
+    @Override
+    public void onTransferStart() {
+        tvEPOProgress.setText("transfer starting...");
+    }
+
+    @Override
+    public void onTransferProgress(int progress) {
+        tvEPOProgress.setText("transfer progress = " + progress);
+    }
+
+    @Override
+    public void onTransferSuccess() {
+        tvEPOProgress.setText("Transfer success, Wait for the device end upgrade to complete");
+    }
+
+    @Override
+    public void onFailed(@NonNull String errorMsg) {
+        tvEPOProgress.setText("failed: " + errorMsg);
+    }
+
+    @Override
+    public void onSuccess() {
+        tvEPOProgress.setText("upgrade success!");
+    }
 }
 

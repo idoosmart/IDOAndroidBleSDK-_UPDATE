@@ -64,14 +64,14 @@ class SetPhoneBookActivity : BaseAutoConnectActivity() {
 
 
     fun dial(view: android.view.View) {
-//        val phoneNumber = et_phone_number.text.toString().trim()
-//        if (TextUtils.isEmpty(phoneNumber)) {
-//            Toast.makeText(this, "input phone number", Toast.LENGTH_LONG).show()
-//        } else {
-//            val incomingInfo = IncomingCallInfo()
-//            incomingInfo.phoneNumber = phoneNumber
-//            BLEManager.setIncomingCallInfo(incomingInfo)
-//        }
+        val phoneNumber = et_phone_number.text.toString().trim()
+        if (TextUtils.isEmpty(phoneNumber)) {
+            Toast.makeText(this, "input phone number", Toast.LENGTH_LONG).show()
+        } else {
+            val incomingInfo = IncomingCallInfo()
+            incomingInfo.phoneNumber = phoneNumber
+            BLEManager.setIncomingCallInfo(incomingInfo)
+        }
     }
 
     private fun logP(msg: String) {
