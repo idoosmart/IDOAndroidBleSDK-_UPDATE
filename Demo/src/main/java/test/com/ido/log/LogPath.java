@@ -57,7 +57,7 @@ public interface LogPath {
     /**
      * 获取缓存文件路径
      */
-    String getCachePath();
+    String getSportfile();
 
     /**
      * 获取普通文件存储路径

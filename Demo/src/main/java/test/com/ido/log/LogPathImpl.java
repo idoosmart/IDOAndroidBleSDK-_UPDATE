@@ -74,8 +74,8 @@ public class LogPathImpl implements LogPath {
     }
 
     @Override
-    public String getCachePath() {
-        return getRootPath().concat("cache/");
+    public String getSportfile() {
+        return getRootPath().concat("sport/");
     }
 
     @Override

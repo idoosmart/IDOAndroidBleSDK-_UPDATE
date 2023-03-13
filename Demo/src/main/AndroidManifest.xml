@@ -296,6 +296,7 @@
         <activity android:name=".set.SetSportActivity" />
         <activity android:name=".set.SetSportDataItemActivity" />
         <activity android:name=".set.SetSportDataItemDetailActivity" />
+        <activity android:name=".set.SmartCompetitorActivity" />
 
         <service
             android:name="com.realsil.sdk.dfu.DfuService"
