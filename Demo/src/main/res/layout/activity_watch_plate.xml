@@ -134,11 +134,35 @@
                     </LinearLayout>
                 </FrameLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/color1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:hint="color 1" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/size10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/tvColor2"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:hint="color 2" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/color2_rv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/size10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -148,6 +172,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/size10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_func"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <EditText

@@ -1,7 +1,10 @@
 package test.com.ido.model
 
+import android.text.TextUtils
 import androidx.annotation.StringDef
+import com.ido.life.util.BackgroundType
 import java.io.Serializable
+import java.util.Locale
 
 /**
  * @author tianwei
@@ -18,20 +21,24 @@ data class CwdIwfBean(
     val item: List<Item>,
     val name: String,
     val preview: String,
+    val compress: String,
     val version: Int
 ) : Serializable {
 
     data class Item(
-        var bg: String,
-        var fgcolor: String,
-        var font: Any,
-        var fontnum: Int,
-        var h: Int,
-        val type: String,
-        var w: Int,
         val widget: String,
+        val type: String,
         var x: Int,
-        var y: Int
+        var y: Int,
+        var w: Int,
+        var h: Int,
+        var bg: String?,
+        var align:String?,
+        var bgcolor: String?,
+        var fgcolor: String?,
+        var fgrender: String?,
+        var font: String?,
+        var fontnum: Int?
     ) : Serializable {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
@@ -47,6 +54,18 @@ data class CwdIwfBean(
         override fun hashCode(): Int {
             return type.hashCode()
         }
+    }
+
+    fun getBgItem(): Item? {
+        return item.find { it.type == "icon" }
+    }
+
+    fun useBmpBg(): Boolean {
+        val bg: String = getBgItem()?.bg ?: ""
+        if (!TextUtils.isEmpty(bg)) {
+            return bg.lowercase(Locale.getDefault()).endsWith(BackgroundType.BMP)
+        }
+        return false
     }
 }
 

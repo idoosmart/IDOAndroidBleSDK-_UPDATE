@@ -31,6 +31,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.stetho.common.LogUtil;
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
 import com.ido.ble.file.transfer.FileTransferConfig;
@@ -45,7 +46,9 @@ import com.ido.life.util.BackgroundType;
 import com.ido.life.util.WallpaperDialManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import test.com.ido.CallBack.BaseDialOperateCallback;
@@ -62,33 +65,38 @@ import test.com.ido.utils.FileUtil;
 import test.com.ido.utils.GetFilePathFromUri;
 import test.com.ido.utils.GsonUtil;
 import test.com.ido.utils.ImageUtil;
+import test.com.ido.utils.OnItemClickListener;
 import test.com.ido.utils.ResourceUtil;
 import test.com.ido.utils.ZipUtils;
 
 public class WatchPlateActivity extends BaseAutoConnectActivity {
-    private static final String TAG = "WatchPlateActivity";
+    private static final String TAG = "Davy";
     private String filePath;
-    private TextView tvFilePath, tvState, tvOperateTv, tvUniqueID, tvPhoto, tv_progress;
+    private TextView tvFilePath, tvState, tvOperateTv, tvUniqueID, tvPhoto, tv_progress, tvColor2;
     private EditText et_cw_file, et_cw_img, et_cw_color;
     private ImageView mIvDialTime, iv_cw, mIvDialFunction;
-    private RecyclerView recyclerview;
-    private RecyclerView rv_time_location;
+    private RecyclerView color1_rv, color2_rv;
+    private RecyclerView rv_time_location, rv_func;
     private LinearLayout llDialWidget;
     private ProgressBar progress_bar;
     private FrameLayout fl_cw;
     WatchPlateScreenInfo mScreenInfo;
     private CwdAppBean app;
     private CwdIwfBean iwf;
-    private List<String> colorList = getColorList();
-    private int selectedColorIndex;
-    private ColorAdapter colorAdapter;
-    private int mTimeLocation;
-    private List<Integer> mLocationValues;
+    private List<String> colorList = new ArrayList<>();
+    private int selectedTimeColorIndex, selectedFunctionColorIndex;
+    private ColorAdapter color1Adapter, color2Adapter;
+    private FunctionAdapter funcAdapter;
+    private int selectedLocation;
+    private List<Integer> mLocationValues = new ArrayList<>();
     private TimeLocationAdapter mTimeLocationAdapter;
     private int[] mWidgetRules = new int[]{RelativeLayout.ALIGN_END};
     private int mFunction = WallpaperDialConstants.WidgetFunction.WEEK_DATE;
-    private boolean mFunctionShow;
+
+    private boolean mFunctionShow = true;
     private boolean isSupportFunctionSet;
+
+    private List<CwdAppBean.Function> functions = new ArrayList<>();
 
     public List<Integer> getTimeLocationIndex() {
         List<Integer> list = new ArrayList<>();
@@ -106,10 +114,12 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
         llDialWidget = findViewById(R.id.ll_dial_widget);
         rv_time_location = findViewById(R.id.rv_time_location);
+        rv_func = findViewById(R.id.rv_func);
         tv_progress = findViewById(R.id.tv_progress);
         progress_bar = findViewById(R.id.progress_bar);
         fl_cw = findViewById(R.id.fl_cw);
-        recyclerview = findViewById(R.id.recyclerview);
+        color1_rv = findViewById(R.id.recyclerview);
+        color2_rv = findViewById(R.id.color2_rv);
         mIvDialTime = findViewById(R.id.iv_dial_time);
         mIvDialFunction = findViewById(R.id.iv_dial_function);
         iv_cw = findViewById(R.id.iv_cw);
@@ -121,11 +131,10 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         tvOperateTv = findViewById(R.id.operate_info_tv);
         tvUniqueID = findViewById(R.id.unique_id_tv);
         tvPhoto = findViewById(R.id.photo_tv);
+        tvColor2 = findViewById(R.id.tvColor2);
         BLEManager.getFunctionTables();
         BLEManager.registerWatchOperateCallBack(iOperateCallBack);
         cwDir = getFilesDir().getPath() + "/wallpaper/";
-        cwDialDir = cwDir + cwName + "/";
-        cwTmpDir = cwDialDir + "tmp/";
         BLEManager.getWatchPlateScreenInfo();
         filePath = DataUtils.getInstance().getFilePath();
         if (TextUtils.isEmpty(filePath)) {
@@ -133,14 +142,45 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         } else {
             tvFilePath.setText(filePath);
         }
-        colorAdapter = new ColorAdapter();
-        LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerview.setLayoutManager(lm);
-        recyclerview.setAdapter(colorAdapter);
+        initColorView();
         initTimeLocationView();
+
+        initFuncView();
+    }
+
+    private void initColorView() {
+        color1Adapter = new ColorAdapter();
+        color1Adapter.onItemClickListener = position -> {
+            selectedTimeColorIndex = position;
+            color1Adapter.selectedColorIndex = selectedTimeColorIndex;
+            color1Adapter.notifyDataSetChanged();
+            updateColor();
+        };
+        color1_rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        color1_rv.setAdapter(color1Adapter);
+
+        color2Adapter = new ColorAdapter();
+        color2Adapter.onItemClickListener = position -> {
+            selectedFunctionColorIndex = position;
+            color2Adapter.selectedColorIndex = selectedFunctionColorIndex;
+            color2Adapter.notifyDataSetChanged();
+            updateColor();
+        };
+        color2_rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        color2_rv.setAdapter(color2Adapter);
+    }
+
+    private void initFuncView() {
+        funcAdapter = new FunctionAdapter();
+        LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv_func.setLayoutManager(lm);
+        rv_func.setAdapter(funcAdapter);
     }
 
     private class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.VH> {
+        OnItemClickListener onItemClickListener;
+        int selectedColorIndex;
+
         @NonNull
         @Override
         public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -169,9 +209,47 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        selectedColorIndex = getAdapterPosition();
-                        colorAdapter.notifyDataSetChanged();
-                        updateColor();
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onItemClick(getAdapterPosition());
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    private class FunctionAdapter extends RecyclerView.Adapter<FunctionAdapter.VH> {
+        @NonNull
+        @Override
+        public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new VH(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_func, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull VH holder, int position) {
+            holder.tvFun.setText(functions.get(position).getName());
+            holder.ivSelector.setVisibility(functions.get(position).getFunction() == mFunction ? View.VISIBLE : View.GONE);
+        }
+
+        @Override
+        public int getItemCount() {
+            return functions.size();
+        }
+
+        class VH extends RecyclerView.ViewHolder {
+            TextView tvFun;
+            ImageView ivSelector;
+
+            public VH(@NonNull View itemView) {
+                super(itemView);
+                tvFun = itemView.findViewById(R.id.tvFun);
+                ivSelector = itemView.findViewById(R.id.ivColorSelector);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mFunction = functions.get(getAdapterPosition()).getFunction();
+                        funcAdapter.notifyDataSetChanged();
+                        updateWidgetType();
                     }
                 });
             }
@@ -179,7 +257,6 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     }
 
     private void initTimeLocationView() {
-        mLocationValues = getTimeLocationIndex();
         mTimeLocationAdapter = new TimeLocationAdapter();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_time_location.setLayoutManager(layoutManager);
@@ -198,7 +275,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             Drawable bg = ResourceUtil.getDrawable(R.drawable.bg_e2e3ea_10_corner);
             holder.ivWallpaperDial.setBackground(bg);
             Drawable drawable = ResourceUtil.getDrawable(R.drawable.bg_usage_dial);
-            DrawableCompat.setTint(drawable, mLocationValues.get(position) == mTimeLocation ? ResourceUtil.getColor(R.color.color_FF4A00) : ResourceUtil.getColor(R.color.translate));
+            DrawableCompat.setTint(drawable, mLocationValues.get(position) == selectedLocation ? ResourceUtil.getColor(R.color.color_FF4A00) : ResourceUtil.getColor(R.color.translate));
             holder.lay_location.setBackground(drawable);
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.tv_time.getLayoutParams();
             lp.gravity = WallpaperDialManager.getGravityByLocation(mLocationValues.get(position));
@@ -223,8 +300,8 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mTimeLocation != mLocationValues.get(getAdapterPosition())) {
-                            mTimeLocation = mLocationValues.get(getAdapterPosition());
+                        if (selectedLocation != mLocationValues.get(getAdapterPosition())) {
+                            selectedLocation = mLocationValues.get(getAdapterPosition());
                             updateWidget();
                         }
                     }
@@ -237,7 +314,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         if (mTimeLocationAdapter != null) {
             mTimeLocationAdapter.notifyDataSetChanged();
         }
-        changeDialWidgetLocation(mTimeLocation);
+        changeDialWidgetLocation(selectedLocation);
         if (isSupportFunctionSet) {
             updateWidgetType();
         }
@@ -495,7 +572,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     private String cwImgPath;
     private String cwImgPath_crop = LogPathImpl.getInstance().getPicPath() + "cw_input.png";
     private String cwImgPath_show = LogPathImpl.getInstance().getPicPath() + System.currentTimeMillis() + "_cw_show.png";
-    private String cwName = "custom1";
+    private String cwName = "custom4";
     private String cwDir;
     private String cwTmpDir;
     private String cwDialDir;
@@ -506,22 +583,55 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
     private void processCwFile(Intent data) {
         final Uri cw_uri = data.getData();
-
+        initConfig();
         if (cw_uri.getScheme().equals("file") || cw_uri.getScheme().equals("content")) {
             String path = GetFilePathFromUri.getFileAbsolutePath(this, cw_uri);
             cwFilePath = path;
             et_cw_file.setText(path);
+            cwName = FileUtil.getNoSuffixFileNameFromPath(cwFilePath);
+            cwDialDir = cwDir + cwName + "/";
+            cwTmpDir = cwDialDir + "tmp/";
+
+//            try {
+//                FileUtil.deleteDirectory(new File(cwDialDir));
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
 
             ZipUtils.unpackCopyZip(cwDir, cwFilePath);
             //xxx/wallpaper/custom1/custom.zip
             ZipUtils.unpackCopyZip(cwTmpDir, cwDialDir + cwName + ".zip");
             app = getCwdAppBean();
             iwf = getCwdIwfBean();
-            selectedColorIndex = app.getSelect().getTimeColorIndex();
-            mTimeLocation = app.getSelect().getTimeFuncLocation();
-            isSupportFunctionSet = app.getFunction_support() == 1;//1: 支持，0:不支持
+
+            //取颜色
+            getColors();
+
+            //取位置
+            selectedLocation = app.getSelect().getTimeFuncLocation();
+            List<Integer> locations = app.getLocationValues();
+            if (locations != null && !locations.isEmpty()) {
+                mLocationValues.addAll(locations);
+            }
+
+            //
+            selectedTimeColorIndex = app.getSelect().getTimeColorIndex();
+            color1Adapter.selectedColorIndex = selectedTimeColorIndex;
+            isSupportFunctionSet = app.getFunction_support() == 1 || isSupportFunction();//1: 支持，0:不支持
+            if (isSupportFunctionSet && app.getFunction_list() != null && !app.getFunction_list().isEmpty()) {
+                functions.addAll(app.getFunction_list());
+                funcAdapter.notifyDataSetChanged();
+                if (app.getSelect().getFunction() != null) {
+                    mFunction = app.getSelect().getFunction().get(0);
+                }
+                selectedFunctionColorIndex = app.getSelect().getFuncColorIndex();
+                color2Adapter.selectedColorIndex = selectedFunctionColorIndex;
+                color2Adapter.notifyDataSetChanged();
+                color2_rv.setVisibility(View.VISIBLE);
+                tvColor2.setVisibility(View.VISIBLE);
+            }
             updateWidget();
-            colorAdapter.notifyDataSetChanged();
+            color1Adapter.notifyDataSetChanged();
             File previewImgFile = new File(cwDialDir + "images/bg.png");
             iv_cw.setImageURI(Uri.fromFile(previewImgFile));
             updateColor();
@@ -530,9 +640,35 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         }
     }
 
+    private void getColors() {
+        List<String> colors = app.getColors();
+        if (colors != null && !colors.isEmpty()) {
+            colorList.addAll(colors);
+        } else {
+            colorList = getColorList();
+        }
+
+        if (colorList.isEmpty()) {
+            colorList = getColorList();
+        }
+    }
+
+    private void initConfig() {
+        mLocationValues.clear();
+        colorList.clear();
+        functions.clear();
+        tvColor2.setVisibility(View.GONE);
+        color2_rv.setVisibility(View.GONE);
+    }
+
+
+    private boolean isSupportFunction() {
+        return app != null && app.getFunction_support_new() == 1;
+    }
+
     private void updateColor() {
-        mIvDialTime.setColorFilter(Color.parseColor(colorList.get(selectedColorIndex)));
-        mIvDialFunction.setColorFilter(Color.parseColor(colorList.get(selectedColorIndex)));
+        mIvDialTime.setColorFilter(Color.parseColor(colorList.get(selectedTimeColorIndex)));
+        mIvDialFunction.setColorFilter(Color.parseColor(colorList.get(selectedFunctionColorIndex)));
     }
 
 
@@ -639,43 +775,92 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         BLEManager.startSetPlateFileToWatch(config);
     }
 
-    private CwdAppBean.Location getTimeFuncLocation() {
-        List<CwdAppBean.Location> locations = app.getLocations();
-        if (mTimeLocation != app.getSelect().getTimeFuncLocation() && !locations.isEmpty()) {
-            for (CwdAppBean.Location location : locations) {
-                if (location.getType() == mTimeLocation) {
-                    return location;
-                }
-            }
-        }
-        return null;
-    }
-
     private void replaceTempCwdConfig() {
         CwdIwfBean mCwdIwfBean = iwf;
         if (mCwdIwfBean != null && !mCwdIwfBean.getItem().isEmpty()) {
             List<CwdIwfBean.Item> items = mCwdIwfBean.getItem();
-            CwdAppBean.Location location = getTimeFuncLocation();
-            for (CwdIwfBean.Item item : items) {
-                if (IwfItemType.ICON.equals(item.getType())) {
-                    item.setBg(item.getBg());
-                } else if (IwfItemType.TIME.equals(item.getType())) {
-                    item.setFgcolor(WallpaperDialManager.colorTo16(colorList.get(selectedColorIndex)));
-                    if (location != null) {
-                        item.setX(location.getTime().get(0));
-                        item.setY(location.getTime().get(1));
+            CwdAppBean.Location location = app.findLocation(selectedLocation);
+            CwdAppBean.Function mSelectedFunction = app.findFunction(mFunction);
+            String selectedTimeColor = WallpaperDialManager.colorTo16(colorList.get(selectedTimeColorIndex));
+            String selectedFuncColor = WallpaperDialManager.colorTo16(colorList.get(selectedFunctionColorIndex));
+            if (isSupportFunctionSet) {
+                //找到坐标
+                CwdAppBean.Location.FunctionCoordinate functionCoordinate = null;
+                if (location != null && mSelectedFunction != null) {
+                    List<CwdAppBean.Location.FunctionCoordinate> functionCoordinates = location.getFunction_coordinate();
+                    if (functionCoordinates != null) {
+                        for (CwdAppBean.Location.FunctionCoordinate coordinate : functionCoordinates) {
+                            if (coordinate.getFunction() == mFunction) {
+                                functionCoordinate = coordinate;
+                                break;
+                            }
+                        }
                     }
-                } else if (IwfItemType.DAY.equals(item.getType())) {
-                    item.setFgcolor(WallpaperDialManager.colorTo16(colorList.get(selectedColorIndex)));
-                    if (location != null) {
-                        item.setX(location.getDay().get(0));
-                        item.setY(location.getDay().get(1));
+                }
+                //如果功能未变
+//                if (mFunction == app.getSelect().getSelectFunction()) {
+//                    Log.d(TAG, "未更换功能！");
+//                    if (selectedLocation != app.getSelect().getTimeFuncLocation()) {
+//
+//                    }
+//                } else {
+                    Log.d(TAG, "处理前: " + GsonUtil.toJson(mCwdIwfBean));
+                    //删除不要的配置，添加用户选择的配置
+                    Iterator<CwdIwfBean.Item> it = items.iterator();
+                    while (it.hasNext()) {
+                        CwdIwfBean.Item item = it.next();
+                        for (CwdAppBean.Function function : functions) {
+                            if (function.findItem(item.getType(), item.getWidget()) != null) {
+                                it.remove();
+                                break;
+                            }
+                        }
                     }
-                } else if (IwfItemType.WEEK.equals(item.getType())) {
-                    item.setFgcolor(WallpaperDialManager.colorTo16(colorList.get(selectedColorIndex)));
-                    if (location != null) {
-                        item.setX(location.getWeek().get(0));
-                        item.setY(location.getWeek().get(1));
+                    Log.d(TAG, "删除功能后: " + GsonUtil.toJson(mCwdIwfBean));
+                    if (functionCoordinate != null) {
+                        List<CwdAppBean.Function.Item> newFunctionItems = mSelectedFunction.getItem();
+                        for (CwdAppBean.Function.Item newFunctionItem : newFunctionItems) {
+                            CwdAppBean.Location.FunctionCoordinate.Item item = functionCoordinate.findItem(newFunctionItem.getType(), newFunctionItem.getWidget());
+                            if (item != null && item.getCoordinate().size() == 4) {
+                                List<Integer> coordinate = item.getCoordinate();
+                                CwdIwfBean.Item newItem = new CwdIwfBean.Item(newFunctionItem.getWidget(), newFunctionItem.getType(), coordinate.get(0), coordinate.get(1), coordinate.get(2), coordinate.get(3), newFunctionItem.getBg(), newFunctionItem.getAlign(), selectedFuncColor, selectedFuncColor, "", newFunctionItem.getFont(), newFunctionItem.getFontnum());
+                                items.add(newItem);
+                            }
+                        }
+                    }
+//                }
+
+                for (CwdIwfBean.Item item : items) {
+                    if (IwfItemType.TIME.equals(item.getType())) {
+                        item.setFgcolor(selectedTimeColor);
+                        if (location != null) {
+                            item.setX(location.getTime().get(0));
+                            item.setY(location.getTime().get(1));
+                        }
+                    }
+                }
+                Log.d(TAG, "处理后: " + GsonUtil.toJson(mCwdIwfBean));
+            } else {
+                for (CwdIwfBean.Item item : items) {
+                    if (IwfItemType.ICON.equals(item.getType())) {
+                    } else if (IwfItemType.TIME.equals(item.getType())) {
+                        item.setFgcolor(selectedTimeColor);
+                        if (location != null) {
+                            item.setX(location.getTime().get(0));
+                            item.setY(location.getTime().get(1));
+                        }
+                    } else if (IwfItemType.DAY.equals(item.getType())) {
+                        item.setFgcolor(selectedTimeColor);
+                        if (location != null) {
+                            item.setX(location.getDay().get(0));
+                            item.setY(location.getDay().get(1));
+                        }
+                    } else if (IwfItemType.WEEK.equals(item.getType())) {
+                        item.setFgcolor(selectedTimeColor);
+                        if (location != null) {
+                            item.setX(location.getWeek().get(0));
+                            item.setY(location.getWeek().get(1));
+                        }
                     }
                 }
             }
@@ -724,6 +909,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     private CwdAppBean getCwdAppBean() {
         try {
             String json = FileUtil.readStringFromFile(cwDialDir + "app.json");
+            LogUtil.d("json = " + json);
             if (!TextUtils.isEmpty(json)) {
                 return GsonUtil.fromJson(json, CwdAppBean.class);
             }
