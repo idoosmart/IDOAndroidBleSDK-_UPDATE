@@ -2,6 +2,7 @@ package test.com.ido.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 
 import com.google.gson.Gson;
@@ -9,8 +10,13 @@ import com.google.gson.reflect.TypeToken;
 import com.ido.ble.protocol.model.Alarm;
 import com.ido.ble.protocol.model.AlarmV3;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import test.com.ido.APP;
 import test.com.ido.model.ContactBean;
@@ -46,6 +52,8 @@ public class DataUtils extends CommonPreferences {
 
     private static final String KEY_EPO_LAST_UPGRADE_TIME = "KEY_EPO_LAST_UPGRADE_TIME";
     private static final String KEY_EPO_MODE = "KEY_EPO_MODE";
+
+    private static final String KEY_APP_UNIQUE_FLAG = "KEY_APP_UNIQUE_FLAG";
 
 
 
@@ -243,5 +251,60 @@ public class DataUtils extends CommonPreferences {
 
     public void removeContactsForDevice() {
         remove(KEY_CONTACTS_IN_DEVICE);
+    }
+
+    public int createAppUniqueFlag(String packageName) {
+        try {
+            Log.d("NotificationIconTransfer", "createAppUniqueFlag: " + packageName);
+            Map<String, Integer> flags = getAppFlag();
+            Log.d("NotificationIconTransfer", "createAppUniqueFlag: " + flags);
+            Integer value = 0;
+            if (flags == null || flags.isEmpty()) {
+                if (flags == null) {
+                    flags = new HashMap<>();
+                }
+                value = 1;
+            }
+
+            if (value == 0) {
+                value = flags.get(packageName);
+            }
+
+            if (value == null || value == 0) {
+                int maxValue = 0;
+                for (Map.Entry<String, Integer> entry : flags.entrySet()) {
+                    if (entry.getValue() > maxValue) {
+                        maxValue = entry.getValue();
+                    }
+                }
+                value = maxValue + 1;
+            }
+            flags.put(packageName,value);
+            saveAppFlag(flags);
+            return value;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public void saveAppFlag(Map<String, Integer> flags) {
+        setValue(KEY_APP_UNIQUE_FLAG, GsonUtil.toJson(flags));
+    }
+
+    public Map<String, Integer> getAppFlag() {
+        String json = getValue(KEY_APP_UNIQUE_FLAG, "");
+        if (TextUtils.isEmpty(json)) {
+            return new HashMap<>();
+        }
+        try {
+            Type type = new TypeToken<Map<String, Integer>>() {
+            }.getType();
+            Gson gson = new Gson();
+            return gson.fromJson(json, type);
+        } catch (Exception ignored) {
+
+        }
+        return new HashMap<>();
     }
 }

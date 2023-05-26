@@ -45,13 +45,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import test.com.ido.CallBack.BaseGetDeviceInfoCallBack;
 import test.com.ido.R;
 import test.com.ido.utils.BitmapUtil;
+import test.com.ido.utils.DataUtils;
 import test.com.ido.utils.ExecutorDispatcher;
 import test.com.ido.connect.BaseAutoConnectActivity;
+import test.com.ido.utils.GsonUtil;
 
 public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
     private static String TAG = "NotificationIconTransfer";
@@ -89,7 +92,7 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
 
     private void loadInstalledApp() {
         ExecutorDispatcher.getInstance().dispatch(() -> {
-            initAlphabet();
+//            initAlphabet();
             allNoticeAppTypeBeans.clear();
             allNoticeAppBeans.clear();
             PackageManager pm = NotificationIconTransferActivity.this.getPackageManager();
@@ -101,7 +104,9 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
                     //非系统程序
                     //本来是系统程序，被用户手动更新后，该系统程序也成为第三方应用程序了
                     bean = getAppInfo(app, pm);
-                    bean.type = convertPkg2Type(bean.pkgName);
+                    int value = DataUtils.getInstance().createAppUniqueFlag(bean.pkgName);
+                    Log.d(TAG, "convertPkg2Type, " + bean.pkgName + " = " + value);
+                    bean.type = value;
                     allNoticeAppBeans.put(bean.pkgName, bean);
                     apps.add(bean);
                 }
@@ -315,7 +320,7 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
                             Log.e(TAG, "处理图片：" + iconTranConfig + ", width x height: " + width + " x " + height);
                             TranIconBean app = findApp(iconTranConfig.index);
                             if (app == null) {
-                                throw new IllegalArgumentException("app is null");
+                                return "";
                             }
                             Bitmap mBitmap = BitmapUtil.transform2CycleBitmap(BitmapUtil.drawableToBitmap(app.icon), 0);
                             String mIconPath = getFilesDir().getPath() + "/notification_icons" + "/" + iconTranConfig.index + "_" + app.pkgName;
@@ -352,14 +357,20 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
      * @return
      */
     private int convertPkg2Type(String pkg) {
-        int value = 0;
-        for (int index = 0; index < pkg.length(); index++) {
-            String it = String.valueOf(pkg.charAt(index));
-            Integer v = mAlphabet.get(it);
-            value += (v != null ? v : 0) * index;
-        }
-        lastValue = value;
-        lastPkg = pkg;
+//        int value = 0;
+//        for (int index = 0; index < pkg.length(); index++) {
+//            String it = String.valueOf(pkg.charAt(index));
+//            Integer v = mAlphabet.get(it);
+//            value += (v != null ? v : 0) * index;
+//        }
+//        if (pkg.equals("com.ido.alexademo")) {
+//            value = 45000;
+//        }
+//        lastValue = value;
+//        lastPkg = pkg;
+//        int value = DataUtils.getInstance().createAppUniqueFlag(pkg);
+        int value =0;
+        Log.d(TAG, "convertPkg2Type, " + pkg + " = " + value);
         allNoticeAppTypeBeans.put(value, pkg);
         return value;
     }
