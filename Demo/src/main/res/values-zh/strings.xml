@@ -447,6 +447,7 @@
     <string name="notice_close">关闭</string>
     <string name="notice_input">输入消息</string>
     <string name="notice_mock">模拟通知发送</string>
+    <string name="notice_mock_reply">模拟通知发送(快捷回复)</string>
     <string name="notice_permit_1">允许通知</string>
     <string name="notice_silence_1">静默通知</string>
     <string name="notice_close_1">关闭通知</string>

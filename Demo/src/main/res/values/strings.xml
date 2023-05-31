@@ -444,6 +444,7 @@
     <string name="notice_close">closure</string>
     <string name="notice_input">enter message</string>
     <string name="notice_mock">Simulate notification sending</string>
+    <string name="notice_mock_reply">Simulate notification sending(Quick reply)</string>
     <string name="notice_permit_1">Allow notifications</string>
     <string name="notice_silence_1">silent notification</string>
     <string name="notice_close_1">close notification</string>
@@ -483,4 +484,17 @@
     <string name="select">选择</string>
     <string name="key_2266">Exercise data added to your device</string>
     <string name="key_2974">Not added</string>
+    <string-array name="quick_reply_default_msg">
+        <item>OK</item>
+        <item>One moment please</item>
+        <item>No problem</item>
+        <item>Thank you</item>
+        <item>Yes</item>
+        <item>Sorry, I can\'t talk right now</item>
+    </string-array>
+    <string-array name="quick_incoming_call_reply_default_msg">
+        <item>Sorry, I\'m not convenient to answer the phone now</item>
+        <item>I\'ll be right there</item>
+        <item>I\'ll call you later, okay?</item>
+    </string-array>
 </resources>

@@ -4,6 +4,11 @@ import static android.content.pm.ApplicationInfo.FLAG_SYSTEM;
 import static android.content.pm.ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
 
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.app.RemoteInput;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +18,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.service.notification.NotificationListenerService;
+import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,18 +37,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.ido.ble.BLEManager;
+import com.ido.ble.LocalDataManager;
 import com.ido.ble.callback.DeviceParaChangedCallBack;
 import com.ido.ble.callback.OperateCallBack;
+import com.ido.ble.callback.SettingCallBack;
 import com.ido.ble.icon.transfer.IIconTransferListener;
 import com.ido.ble.icon.transfer.IconTranConfig;
 import com.ido.ble.protocol.model.CanDownLangInfoV3;
+import com.ido.ble.protocol.model.DeviceChangedPara;
 import com.ido.ble.protocol.model.MessageNotifyState;
 import com.ido.ble.protocol.model.MessageNotifyStateCmdParaWrapper;
 import com.ido.ble.protocol.model.NotificationPara;
 import com.ido.ble.protocol.model.NotifyType;
+import com.ido.ble.protocol.model.QuickReplyInfo;
+import com.ido.ble.protocol.model.SupportFunctionInfo;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -51,10 +64,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import test.com.ido.CallBack.BaseGetDeviceInfoCallBack;
 import test.com.ido.R;
 import test.com.ido.utils.BitmapUtil;
-import test.com.ido.utils.DataUtils;
 import test.com.ido.utils.ExecutorDispatcher;
 import test.com.ido.connect.BaseAutoConnectActivity;
-import test.com.ido.utils.GsonUtil;
+import test.com.ido.utils.ResourceUtil;
 
 public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
     private static String TAG = "NotificationIconTransfer";
@@ -65,52 +77,51 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
     MyAdapter adapter;
 
     /**
-     * 生成app唯一整型类型值
-     *
-     * @param pkg
-     * @return
-     */
-    private HashMap<String, Integer> mAlphabet = new HashMap<>();
-    private int lastValue = 0;
-    private String lastPkg = "";
-
-
-    /**
      * 已安装应用
      */
     ConcurrentHashMap<String, TranIconBean> allNoticeAppBeans = new ConcurrentHashMap<>();
 
     ConcurrentHashMap<Integer, String> allNoticeAppTypeBeans = new ConcurrentHashMap<>();
 
+    private static Map<Integer, Notification> sNotificationMap;
+
     List<TranIconBean> apps = new ArrayList<>();
 
     List<MessageNotifyState> stateList;
     TranIconBean mClickedApp;
+
+    private int msgId = 0;
+    //正在回复消息
+    private static boolean isReplying = false;
+    //正在回复来电
+    private static boolean isInComingCallReplying = false;
+    private static DeviceChangedPara mDeviceChangedPara;
+    private static final int WHAT_SMS_REPLY = 1;
+    private static final int WHAT_INCOMING_CALL_SMS_REPLY = 2;
 
     //设备支持的语言
     private List<Integer> languages = new ArrayList<>();
 
     private void loadInstalledApp() {
         ExecutorDispatcher.getInstance().dispatch(() -> {
-//            initAlphabet();
             allNoticeAppTypeBeans.clear();
             allNoticeAppBeans.clear();
             PackageManager pm = NotificationIconTransferActivity.this.getPackageManager();
-            List<ApplicationInfo> listAppcations = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+            List<ApplicationInfo> listAppcations = pm.getInstalledApplications(0);
             Collections.sort(listAppcations, new ApplicationInfo.DisplayNameComparator(pm)); // 字典排序
             TranIconBean bean;
             for (ApplicationInfo app : listAppcations) {
-                if ((app.flags & FLAG_SYSTEM) <= 0 || (app.flags & FLAG_UPDATED_SYSTEM_APP) != 0) {
+                if ((app.flags & ApplicationInfo.FLAG_SYSTEM) == 0
+                        && (app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0) {
                     //非系统程序
                     //本来是系统程序，被用户手动更新后，该系统程序也成为第三方应用程序了
                     bean = getAppInfo(app, pm);
-                    int value = DataUtils.getInstance().createAppUniqueFlag(bean.pkgName);
-                    Log.d(TAG, "convertPkg2Type, " + bean.pkgName + " = " + value);
-                    bean.type = value;
+                    bean.type = convertPkg2Type(bean.pkgName);
                     allNoticeAppBeans.put(bean.pkgName, bean);
                     apps.add(bean);
                 }
             }
+
             ExecutorDispatcher.getInstance().dispatchOnMainThread(new Runnable() {
                 @Override
                 public void run() {
@@ -157,6 +168,266 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
         //查询设备语言列表
         BLEManager.registerGetDeviceInfoCallBack(deviceInfoCallback);
         BLEManager.getCanDownloadLangInfoV3();
+        sendQuickMsgReplyInfo2Device();
+        sendQuickIncomingReplyInfo2Device();
+        if (isSupportMsgReply() || isSupportInComingCallQuickReply()) {
+            BLEManager.unregisterDeviceParaChangedCallBack(mMsgReplyICallBack);
+            BLEManager.registerDeviceParaChangedCallBack(mMsgReplyICallBack);
+        }
+    }
+
+    /**
+     * 消息回复的回调
+     */
+    private final DeviceParaChangedCallBack.ICallBack mMsgReplyICallBack = deviceChangedPara -> {
+        try {
+            if (deviceChangedPara != null && (deviceChangedPara.msg_ID > 0 || deviceChangedPara.msg_type == 0x01) && deviceChangedPara.msg_notice > 0) {
+                Log.d(TAG, "【" + Thread.currentThread().getName() + "】 mMsgReplyICallBack=" + deviceChangedPara);
+                if (deviceChangedPara.msg_type != 0x01) {
+                    if (!isReplying) {
+                        isReplying = true;
+                        mDeviceChangedPara = deviceChangedPara;
+                        replyMsg(mDeviceChangedPara);
+                        //通知固件
+                    } else {
+                        Log.d(TAG, "正在回复消息，不处理");
+                    }
+                } else {
+                    Log.d(TAG, "来电快捷回复！");
+                    if (!isInComingCallReplying) {
+                        isInComingCallReplying = true;
+                        mDeviceChangedPara = deviceChangedPara;
+                        replyIncomingCallMsg(mDeviceChangedPara);
+                        //通知固件
+                    } else {
+                        Log.d(TAG, "正在回复消息，不处理");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            sendReplyResult2Device(false);
+            Log.d(TAG, "快捷回复处理异常：" + e);
+        }
+    };
+
+    private void replyIncomingCallMsg(DeviceChangedPara mDeviceChangedPara) {
+        List<String> msgList = Arrays.asList(ResourceUtil.getStringArray(R.array.quick_reply_default_msg));
+        String replyContent = msgList.get(mDeviceChangedPara.msg_notice - 1);
+        if (TextUtils.isEmpty(replyContent)) {
+            sendInComingCallReplyResult2Device(false);
+            return;
+        }
+        //TODO  SmsManager.getDefault().sendTextMessage(phoneNumber, null, replyContent, sentIntent, null);
+        //TODO boolean result = send result;
+        boolean result = true;
+        sendInComingCallReplyResult2Device(result);
+    }
+
+    private void replyMsg(DeviceChangedPara mDeviceChangedPara) {
+        List<String> msgList = Arrays.asList(ResourceUtil.getStringArray(R.array.quick_reply_default_msg));
+        String replyContent = msgList.get(mDeviceChangedPara.msg_notice - 1);
+        if (TextUtils.isEmpty(replyContent)) {
+            sendReplyResult2Device(false);
+            return;
+        }
+
+        //TODO 1.使用Notification回复消息
+        //获取保存的消息
+        Notification notification = sNotificationMap.get(mDeviceChangedPara.msg_ID);
+        if (notification == null) {
+            sendReplyResult2Device(false);
+            return;
+        }
+        boolean result = reply(notification, replyContent);
+//        sendReplyResult2Device(result);
+        sendReplyResult2Device(true/*模拟成功*/);
+        //TODO 2.使用系统SMS回复消息
+        //TODO  SmsManager.getDefault().sendTextMessage(phoneNumber, null, replyContent, sentIntent, null);
+    }
+
+
+    private boolean reply(Notification notification, String autoReplyContents) {
+        try {
+            PendingIntent pendingReply = notification.contentIntent;
+            Notification.Action action = getReplyAction(notification);
+            if (action != null) {
+                android.app.RemoteInput remoteInput = action.getRemoteInputs()[0];
+                String key = remoteInput.getResultKey();
+                if (pendingReply != null) {
+                    saveLog("带快捷回复的通知===action.getRemoteInputs() length=" + action.getRemoteInputs().length + "   ResultKey=" + remoteInput.getResultKey());
+                    Intent localIntent = new Intent();
+                    Bundle resultBundle = new Bundle();
+                    resultBundle.putString(key, autoReplyContents);
+                    RemoteInput.addResultsToIntent(new RemoteInput[]{new RemoteInput.Builder(key).build()}, localIntent, resultBundle);
+                    try {
+//                pendingReply.getIntentSender().sendIntent(this, 0, localIntent, null, null);
+                        action.actionIntent.send(NotificationIconTransferActivity.this, 1001, localIntent);
+                        return true;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        saveLog("reply send failed: " + e);
+                    }
+                }
+            } else {
+                saveLog("不带快捷回复的通知");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            saveLog("reply failed: " + e);
+        }
+        return false;
+    }
+
+    private void saveLog(String msg) {
+        Log.d(TAG, msg);
+    }
+
+    /**
+     * 通知快捷回复响应
+     *
+     * @param replySuccess
+     */
+    private static void sendReplyResult2Device(boolean replySuccess) {
+        Log.d(TAG, "sendReplyResult2Device, mDeviceChangedPara = " + mDeviceChangedPara + ", replySuccess = " + replySuccess);
+        try {
+            if (mDeviceChangedPara != null) {
+                mDeviceChangedPara.is_success = replySuccess ? 1 : 0;
+                BLEManager.setNoticeReply(mDeviceChangedPara);
+            }
+            mSmsReplyTimeoutTimer.removeMessages(WHAT_SMS_REPLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        isReplying = false;
+    }
+
+    /**
+     * 来电快捷回复响应
+     *
+     * @param replySuccess
+     */
+    private static void sendInComingCallReplyResult2Device(boolean replySuccess) {
+        Log.d(TAG, "sendInComingCallReplyResult2Device, mDeviceChangedPara = " + mDeviceChangedPara + ", replySuccess = " + replySuccess);
+        try {
+            if (mDeviceChangedPara != null) {
+                mDeviceChangedPara.is_success = replySuccess ? 1 : 0;
+                BLEManager.setNoticeReply(mDeviceChangedPara);
+            }
+            mSmsReplyTimeoutTimer.removeMessages(WHAT_INCOMING_CALL_SMS_REPLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        isInComingCallReplying = false;
+    }
+
+    /**
+     * 短信回复超时计时器
+     */
+    private static final Handler mSmsReplyTimeoutTimer = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case WHAT_SMS_REPLY:
+                    Log.d(TAG, "mSmsReplyTimeoutTimer, 发送短信快捷回复超时，重置标志位");
+                    sendReplyResult2Device(false);
+                    break;
+                case WHAT_INCOMING_CALL_SMS_REPLY:
+                    Log.d(TAG, "mSmsReplyTimeoutTimer, 发送来电快捷回复超时，重置标志位");
+                    sendInComingCallReplyResult2Device(false);
+                    break;
+            }
+        }
+    };
+
+    private SettingCallBack.ICallBack mSettingCallBack = new SettingCallBack.ICallBack() {
+
+        @Override
+        public void onSuccess(SettingCallBack.SettingType settingType, Object o) {
+            if (settingType == SettingCallBack.SettingType.QUICK_REPLY_INFO) {
+
+            }
+        }
+
+        @Override
+        public void onFailed(SettingCallBack.SettingType settingType) {
+            if (settingType == SettingCallBack.SettingType.QUICK_REPLY_INFO) {
+
+            }
+        }
+    };
+    private SettingCallBack.ICallBack mQuickIncomingCallSettingCallBack = new SettingCallBack.ICallBack() {
+
+        @Override
+        public void onSuccess(SettingCallBack.SettingType settingType, Object o) {
+            if (settingType == SettingCallBack.SettingType.QUICK_REPLY_INFO) {
+
+            }
+        }
+
+        @Override
+        public void onFailed(SettingCallBack.SettingType settingType) {
+            if (settingType == SettingCallBack.SettingType.QUICK_REPLY_INFO) {
+
+            }
+        }
+    };
+
+    /**
+     * 设置默认消息快捷回复列表
+     */
+    private void sendQuickMsgReplyInfo2Device() {
+        if (isSupportMsgReply()) {//支持快捷回复
+            List<String> msgList = Arrays.asList(ResourceUtil.getStringArray(R.array.quick_reply_default_msg));
+            QuickReplyInfo quickReplyInfo = new QuickReplyInfo();
+            quickReplyInfo.num = msgList.size();
+            quickReplyInfo.fast_items = new ArrayList<>();
+            for (int i = 0; i < msgList.size(); i++) {
+                QuickReplyInfo.QuickMsg msg = new QuickReplyInfo.QuickMsg();
+                msg.msg_id = i + 1;
+                msg.on_off = 1;
+                msg.msg_data = msgList.get(i);
+                quickReplyInfo.fast_items.add(msg);
+            }
+            BLEManager.unregisterSettingCallBack(mSettingCallBack);
+            BLEManager.registerSettingCallBack(mSettingCallBack);
+            BLEManager.setQuickReplyInfo(quickReplyInfo);
+        }
+    }
+
+    /**
+     * 设置默认来电快捷回复列表
+     */
+    private void sendQuickIncomingReplyInfo2Device() {
+        if (isSupportInComingCallQuickReply()) {//支持快捷回复
+            List<String> msgList = Arrays.asList(ResourceUtil.getStringArray(R.array.quick_incoming_call_reply_default_msg));
+            QuickReplyInfo quickReplyInfo = new QuickReplyInfo();
+            quickReplyInfo.num = msgList.size();
+            quickReplyInfo.fast_items = new ArrayList<>();
+            for (int i = 0; i < msgList.size(); i++) {
+                QuickReplyInfo.QuickMsg msg = new QuickReplyInfo.QuickMsg();
+                msg.msg_id = i + 1;
+                msg.on_off = 1;
+                msg.msg_data = msgList.get(i);
+                quickReplyInfo.fast_items.add(msg);
+            }
+            BLEManager.unregisterSettingCallBack(mQuickIncomingCallSettingCallBack);
+            BLEManager.registerSettingCallBack(mQuickIncomingCallSettingCallBack);
+            //设置来电提醒快捷回复
+            quickReplyInfo.version = 1;
+            BLEManager.setQuickReplyInfo(quickReplyInfo);
+        }
+    }
+
+    private boolean isSupportInComingCallQuickReply() {
+        SupportFunctionInfo funcInfo = LocalDataManager.getSupportFunctionInfo();
+        return funcInfo != null && funcInfo.support_calling_quick_reply;
+    }
+
+    private boolean isSupportMsgReply() {
+        SupportFunctionInfo funcInfo = LocalDataManager.getSupportFunctionInfo();
+        return funcInfo != null && funcInfo.v3_fast_msg_data;
     }
 
     @Override
@@ -320,9 +591,10 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
                             Log.e(TAG, "处理图片：" + iconTranConfig + ", width x height: " + width + " x " + height);
                             TranIconBean app = findApp(iconTranConfig.index);
                             if (app == null) {
+                                Log.e(TAG,"未找到App："+iconTranConfig.index);
                                 return "";
                             }
-                            Bitmap mBitmap = BitmapUtil.transform2CycleBitmap(BitmapUtil.drawableToBitmap(app.icon), 0);
+                            Bitmap mBitmap = BitmapUtil.transform2CycleBitmap(BitmapUtil.drawableToBitmap(app.icon), 12);
                             String mIconPath = getFilesDir().getPath() + "/notification_icons" + "/" + iconTranConfig.index + "_" + app.pkgName;
                             try {
                                 File iconFile = new File(mIconPath);
@@ -357,35 +629,22 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
      * @return
      */
     private int convertPkg2Type(String pkg) {
-//        int value = 0;
-//        for (int index = 0; index < pkg.length(); index++) {
-//            String it = String.valueOf(pkg.charAt(index));
-//            Integer v = mAlphabet.get(it);
-//            value += (v != null ? v : 0) * index;
-//        }
-//        if (pkg.equals("com.ido.alexademo")) {
-//            value = 45000;
-//        }
-//        lastValue = value;
-//        lastPkg = pkg;
-//        int value = DataUtils.getInstance().createAppUniqueFlag(pkg);
-        int value =0;
-        Log.d(TAG, "convertPkg2Type, " + pkg + " = " + value);
+        int value = 0;
+        value = convertPackageToNumber(pkg);
+        Log.d(TAG, "convertPkg2Type, pkg = " + pkg + ", type = " + value);
+        if (value >= 20000) {
+            Log.d(TAG, "convertPkg2Type, pkg = " + pkg + ", type = " + value + ", 超限了");
+        }
+        if (allNoticeAppTypeBeans.containsKey(value)) {
+            Log.d(TAG, "convertPkg2Type, pkg = " + pkg + ", type = " + value + ", 重复了，" + allNoticeAppTypeBeans.get(value));
+        }
         allNoticeAppTypeBeans.put(value, pkg);
         return value;
     }
 
-    private void initAlphabet() {
-        mAlphabet.clear();
-        for (int index = 97; index <= 122; index++) {
-            mAlphabet.put(String.valueOf((char) (index + '0')), index);
-        }
-        int size = mAlphabet.size();
-        for (int index = 65; index <= 90; index++) {
-            mAlphabet.put(String.valueOf((char) (index + '0')), index + size);
-        }
-        mAlphabet.put(".", mAlphabet.size());
-        mAlphabet.put("_", mAlphabet.size());
+    private int convertPackageToNumber(String packageName) {
+        int hash = packageName.hashCode();
+        return Math.abs(hash % 20001); // 取绝对值并限制在 0 到 20000 之间
     }
 
     /**
@@ -475,10 +734,69 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
             Toast.makeText(this, "请输入通知内容！", Toast.LENGTH_SHORT).show();
             return;
         }
-        sendNotification2Device(content);
+        sendNotification2Device(content, false);
     }
 
-    public void sendNotification2Device(String body) {
+    public void btSendMsgAndReply(View view) {
+        String content = etMsg.getText().toString().trim();
+        if (TextUtils.isEmpty(content)) {
+            Toast.makeText(this, "请输入通知内容！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //模拟收到通知的场景，实际应该是通过NotificationListenerService.
+//        class MsgService extends NotificationListenerService {
+//            @Override
+//            public void onNotificationPosted(StatusBarNotification sbn) {
+//                super.onNotificationPosted(sbn);
+//                Notification notification = sbn.getNotification();
+//            }
+//        }
+        //此处只是模拟
+        saveNotification(new Notification());
+        sendNotification2Device(content, true);
+    }
+
+    private void saveNotification(Notification notification) {
+        if (sNotificationMap == null) {
+            sNotificationMap = new HashMap<>();
+        }
+        msgId++;
+        sNotificationMap.put(msgId, notification);
+    }
+
+    private static Notification.Action getReplyAction(Notification notification) {
+        Notification.Action[] actions = notification.actions;
+        if (actions != null) {
+            for (Notification.Action action : actions) {
+                if (action != null) {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//                        CommonLogUtil.d("快捷回复的通知 action.getSemanticAction()="+action.getSemanticAction());
+//                        if(action.getSemanticAction() == Notification.Action.SEMANTIC_ACTION_REPLY){
+//                            return action;
+//                        }
+//                    }else {
+                    if (action.getRemoteInputs() != null && action.getRemoteInputs().length > 0) {
+                        return action;
+                    }
+//                    }
+                }
+
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 是否支持快捷回复
+     *
+     * @return
+     */
+    public static boolean isSupportQuickReply(Notification notification) {
+        return getReplyAction(notification) != null;
+    }
+
+    public void sendNotification2Device(String body, boolean supportReply) {
         if (!BLEManager.isConnected()) {
             Log.d(TAG, "sendNotification2DeviceV3，device not connected");
             return;
@@ -495,6 +813,13 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
         v3MessageNotice.contact = mDefaultAppName;
         v3MessageNotice.msg_data = body;
         v3MessageNotice.evt_type = 1; //当前处于那种模式  0：无效； 1:消息提醒; 2：打电话；
+
+        //支持快捷回复，必须传msgID，且msgID > 0，msgID可以关联发送的消息
+        if (supportReply) {
+            v3MessageNotice.msg_ID = msgId;
+        } else {
+            v3MessageNotice.msg_ID = 0;
+        }
 
         int length = 1;//items的长度
         boolean hasMultiLanguage = false;

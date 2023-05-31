@@ -9,6 +9,9 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +22,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import test.com.ido.R;
 
 /**
  * @author tianwei
@@ -144,6 +149,39 @@ public class BitmapUtil {
         paint.setAntiAlias(true);
         canvas.drawCircle(x / 2f, y / 2f, radius - recoup, paint);
         return bitmap;
+    }
+
+    public static Bitmap transformCycleBitmap(Bitmap originalBitmap) {
+        // 加载原始图片
+// 创建一个空白的Bitmap作为目标，大小为圆形区域的直径
+        int diameter = Math.min(originalBitmap.getWidth(), originalBitmap.getHeight());
+        Bitmap circularBitmap = Bitmap.createBitmap(diameter, diameter, Bitmap.Config.ARGB_8888);
+
+// 创建一个Canvas对象，并将其与目标Bitmap关联
+        Canvas canvas = new Canvas(circularBitmap);
+
+// 创建一个Paint对象，并设置抗锯齿属性
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+
+// 计算圆形区域的半径
+        float radius = diameter / 2f;
+
+// 在Canvas上绘制圆形区域
+        canvas.drawCircle(radius, radius, radius, paint);
+
+// 创建一个BitmapShader，并将原始图片作为源
+        Shader shader = new BitmapShader(originalBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+
+// 将Shader设置给Paint对象
+        paint.setShader(shader);
+
+// 设置Xfermode为SRC_IN，以保留交集部分
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+
+// 绘制圆形图片
+        canvas.drawBitmap(originalBitmap, 0, 0, paint);
+        return circularBitmap;
     }
 
     /**
