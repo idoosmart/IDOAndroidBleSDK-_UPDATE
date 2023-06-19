@@ -7,8 +7,6 @@ import android.os.StrictMode;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.baidu.mapapi.CoordType;
-import com.baidu.mapapi.SDKInitializer;
 import com.facebook.stetho.Stetho;
 import com.ido.ble.BLEManager;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -38,10 +36,6 @@ public class APP extends MultiDexApplication {
 
         // 添加facebookc插件
         Stetho.initializeWithDefaults(this);
-
-        //百度地图
-        SDKInitializer.initialize(this);
-        SDKInitializer.setCoordType(CoordType.BD09LL);
 
         CrashReport.initCrashReport(getApplicationContext(), "1ddf6b5084", true);
         if (!BuildConfig.DEBUG) {

@@ -272,20 +272,12 @@
             android:name=".dfu.MainUpgradeActivity"
             android:launchMode="singleTask" />
         <activity android:name=".gps.GpsMainActivity" />
-        <activity android:name=".gps.AGpsSectionTranslateActivity" />
         <activity android:name=".gps.AGpsAutoTranslateActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0lf0ZmPnNzRoA1hcUINvrkXIUHudg5MB" />
 
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
-
-        <activity android:name=".gps.BaiDuMapActivity" />
-        <activity android:name=".gps.StaticMapActivity" />
         <activity android:name=".dfu.RTKDfuActivity" />
         <activity android:name=".music.MusicManagerActivity" />
         <activity android:name=".widgets.WidgetsActivity" />

@@ -3,7 +3,6 @@ package test.com.ido.gps
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import com.baidu.mapapi.NetworkUtil
 import com.ido.ble.BLEManager
 import com.ido.ble.LocalDataManager
 import com.ido.ble.callback.DeviceParaChangedCallBack
@@ -18,6 +17,7 @@ import com.ido.ble.gps.model.GpsStatus
 import com.ido.ble.protocol.model.DeviceChangedPara
 import test.com.ido.APP
 import test.com.ido.utils.DataUtils
+import test.com.ido.utils.NetworkUtil
 import test.com.ido.utils.download.DownloadManager
 import java.io.File
 import java.util.*
