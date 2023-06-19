@@ -27,9 +27,13 @@
                 android:id="@+id/phone_notice_incoming_phone_number_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="15812348888"
+                android:text="12345678900"
                 android:inputType="phone"
                 android:hint="phone"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Note: Test quick reply, please use real mobile phone number"
+                android:layout_height="wrap_content"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

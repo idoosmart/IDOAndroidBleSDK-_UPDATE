@@ -1,0 +1,68 @@
+{
+  "author": "zqg",
+  "battery": false,
+  "bluetooth": false,
+  "description": "custom1",
+  "disturb": false,
+  "item": [
+    {
+      "bg": "bg.bmp",
+      "fontnum": 0,
+      "h": 286,
+      "type": "icon",
+      "w": 240,
+      "widget": "custom",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "fgcolor": "0xFFFF3333",
+      "fgrender": "0xFFFFFFFF",
+      "font": "week",
+      "fontnum": 7,
+      "h": 26,
+      "type": "week",
+      "w": 62,
+      "widget": "custom",
+      "x": 125,
+      "y": 12
+    },
+    {
+      "fgcolor": "0xFFFF3333",
+      "fgrender": "0xFFFFFFFF",
+      "font": "num_date",
+      "fontnum": 10,
+      "h": 26,
+      "type": "day",
+      "w": 32,
+      "widget": "custom",
+      "x": 192,
+      "y": 12
+    },
+    {
+      "fgcolor": "0xFFFF3333",
+      "fgrender": "0xFFFFFFFF",
+      "font": "num",
+      "fontnum": 11,
+      "h": 44,
+      "type": "time",
+      "w": 135,
+      "widget": "custom",
+      "x": 100,
+      "y": 40
+    },
+    {
+      "font": "red_point",
+      "fontnum": 4,
+      "h": 22,
+      "type": "redpoint",
+      "w": 22,
+      "widget": "custom",
+      "x": 109,
+      "y": 11
+    }
+  ],
+  "name": "custom1",
+  "preview": "preview.bmp",
+  "version": 1
+}
