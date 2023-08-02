@@ -6,6 +6,7 @@ import com.ido.ble.bluetooth.device.BLEDevice;
 import com.ido.ble.business.sync.SyncPara;
 import com.ido.ble.callback.AppExchangeDataCallBack;
 
+import com.ido.ble.callback.V3AppExchangeDataCallBack;
 import com.ido.ble.protocol.model.AppExchangeDataIngPara;
 import com.ido.ble.protocol.model.AppExchangeDataPausePara;
 import com.ido.ble.protocol.model.AppExchangeDataResumePara;
@@ -23,6 +24,8 @@ import com.ido.ble.protocol.model.V3AppExchangeDataIngPara;
 
 
 import java.util.Locale;
+
+import test.com.ido.runplan.sync.BaseConnCallback;
 
 /**
  * Created by lyw.
@@ -130,8 +133,28 @@ public class BleSdkWrapper {
     public static void appSwitchDataStart(AppExchangeDataStartPara switchDataAppStart) {
         BLEManager.appExchangeDataStart(switchDataAppStart);
     }
-
-
+    public static void unregisterConnectCallBack(BaseConnCallback callBack) {
+        BLEManager.unregisterConnectCallBack(callBack);
+    }
+    /**
+     * 取消v3数据的数据交换
+     * @param callBack
+     */
+    public static void unregisterV3AppExchangeDataCallBack(V3AppExchangeDataCallBack.ICallBack callBack) {
+        BLEManager.unregisterV3AppExchangeDataCallBack(callBack);
+    }
+    /**
+     * 注册v3的数据交换
+     * @param callBack
+     */
+    public static void registerV3AppExchangeDataCallBack(V3AppExchangeDataCallBack.ICallBack callBack) {
+        unregisterV3AppExchangeDataCallBack(callBack);
+        BLEManager.registerV3AppExchangeDataCallBack(callBack);
+    }
+    public static void registerConnectCallBack(BaseConnCallback callBack) {
+        unregisterConnectCallBack(callBack);
+        BLEManager.registerConnectCallBack(callBack);
+    }
     /**
      * 运动结束
      */

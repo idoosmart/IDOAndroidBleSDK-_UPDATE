@@ -30,6 +30,7 @@ import test.com.ido.gps.GpsMainActivity;
 import test.com.ido.logoutput.bluetooth.BluetoothLogoutManager;
 import test.com.ido.music.MusicActivity;
 import test.com.ido.notice.PhoneNoticeActivity;
+import test.com.ido.runplan.RunPlanActivity;
 import test.com.ido.set.MainSetActivity;
 import test.com.ido.music.MusicManagerActivity;
 import test.com.ido.set.SetSportActivity;
@@ -185,5 +186,9 @@ public class HomeActivity extends BaseAutoConnectActivity {
 
     public void setNotification(View view) {
         startActivity(new Intent(this, NotificationIconTransferActivity.class));
+    }
+
+    public void runPlan(View view){
+        startActivity(new Intent(this, RunPlanActivity.class));
     }
 }

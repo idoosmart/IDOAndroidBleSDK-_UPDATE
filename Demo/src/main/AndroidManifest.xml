@@ -290,7 +290,10 @@
         <activity android:name=".set.SetSportDataItemActivity" />
         <activity android:name=".set.SetSportDataItemDetailActivity" />
         <activity android:name=".set.SmartCompetitorActivity" />
-
+        <activity android:name=".runplan.RunPlanActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".runplan.page.HealthManagerActivity"
+            android:screenOrientation="portrait" />
         <service
             android:name="com.realsil.sdk.dfu.DfuService"
             android:enabled="true"

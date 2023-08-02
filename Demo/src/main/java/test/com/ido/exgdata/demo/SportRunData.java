@@ -52,13 +52,13 @@ public class SportRunData implements Serializable{
     private int dataFrom = DATA_FROM_DEVICE;
     private String hr_data_vlaue_json;
     private Date date;//时间戳
-    @Generated(hash = 829160143)
-    public SportRunData(boolean isUploaded, Long activityId, String macAddress,
-                        int year, int month, int day, int hour, int minute, int second,
-                        int hr_data_interval_minute, int type, int step, int durations,
-                        int calories, int distance, int avg_hr_value, int max_hr_value,
-                        int warmUpMins, int burn_fat_mins, int aerobic_mins, int anaerobicMins,
-                        int limit_mins, int dataFrom, String hr_data_vlaue_json, Date date) {
+    @Generated(hash = 1689298063)
+    public SportRunData(boolean isUploaded, Long activityId, String macAddress, int year,
+            int month, int day, int hour, int minute, int second, int hr_data_interval_minute,
+            int type, int step, int durations, int calories, int distance, int avg_hr_value,
+            int max_hr_value, int warmUpMins, int burn_fat_mins, int aerobic_mins,
+            int anaerobicMins, int limit_mins, int dataFrom, String hr_data_vlaue_json,
+            Date date) {
         this.isUploaded = isUploaded;
         this.activityId = activityId;
         this.macAddress = macAddress;
@@ -85,7 +85,7 @@ public class SportRunData implements Serializable{
         this.hr_data_vlaue_json = hr_data_vlaue_json;
         this.date = date;
     }
-    @Generated(hash = 920732735)
+    @Generated(hash = 1400225533)
     public SportRunData() {
     }
     public boolean getIsUploaded() {

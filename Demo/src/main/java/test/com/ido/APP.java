@@ -15,6 +15,7 @@ import java.io.File;
 
 import test.com.ido.crash.CrashHandler;
 import test.com.ido.log.LogPathImpl;
+import test.com.ido.runplan.db.GreenDaoManager;
 
 
 /**
@@ -45,7 +46,7 @@ public class APP extends MultiDexApplication {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
-
+        GreenDaoManager.getInstance().init(this);
 
     }
 
