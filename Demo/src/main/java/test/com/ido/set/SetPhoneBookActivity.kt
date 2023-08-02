@@ -123,7 +123,7 @@ class SetPhoneBookActivity : BaseAutoConnectActivity() {
             getSupportFunctionInfo()?.v2_support_get_all_contact ?: false
         val isConnected = BLEManager.isConnected()
         val isBind = BLEManager.isBind()
-        if (isConnected && isSupport && isBind) {
+        if (isConnected && isBind) {
             try {
                 contacts = PhoneUtil.getPhoneSorted().filter {
                     val isEmpty = TextUtils.isEmpty(it.telePhone)
