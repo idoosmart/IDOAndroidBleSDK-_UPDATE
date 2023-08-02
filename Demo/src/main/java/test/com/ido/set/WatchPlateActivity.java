@@ -785,6 +785,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             String selectedFuncColor = WallpaperDialManager.colorTo16(colorList.get(selectedFunctionColorIndex));
             if (isSupportFunctionSet) {
                 //找到坐标
+                //处理功能
                 CwdAppBean.Location.FunctionCoordinate functionCoordinate = null;
                 if (location != null && mSelectedFunction != null) {
                     List<CwdAppBean.Location.FunctionCoordinate> functionCoordinates = location.getFunction_coordinate();
@@ -804,39 +805,56 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 //
 //                    }
 //                } else {
-                    Log.d(TAG, "处理前: " + GsonUtil.toJson(mCwdIwfBean));
-                    //删除不要的配置，添加用户选择的配置
-                    Iterator<CwdIwfBean.Item> it = items.iterator();
-                    while (it.hasNext()) {
-                        CwdIwfBean.Item item = it.next();
-                        for (CwdAppBean.Function function : functions) {
-                            if (function.findItem(item.getType(), item.getWidget()) != null) {
-                                it.remove();
-                                break;
-                            }
+                Log.d(TAG, "处理前: " + GsonUtil.toJson(mCwdIwfBean));
+                //删除不要的配置，添加用户选择的配置
+                Iterator<CwdIwfBean.Item> it = items.iterator();
+                while (it.hasNext()) {
+                    CwdIwfBean.Item item = it.next();
+                    boolean itemRemoved = false;
+                    //删除功能组件
+                    for (CwdAppBean.Function function : functions) {
+                        if (function.findItem(item.getType(), item.getWidget()) != null) {
+                            it.remove();
+                            itemRemoved = true;
+                            break;
                         }
                     }
-                    Log.d(TAG, "删除功能后: " + GsonUtil.toJson(mCwdIwfBean));
-                    if (functionCoordinate != null) {
-                        List<CwdAppBean.Function.Item> newFunctionItems = mSelectedFunction.getItem();
-                        for (CwdAppBean.Function.Item newFunctionItem : newFunctionItems) {
-                            CwdAppBean.Location.FunctionCoordinate.Item item = functionCoordinate.findItem(newFunctionItem.getType(), newFunctionItem.getWidget());
-                            if (item != null && item.getCoordinate().size() == 4) {
-                                List<Integer> coordinate = item.getCoordinate();
-                                CwdIwfBean.Item newItem = new CwdIwfBean.Item(newFunctionItem.getWidget(), newFunctionItem.getType(), coordinate.get(0), coordinate.get(1), coordinate.get(2), coordinate.get(3), newFunctionItem.getBg(), newFunctionItem.getAlign(), selectedFuncColor, selectedFuncColor, "", newFunctionItem.getFont(), newFunctionItem.getFontnum());
-                                items.add(newItem);
-                            }
-                        }
-                    }
-//                }
 
-                for (CwdIwfBean.Item item : items) {
-                    if (IwfItemType.TIME.equals(item.getType())) {
-                        item.setFgcolor(selectedTimeColor);
-                        if (location != null) {
-                            item.setX(location.getTime().get(0));
-                            item.setY(location.getTime().get(1));
+                    if (itemRemoved) {
+                        continue;
+                    }
+
+                    //删除时间组件，在时间组件总表则删除后添加用户添加的
+                    if (app.findTimeWidgetItem(item.getType(), item.getWidget()) != null) {
+                        it.remove();
+                    }
+                }
+                Log.d(TAG, "删除功能后: " + GsonUtil.toJson(mCwdIwfBean));
+                if (functionCoordinate != null) {
+                    List<CwdAppBean.Function.Item> newFunctionItems = mSelectedFunction.getItem();
+                    for (CwdAppBean.Function.Item newFunctionItem : newFunctionItems) {
+                        CwdAppBean.Location.FunctionCoordinate.Item item = functionCoordinate.findItem(newFunctionItem.getType(), newFunctionItem.getWidget());
+                        if (item != null && item.getCoordinate().size() == 4) {
+                            List<Integer> coordinate = item.getCoordinate();
+                            CwdIwfBean.Item newItem = new CwdIwfBean.Item(newFunctionItem.getWidget(), newFunctionItem.getType(), coordinate.get(0), coordinate.get(1), coordinate.get(2), coordinate.get(3), newFunctionItem.getBg(), newFunctionItem.getAlign(), selectedFuncColor, selectedFuncColor, "", newFunctionItem.getFont(), newFunctionItem.getFontnum());
+                            items.add(newItem);
                         }
+                    }
+                }
+//                }
+                //处理时间组件
+                List<CwdIwfBean.Item> timeWidget = null;
+                if (location != null) {
+                    timeWidget = location.getTime_widget();
+                    Log.d(TAG, "时间组件跟随位置变化：" + timeWidget);
+                }
+
+                if (timeWidget == null || timeWidget.isEmpty()) {
+                    Log.d(TAG, "时间组件未配置！");
+                } else {
+                    for (CwdIwfBean.Item item : timeWidget) {
+                        item.setFgcolor(selectedTimeColor);
+                        items.add(item);
                     }
                 }
                 Log.d(TAG, "处理后: " + GsonUtil.toJson(mCwdIwfBean));

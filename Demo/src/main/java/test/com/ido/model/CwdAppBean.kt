@@ -17,12 +17,13 @@ data class CwdAppBean(
     val function_support: Int,
     val function_support_new: Int, //新版本标志位，为了兼容
     val time_location_support: Int,
+    val time_widget_list: List<TimeWidgetItem>?,
     val function_list: List<Function>?,
     val screen_corner: Float,
     val colors: List<String>?
 ) : Serializable {
     data class Location(
-        val type: Int, val time: List<Int>, val week: List<Int>, val day: List<Int>, val function_coordinate: List<FunctionCoordinate>?
+        val type: Int, val time: List<Int>, val week: List<Int>, val day: List<Int>, val function_coordinate: List<FunctionCoordinate>?,val time_widget: List<CwdIwfBean.Item>?
     ) : Serializable {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
@@ -69,6 +70,10 @@ data class CwdAppBean(
         return function_list?.find { it.function == function }
     }
 
+    fun getFunctionValues(): List<Int>? {
+        return function_list?.map { it.function }
+    }
+
     data class App(
         val bpp: Int, val format: String, val name: String
     ) : Serializable
@@ -82,6 +87,11 @@ data class CwdAppBean(
             }
             return function!![0]
         }
+    }
+    data class TimeWidgetItem(val type: String, val widget: String) : Serializable
+
+    fun findTimeWidgetItem(type: String, widget: String): TimeWidgetItem? {
+        return time_widget_list?.find { it.type == type && it.widget == widget }
     }
 
     data class Function(
