@@ -148,6 +148,15 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         initFuncView();
     }
 
+    private void sortTimeFunctionView() {
+        llDialWidget.removeView(mIvDialTime);
+        if (selectedLocation == WallpaperDialConstants.WidgetLocation.CENTER) {
+            llDialWidget.addView(mIvDialTime, 0);
+        } else {
+            llDialWidget.addView(mIvDialTime);
+        }
+    }
+
     private void initColorView() {
         color1Adapter = new ColorAdapter();
         color1Adapter.onItemClickListener = position -> {
@@ -280,6 +289,11 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.tv_time.getLayoutParams();
             lp.gravity = WallpaperDialManager.getGravityByLocation(mLocationValues.get(position));
             holder.tv_time.setLayoutParams(lp);
+            if (mLocationValues.get(position) == WallpaperDialConstants.WidgetLocation.CENTER) {
+                holder.tv_time.setText("10\n08");
+            } else {
+                holder.tv_time.setText("10:08");
+            }
         }
 
         @Override
@@ -321,8 +335,12 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     }
 
     private void updateWidgetType() {
+        sortTimeFunctionView();
         mIvDialFunction.setVisibility(mFunctionShow ? View.VISIBLE : View.GONE);
         mIvDialFunction.setImageResource(WallpaperDialManager.getFunctionIcon(mFunction));
+
+        int timeResId = selectedLocation == WallpaperDialConstants.WidgetLocation.CENTER ? R.mipmap.icon_wallpager_dial_time_center : R.mipmap.icon_wallpaper_dial_time;
+        mIvDialTime.setImageResource(timeResId);
     }
 
     /**
@@ -334,9 +352,11 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         Log.e("Davy", "changeDialWidgetLocation: " + location + ", gravity: " + gravity);
         lp.gravity = gravity;
         llDialWidget.setLayoutParams(lp);
-        int childGravity = Gravity.RIGHT;
+        int childGravity = Gravity.CENTER;
         if (location == WallpaperDialConstants.WidgetLocation.LEFT_BOTTOM || location == WallpaperDialConstants.WidgetLocation.LEFT_TOP || location == WallpaperDialConstants.WidgetLocation.LEFT_CENTER) {
             childGravity = Gravity.LEFT;
+        }else if (location == WallpaperDialConstants.WidgetLocation.RIGHT_BOTTOM || location == WallpaperDialConstants.WidgetLocation.RIGHT_TOP || location == WallpaperDialConstants.WidgetLocation.RIGHT_CENTER){
+            childGravity = Gravity.RIGHT;
         }
         llDialWidget.setGravity(childGravity);
     }
@@ -746,23 +766,45 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         config.stateListener = new WatchPlateCallBack.IAutoSetPlateCallBack() {
             @Override
             public void onStart() {
-                tv_progress.setText("start");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_progress.setText("start");
+                    }
+                });
+
             }
 
             @Override
             public void onProgress(int i) {
-                tv_progress.setText("" + i);
-                progress_bar.setProgress(i);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_progress.setText("" + i);
+                        progress_bar.setProgress(i);
+                    }
+                });
+
             }
 
             @Override
             public void onSuccess() {
-                tv_progress.setText("success");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_progress.setText("success");
+                    }
+                });
             }
 
             @Override
             public void onFailed() {
-                tv_progress.setText("failed");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_progress.setText("failed");
+                    }
+                });
             }
         };
         config.errorCallback = new WatchPlateCallBack.ISetPlatErrorCallback() {
