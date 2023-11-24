@@ -221,7 +221,7 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
         val randomNum = System.currentTimeMillis()
         return mutableListOf(
             EpoBean(
-                url = "http://wpepodownload.mediatek.com/EPO_GR_3_1.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
+                url = "https://elpo.airoha.com/ELPO_GR3_1.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
                     randomNum
                 ),
                 fileName = "EPO_GR_3_1.DAT",
@@ -229,7 +229,7 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
             ),
 
             EpoBean(
-                url = "http://wpepodownload.mediatek.com/EPO_GAL_3.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
+                url = "https://elpo.airoha.com/ELPO_GAL_3.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
                     randomNum
                 ),
                 fileName = "EPO_GAL_3.DAT",
@@ -237,7 +237,7 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
             ),
 
             EpoBean(
-                url = "http://wpepodownload.mediatek.com/EPO_BDS_3.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
+                url = "https://elpo.airoha.com/ELPO_BDS_3.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
                     randomNum
                 ),
                 fileName = "EPO_BDS_3.DAT",
