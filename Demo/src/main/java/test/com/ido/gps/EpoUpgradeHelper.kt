@@ -16,6 +16,7 @@ import com.ido.ble.gps.model.GpsHotStartParam
 import com.ido.ble.gps.model.GpsStatus
 import com.ido.ble.protocol.model.DeviceChangedPara
 import test.com.ido.APP
+import test.com.ido.BuildConfig
 import test.com.ido.utils.DataUtils
 import test.com.ido.utils.NetworkUtil
 import test.com.ido.utils.download.DownloadManager
@@ -93,13 +94,15 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
             mEpoUpgradeListener?.onFailed("Network is unavailable!")
             return
         }
-        //每隔24小时升级一次
-        val lastUpgradeDate = DataUtils.getInstance().epoLastUpgradeTime
-        if (lastUpgradeDate > 0 && System.currentTimeMillis() - lastUpgradeDate < 24 * 60 * 60 * 1000) {
-            printAndSaveLog("今天已经检测过了EPO检查升级流程，请明天再来")
-            mEpoUpgradeListener?.onFailed("It's not time to upgrade")
-            return
-        }
+        //TODO The release version should be upgraded every 24 hours.
+        //TODO The release version should be upgraded every 24 hours.
+        //TODO The release version should be upgraded every 24 hours.
+//        val lastUpgradeDate = DataUtils.getInstance().epoLastUpgradeTime
+//        if (lastUpgradeDate > 0 && System.currentTimeMillis() - lastUpgradeDate < 24 * 60 * 60 * 1000) {
+//            printAndSaveLog("今天已经检测过了EPO检查升级流程，请明天再来")
+//            mEpoUpgradeListener?.onFailed("It's not time to upgrade")
+//            return
+//        }
         mUpgrading = true
         if (isSupportGPSUpgrade()) {
             printAndSaveLog("先获取gps信息...")
@@ -137,8 +140,10 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
     private fun startDownloadFile(epoBean: EpoBean) {
         val file = File(epoBean.filePath)
         if (file.exists() && file.isFile) file.delete()
+        val deviceId = System.currentTimeMillis()
+        printAndSaveLog("startDownloadFile deviceId = $deviceId")
         DownloadManager.download(
-            epoBean.url,
+            epoBean.url.plus(deviceId),
             epoBean.filePath,
             object : DownloadManager.DownloadListener {
                 /**
@@ -218,28 +223,21 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
     }
 
     private fun getEpoBeanList(): List<EpoBean> {
-        val randomNum = System.currentTimeMillis()
         return mutableListOf(
             EpoBean(
-                url = "https://elpo.airoha.com/ELPO_GR3_1.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
-                    randomNum
-                ),
+                url = "https://elpo.airoha.com/ELPO_GR3_1.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=",
                 fileName = "EPO_GR_3_1.DAT",
                 filePath = EPO_DIR.plus("EPO_GR_3_1.DAT")
             ),
 
             EpoBean(
-                url = "https://elpo.airoha.com/ELPO_GAL_3.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
-                    randomNum
-                ),
+                url = "https://elpo.airoha.com/ELPO_GAL_3.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=",
                 fileName = "EPO_GAL_3.DAT",
                 filePath = EPO_DIR.plus("EPO_GAL_3.DAT")
             ),
 
             EpoBean(
-                url = "https://elpo.airoha.com/ELPO_BDS_3.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=".plus(
-                    randomNum
-                ),
+                url = "https://elpo.airoha.com/ELPO_BDS_3.DAT?vendor=IDOO&project=J3zLAKQJ4vy_81un3vc89qcvBcfjY6GiuiZZs4gn_LM&device_id=",
                 fileName = "EPO_BDS_3.DAT",
                 filePath = EPO_DIR.plus("EPO_BDS_3.DAT")
             )
@@ -312,6 +310,15 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
     private fun makeAirohaGpsFile() {
         printAndSaveLog("开始将三个文件合并成一个文件")
         val config = MakeGpsFileConfig()
+        val file = File(EPO_DIR)
+        if (!file.exists()) {
+            file.mkdirs()
+        }
+        val dirPath = EPO_DIR +"EPO.DAT"
+        val dir = File(dirPath)
+        if (dir.exists()){
+            dir.delete()
+        }
         config.blockSize = 1024
         config.filePath = EPO_DIR
         config.outFileName = AIROHA_AGPS_OFFLINE_FILENAME
