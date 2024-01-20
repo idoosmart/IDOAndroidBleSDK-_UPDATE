@@ -107,6 +107,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="deviceControlApp"
+            android:text="deviceControlApp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="musicTrans"
             android:text="music" />
 
@@ -151,6 +157,13 @@
             android:layout_height="wrap_content"
             android:onClick="runPlan"
             android:text="Run plan" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="Ephemeris"
+            android:text="Ephemeris" />
     </LinearLayout>
 
 </ScrollView>

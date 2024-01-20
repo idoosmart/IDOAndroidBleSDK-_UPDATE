@@ -55,6 +55,11 @@
             android:text="@string/phone_notice_calling_stop"/>
 
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="CallReminderSwitch"
+            android:text="CallReminderSwitch"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

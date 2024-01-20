@@ -30,9 +30,8 @@ import com.ido.ble.callback.PhoneMsgNoticeCallBack;
 import com.ido.ble.callback.SettingCallBack;
 import com.ido.ble.protocol.model.DeviceChangedPara;
 import com.ido.ble.protocol.model.IncomingCallInfo;
-import com.ido.ble.protocol.model.MessageNotifyState;
 import com.ido.ble.protocol.model.NewMessageInfo;
-import com.ido.ble.protocol.model.NotificationPara;
+import com.ido.ble.protocol.model.NoticeReminderSwitchStatus;
 import com.ido.ble.protocol.model.QuickReplyInfo;
 import com.ido.ble.protocol.model.SupportFunctionInfo;
 import com.ido.ble.protocol.model.V3MessageNotice;
@@ -65,7 +64,7 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
 
         @Override
         public void onStopCall() {
-            Toast.makeText(PhoneNoticeActivity.this, R.string.phone_notice_tip_msg_ok, Toast.LENGTH_LONG).show();
+            Toast.makeText(PhoneNoticeActivity.this, "挂断电话", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -340,6 +339,22 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
 
     }
 
+
+
+    /**
+     * 27 CallReminderSwitch
+     * @param v
+     */
+    public void CallReminderSwitch(View v){
+        SupportFunctionInfo supportFunctionInfo =  LocalDataManager.getSupportFunctionInfo();
+        if(supportFunctionInfo!=null && supportFunctionInfo.V3_support_sync_contact){
+            NoticeReminderSwitchStatus status = new NoticeReminderSwitchStatus();
+            status.notify_switch = NoticeReminderSwitchStatus.NOTIFY_88;
+            status.call_switch = NoticeReminderSwitchStatus.SWITCH_ON;
+            BLEManager.setNoticeReminderSwitchStatus(status);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -386,6 +401,7 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
         }
 
     }
+
 
 
     public void v3noticeNewMsg() {

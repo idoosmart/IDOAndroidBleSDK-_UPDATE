@@ -9,6 +9,7 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -36,12 +37,12 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.Manifest.permission.MEDIA_CONTENT_CONTROL" />
+
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" /> <!-- 判断相机是否 可以使用 如果不加以下配置 那么captureIntent.resolveActivity(context.getPackageManager())==null -->
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
@@ -57,6 +58,7 @@
         </intent>
     </queries>
     -->
+
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
@@ -72,6 +74,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ephemeris.EphemerisActivity"
+            android:exported="false" />
 
         <service
             android:name=".music.MusicService"
@@ -82,6 +87,7 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+        <service android:name=".device2app.PhoneListenService" />
 
         <activity
             android:name=".file.transfer.SportIconTransferActivity"
@@ -290,10 +296,15 @@
         <activity android:name=".set.SetSportDataItemActivity" />
         <activity android:name=".set.SetSportDataItemDetailActivity" />
         <activity android:name=".set.SmartCompetitorActivity" />
-        <activity android:name=".runplan.RunPlanActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".runplan.page.HealthManagerActivity"
+
+
+        <activity
+            android:name=".runplan.RunPlanActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".runplan.page.HealthManagerActivity"
+            android:screenOrientation="portrait" />
+
         <service
             android:name="com.realsil.sdk.dfu.DfuService"
             android:enabled="true"

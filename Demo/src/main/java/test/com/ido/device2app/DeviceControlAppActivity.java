@@ -8,44 +8,46 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
 import com.ido.ble.bluetooth.device.BLEDevice;
 import com.ido.ble.callback.DeviceControlAppCallBack;
+import com.ido.ble.protocol.model.NoticeReminderSwitchStatus;
 import com.ido.ble.protocol.model.SupportFunctionInfo;
 
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
 
-public class DeviceControlAppActivity extends BaseAutoConnectActivity {
+public class DeviceControlAppActivity extends BaseAutoConnectActivity  {
 
-
+    private String TAG = DeviceControlAppActivity.class.getName();
     private TextView tvEvent, tvFindPhone, tvSOS, tvAntiLost;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            if (device == null || TextUtils.isEmpty(device.getAddress())){
+            if (device == null || TextUtils.isEmpty(device.getAddress())) {
                 return;
             }
-            Log.d("aaa", "device name: " + device.getAddress());
+            Log.d(TAG, "device name: " + device.getAddress());
 
             SupportFunctionInfo supportFunctionInfo = LocalDataManager.getSupportFunctionInfo(device.getAddress());
-            if (supportFunctionInfo == null || !supportFunctionInfo.support_ble_control_photograph){
+            if (supportFunctionInfo == null || !supportFunctionInfo.support_ble_control_photograph) {
                 return;
             }
             int state = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, -1);
             switch (state) {
                 case BluetoothDevice.BOND_NONE:
-                    Log.d("aaa", "BOND_NONE 删除配对");
+                    Log.d(TAG, "BOND_NONE 删除配对");
                     break;
                 case BluetoothDevice.BOND_BONDING:
-                    Log.d("aaa", "BOND_BONDING 正在配对");
+                    Log.d(TAG, "BOND_BONDING 正在配对");
                     break;
                 case BluetoothDevice.BOND_BONDED:
-                    Log.d("aaa", "BOND_BONDED 配对成功");
+                    Log.d(TAG, "BOND_BONDED 配对成功");
                     BLEDevice bleDevice = LocalDataManager.getLastConnectedDeviceInfo();
                     if (bleDevice != null && device.getAddress().equals(bleDevice.mDeviceAddress)) {
                         BLEManager.autoConnect();
@@ -54,36 +56,50 @@ public class DeviceControlAppActivity extends BaseAutoConnectActivity {
             }
         }
     };
+    /**
+     * 27 CallReminderSwitch
+     *
+     * @param v
+     */
+    public void CallReminderSwitch(View v) {
+        SupportFunctionInfo supportFunctionInfo = LocalDataManager.getSupportFunctionInfo();
+        if (supportFunctionInfo != null && supportFunctionInfo.V3_support_sync_contact) {
+            NoticeReminderSwitchStatus status = new NoticeReminderSwitchStatus();
+            status.notify_switch = NoticeReminderSwitchStatus.NOTIFY_88;
+            status.call_switch = NoticeReminderSwitchStatus.SWITCH_ON;
+            BLEManager.setNoticeReminderSwitchStatus(status);
+        }
+    }
 
     private DeviceControlAppCallBack.ICallBack iCallBack = new DeviceControlAppCallBack.ICallBack() {
         @Override
-        public void onControlEvent(DeviceControlAppCallBack.DeviceControlEventType eventType,int value) {
+        public void onControlEvent(DeviceControlAppCallBack.DeviceControlEventType eventType, int value) {
             handleControlEvent(eventType);
         }
 
         @Override
         public void onFindPhone(boolean isStart, long timeOut) {
-            if (isStart){
+            if (isStart) {
                 tvFindPhone.setText(R.string.device_control_start);
-            }else {
+            } else {
                 tvFindPhone.setText(R.string.device_control_end);
             }
         }
 
         @Override
         public void onOneKeySOS(boolean isStart, long timeOut) {
-            if (isStart){
+            if (isStart) {
                 tvSOS.setText(R.string.device_control_start);
-            }else {
+            } else {
                 tvSOS.setText(R.string.device_control_end);
             }
         }
 
         @Override
         public void onAntiLostNotice(boolean isStart, long timeOut) {
-            if (isStart){
+            if (isStart) {
                 tvAntiLost.setText(R.string.device_control_start);
-            }else {
+            } else {
                 tvAntiLost.setText(R.string.device_control_end);
             }
         }
@@ -96,12 +112,12 @@ public class DeviceControlAppActivity extends BaseAutoConnectActivity {
         tvFindPhone = (TextView) findViewById(R.id.device_control_app_find_phone);
         tvSOS = (TextView) findViewById(R.id.device_control_app_sos);
         tvAntiLost = (TextView) findViewById(R.id.device_control_app_anti_lost);
-
-
         IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         registerReceiver(receiver, intentFilter);
+        startService(new Intent(this,PhoneListenService.class));
         BLEManager.registerDeviceControlAppCallBack(iCallBack);
     }
+
 
     @Override
     protected void onDestroy() {
@@ -113,43 +129,42 @@ public class DeviceControlAppActivity extends BaseAutoConnectActivity {
     /**
      * @param eventType
      */
-    private void handleControlEvent(DeviceControlAppCallBack.DeviceControlEventType eventType){
-        if (eventType == DeviceControlAppCallBack.DeviceControlEventType.START){
+    private void handleControlEvent(DeviceControlAppCallBack.DeviceControlEventType eventType) {
+        if (eventType == DeviceControlAppCallBack.DeviceControlEventType.START) {
             tvEvent.setText(R.string.device_control_app_event_start);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.PAUSE){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.PAUSE) {
             tvEvent.setText(R.string.device_control_app_event_pause);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.STOP){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.STOP) {
             tvEvent.setText(R.string.device_control_app_event_stop);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.PREVIOUS){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.PREVIOUS) {
             tvEvent.setText(R.string.device_control_app_event_pre);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.NEXT){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.NEXT) {
             tvEvent.setText(R.string.device_control_app_event_next);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.TAKE_ONE_PHOTO){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.TAKE_ONE_PHOTO) {
             tvEvent.setText(R.string.device_control_app_event_single_photo);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.TAKE_MULTI_PHOTO){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.TAKE_MULTI_PHOTO) {
             tvEvent.setText(R.string.device_control_app_event_mutil_photo);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.VOLUME_UP){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.VOLUME_UP) {
             tvEvent.setText(R.string.device_control_app_event_vol_up);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.VOLUME_DOWN){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.VOLUME_DOWN) {
             tvEvent.setText(R.string.device_control_app_event_vol_down);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.OPEN_CAMERA){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.OPEN_CAMERA) {
             tvEvent.setText(R.string.device_control_app_event_open_camera);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.CLOSE_CAMERA){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.CLOSE_CAMERA) {
             tvEvent.setText(R.string.device_control_app_event_close_camera);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.ANSWER_PHONE){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.ANSWER_PHONE) {
             tvEvent.setText(R.string.device_control_app_event_answer_phone);
-        }else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.REJECT_PHONE){
+        } else if (eventType == DeviceControlAppCallBack.DeviceControlEventType.REJECT_PHONE) {
+            Log.d(TAG, "handleControlEvent: 挂断电话");
             tvEvent.setText(R.string.device_control_app_event_hand_up_phone);
-        }else {
-            tvEvent.setText(""+eventType);
+        } else {
+            tvEvent.setText("" + eventType);
         }
-
-        if (eventType == DeviceControlAppCallBack.DeviceControlEventType.REQUEST_PAIRED){
+        if (eventType == DeviceControlAppCallBack.DeviceControlEventType.REQUEST_PAIRED) {
             BLEManager.disConnect();
         }
 
     }
-
 
 
 }
