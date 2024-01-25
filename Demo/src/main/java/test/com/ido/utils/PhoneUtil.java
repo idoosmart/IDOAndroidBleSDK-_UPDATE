@@ -1,7 +1,6 @@
 package test.com.ido.utils;
 
 import static android.Manifest.permission.ANSWER_PHONE_CALLS;
-import static android.content.Context.TELEPHONY_SERVICE;
 
 import android.Manifest;
 import android.content.ContentResolver;
@@ -14,7 +13,6 @@ import android.telecom.TelecomManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -172,28 +170,50 @@ public class PhoneUtil {
 
     }
 
-    private static Object getTelephonyObject(Context context) {
-        Object telephonyObject = null;
+    public static Object getTelephonyObject(Context context) {
         try {
-            // 初始化iTelephony
-            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
-            // Will be used to invoke hidden methods with reflection
-            // Get the current object implementing ITelephony interface
-            Class telManager = telephonyManager.getClass();
-            Method getITelephony =telManager.getDeclaredMethod("getITelephony",String.class, Class[].class);
-            getITelephony.setAccessible(true);
-            telephonyObject = getITelephony.invoke(telephonyManager);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+            // 获取 TelephonyManager 实例
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+            // 获取 getITelephony 方法
+            Class<?> telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+            Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
+
+            // 设置访问权限
+            getITelephonyMethod.setAccessible(true);
+
+            // 调用 getITelephony 方法，获取 ITelephony 对象
+            Object iTelephonyObject = getITelephonyMethod.invoke(telephonyManager);
+
+            return iTelephonyObject;
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return telephonyObject;
+
+        return null;
     }
+//    private static Object getTelephonyObject(Context context) {
+//        Object telephonyObject = null;
+//        try {
+//            // 初始化iTelephony
+//            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
+//            // Will be used to invoke hidden methods with reflection
+//            // Get the current object implementing ITelephony interface
+//            Class telManager = telephonyManager.getClass();
+//            Method getITelephony =telManager.getDeclaredMethod("getITelephony",String.class, Class[].class);
+//            getITelephony.setAccessible(true);
+//            telephonyObject = getITelephony.invoke(telephonyManager);
+//        } catch (SecurityException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (IllegalArgumentException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//        return telephonyObject;
+//    }
 }
