@@ -1,37 +1,37 @@
 package test.com.ido.gps;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.baidu.location.LocationClient;
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
-import com.ido.ble.callback.GetDeviceInfoCallBack;
 import com.ido.ble.file.transfer.FileTransferConfig;
 import com.ido.ble.file.transfer.IFileTransferListener;
 import com.ido.ble.gps.callback.GpsCallBack;
-import com.ido.ble.gps.database.HealthGps;
-import com.ido.ble.gps.database.HealthGpsItem;
 import com.ido.ble.gps.gps.GpsFileTransferConfig;
 import com.ido.ble.gps.gps.GpsFileTransferListener;
+import com.ido.ble.gps.model.ConnParamReply;
+import com.ido.ble.gps.model.ControlGpsReply;
 import com.ido.ble.gps.model.GPSInfo;
 import com.ido.ble.gps.model.GpsHotStartParam;
 import com.ido.ble.gps.model.GpsStatus;
 import com.ido.ble.protocol.model.SupportFunctionInfo;
 
-import java.util.List;
+import java.io.File;
 
+import test.com.ido.APP;
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.utils.DataUtils;
@@ -46,9 +46,14 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
 
     private EditText etGPSPath;
     private Button btGPSSelect, btUpgradeGPS, btUpgradeEPO;
-    private TextView tvGPSProgress, tvGPSVersion, tvLastEPOUpgradeTime, tvEPOProgress;
+    private TextView tvGPSProgress, tvGPSVersion, tvLastEPOUpgradeTime, tvEPOProgress, tvAGPSProgress;
     private LinearLayout llGPS, llEPO;
     private Switch swEPOMode;
+    private EditText hotStartPara_ETtcxoOffset, hotStartPara_ETlongitude, hotStartPara_ETlatitude, hotStartPara_ETaltitude;
+
+    private String erroMsg = "";
+
+    private Boolean isDownloadSuccess = false;
 
     /**
      * 一天的毫秒值
@@ -61,6 +66,8 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
     private static final int TIME_MILLIONS_OF_4_HOUR = 1000 * 60 * 60 * 4;
 
     private static final int SELECT_GPS_FILE_REQ = 1;
+    private File file;
+    private boolean isErro = true;
 
     private void openFileChooser(int requestCode) {
         final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -73,7 +80,7 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
             startActivityForResult(intent, requestCode);
         }
     }
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,8 +96,19 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
         tvGPSVersion = findViewById(R.id.tvGPSVersion);
         btGPSSelect = findViewById(R.id.btGPSSelect);
         btUpgradeGPS = findViewById(R.id.btUpgradeGPS);
+        tvAGPSProgress = findViewById(R.id.tvAGPSProgress);
         tvGPSProgress = findViewById(R.id.tvGPSProgress);
+
+        hotStartPara_ETtcxoOffset = (EditText) findViewById(R.id.tcxo_offset_et);
+        hotStartPara_ETlongitude = (EditText) findViewById(R.id.longitude_et);
+        hotStartPara_ETlatitude = (EditText) findViewById(R.id.latitude_et);
+        hotStartPara_ETaltitude = (EditText) findViewById(R.id.altitude_et);
+
         etGPSPath.setText(DataUtils.getInstance().getGPSPath());
+
+        BLEManager.registerDeviceReplySetGpsCallBack(deviceReplySetGpsCallBack);
+        BLEManager.registerTranAgpsFileCallBack(tranAgpsFileCallBack);
+        LocationClient.setAgreePrivacy(true);
         BLEManager.registerGetGpsInfoCallBack(this);
         if (isSupportGPSUpgrade()) {
             llGPS.setVisibility(View.VISIBLE);
@@ -114,11 +132,22 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
             }
         }
 
+        String path = APP.getAppContext().getExternalCacheDir().getAbsolutePath() + (File.separator) + "eph/";
+        file = new File(path);
+        if (file.exists()) {
+            isDownloadSuccess = true;
+        } else {
+            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BLEManager.unregisterDeviceReplySetGpsCallBack(deviceReplySetGpsCallBack);
+        BLEManager.unregisterTranAgpsFileCallBack(tranAgpsFileCallBack);
+        EpoUpgradeHelper.getInstance().unregisterListener();
     }
 
     public void tranAgpsFileonline(View view) {
@@ -277,7 +306,8 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
 
     private boolean isSupportEPO() {
         SupportFunctionInfo functionInfo = LocalDataManager.getSupportFunctionInfo();
-        return functionInfo != null && functionInfo.Airoha_gps_chip;
+//        return functionInfo != null && functionInfo.Airoha_gps_chip;
+        return true;
     }
 
     private boolean isSupportGPSUpgrade() {
@@ -356,6 +386,7 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
     }
 
     public void btUpgradeEPO(View view) {
+        isDownloadSuccess = true;
         EpoUpgradeHelper.getInstance().startUpgradeEpo();
     }
 
@@ -372,6 +403,7 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
     @Override
     public void onDownloadSuccess() {
         tvEPOProgress.setText("download success!");
+        isDownloadSuccess = true;
     }
 
     @Override
@@ -395,13 +427,117 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
     }
 
     @Override
-    public void onFailed(@NonNull String errorMsg) {
+    public void onFailed(@NonNull String errorMsg, int code) {
         tvEPOProgress.setText("failed: " + errorMsg);
+        isErro = false;
+        erroMsg = errorMsg;
+        if (code == 2) {
+            isDownloadSuccess = false;
+        }
+
     }
 
     @Override
     public void onSuccess() {
         tvEPOProgress.setText("upgrade success!");
     }
+
+    public void btTransferIcoeEpo(View view) {
+
+        if (isDownloadSuccess && file.exists()) {
+            if (!isErro) {
+                Toast.makeText(this, erroMsg, Toast.LENGTH_SHORT).show();
+            }
+            EpoUpgradeHelper.getInstance().startTransferIcoeEpoFile();
+        } else {
+            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void btTransferEPO(View view) {
+        if (isDownloadSuccess && file.exists()) {
+            if (!isErro) {
+                Toast.makeText(this, erroMsg, Toast.LENGTH_SHORT).show();
+            }
+            EpoUpgradeHelper.getInstance().startTransferEpoFile();
+        } else {
+            Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void setGpsHotStartPara(View view) {
+        GpsHotStartParam hotStartParam = new GpsHotStartParam();
+        hotStartParam.setTcxo_offset(Integer.parseInt(hotStartPara_ETtcxoOffset.getText().toString()));
+        hotStartParam.setLongitude(Double.parseDouble(hotStartPara_ETlongitude.getText().toString()));
+        hotStartParam.setLatitude(Double.parseDouble(hotStartPara_ETlatitude.getText().toString()));
+        hotStartParam.setAltitude(Double.parseDouble(hotStartPara_ETaltitude.getText().toString()));
+        BLEManager.setGpsHotPara(hotStartParam);
+    }
+
+    public void getGpsHotStartPara(View view) {
+        BLEManager.getGpsHotPara();
+    }
+
+    private GpsCallBack.IDeviceReplySetGpsCallBack deviceReplySetGpsCallBack = new GpsCallBack.IDeviceReplySetGpsCallBack() {
+        @Override
+        public void onSetHotStartGpsPara(boolean isSuccess) {
+            String msg = isSuccess ? "设置热启动参数成功" : "设置热启动参数失败";
+            Toast.makeText(GpsMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            tvAGPSProgress.setText(msg);
+        }
+
+        @Override
+        public void onSetConnParam(ConnParamReply connParamReply) {
+            tvAGPSProgress.append("\n返回:\n");
+            if (connParamReply != null) {
+                tvAGPSProgress.append(connParamReply.toString());
+            } else {
+                tvAGPSProgress.append("设置失败");
+            }
+        }
+
+        @Override
+        public void onControlGps(ControlGpsReply controlGpsReply) {
+            tvAGPSProgress.append("\n返回:\n");
+            if (controlGpsReply != null) {
+                tvAGPSProgress.append(controlGpsReply.toString());
+            } else {
+                tvAGPSProgress.append("设置失败");
+            }
+        }
+
+        @Override
+        public void onSetConfigGps(boolean isSuccess) {
+            if (isSuccess) {
+                Toast.makeText(GpsMainActivity.this, "设置GPS参数成功", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(GpsMainActivity.this, "设置GPS参数失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+
+    private GpsCallBack.ITranAgpsFileCallBack tranAgpsFileCallBack = new GpsCallBack.ITranAgpsFileCallBack() {
+        @Override
+        public void onProgress(int progress) {
+            tvAGPSProgress.setText("transfer progress =" + progress);
+        }
+
+        @Override
+        public void onFinish() {
+            tvAGPSProgress.setText("onFinish");
+        }
+
+        @Override
+        public void onFailed(int error) {
+            tvAGPSProgress.setText("error = " + error);
+        }
+
+        @Override
+        public void onFailed(int i, Object o) {
+        }
+    };
+
 }
 
