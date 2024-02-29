@@ -159,11 +159,6 @@
             android:text="Run plan" />
 
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="Ephemeris"
-            android:text="Ephemeris" />
     </LinearLayout>
 
 </ScrollView>
