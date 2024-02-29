@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.baidu.location.LocationClient;
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
 import com.ido.ble.file.transfer.FileTransferConfig;
@@ -108,7 +107,6 @@ public class GpsMainActivity extends BaseAutoConnectActivity implements GpsCallB
 
         BLEManager.registerDeviceReplySetGpsCallBack(deviceReplySetGpsCallBack);
         BLEManager.registerTranAgpsFileCallBack(tranAgpsFileCallBack);
-        LocationClient.setAgreePrivacy(true);
         BLEManager.registerGetGpsInfoCallBack(this);
         if (isSupportGPSUpgrade()) {
             llGPS.setVisibility(View.VISIBLE);
