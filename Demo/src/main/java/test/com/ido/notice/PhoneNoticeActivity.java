@@ -90,6 +90,7 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
         //    initFunction();
         BLEManager.registerPhoneMsgNoticeCallBack(iCallBack);
         initView();
+        initFunction();
         if (isSupportInComingCallQuickReply()) {
             BLEManager.unregisterDeviceParaChangedCallBack(mMsgReplyICallBack);
             BLEManager.registerDeviceParaChangedCallBack(mMsgReplyICallBack);
@@ -399,7 +400,6 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
             newMessageInfo.content = etNewMsgContent.getText().toString();
             BLEManager.setNewMessageDetailInfo(newMessageInfo);
         }
-
     }
 
 
