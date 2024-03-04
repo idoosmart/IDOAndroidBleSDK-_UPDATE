@@ -448,7 +448,14 @@
     <string name="notice_permit_1">Allow notifications</string>
     <string name="notice_silence_1">silent notification</string>
     <string name="notice_close_1">close notification</string>
-
+    <string name="run_plan">Run plan</string>
+    <string name="file_transfer">file transfer</string>
+    <string name="set_language">set language</string>
+    <string name="device_control_app">device_control_app</string>
+    <string name="music">music</string>
+    <string name="bt_upgrade">BT upgrade</string>
+    <string name="set_sport">set sport</string>
+    <string name="watch_plate">watch plate</string>
     <string name="widget_title">Mini Widgets</string>
 
     <string name="wt_added_title">已添加的世界时钟：</string>

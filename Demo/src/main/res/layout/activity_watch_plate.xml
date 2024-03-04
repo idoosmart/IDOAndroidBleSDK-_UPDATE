@@ -89,7 +89,10 @@
                 android:onClick="setPhotoWatch"
                 android:text="set photo watch" />
 
+
             <LinearLayout
+                android:id="@+id/ll_cw"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -99,7 +102,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:hint="cloud wallpaper" />
-
                 <FrameLayout
                     android:id="@+id/fl_cw"
                     android:layout_width="wrap_content"
@@ -134,9 +136,10 @@
                     </LinearLayout>
                 </FrameLayout>
 
+
                 <TextView
-                    android:layout_width="match_parent"
                     android:id="@+id/color1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:hint="color 1" />
@@ -150,20 +153,20 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <TextView
-                    android:layout_width="match_parent"
                     android:id="@+id/tvColor2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_marginTop="10dp"
-                    android:hint="color 2" />
+                    android:hint="color 2"
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/color2_rv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:visibility="gone"
                     android:layout_marginTop="@dimen/size10dp"
+                    android:visibility="gone"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -236,6 +239,7 @@
                     android:text="set" />
             </LinearLayout>
 
+
             <EditText
                 android:id="@+id/unique_id_tv"
                 android:layout_width="match_parent"
@@ -261,8 +265,12 @@
                     android:text="setPlate" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size1dp"
+                android:layout_margin="@dimen/size10dp"
+                android:background="@color/add_bookmark_disable" />
+
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>

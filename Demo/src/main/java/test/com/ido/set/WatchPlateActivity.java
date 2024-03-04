@@ -1,7 +1,5 @@
 package test.com.ido.set;
 
-import static com.ido.ble.LocalDataManager.getSupportFunctionInfo;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -57,7 +55,9 @@ import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.localdata.Wallpaper;
 import test.com.ido.log.LogPathImpl;
 import test.com.ido.model.CwdAppBean;
+import test.com.ido.model.CwdDialConfigBean;
 import test.com.ido.model.CwdIwfBean;
+import test.com.ido.model.DialDataBean;
 import test.com.ido.model.IwfItemType;
 import test.com.ido.utils.BitmapUtil;
 import test.com.ido.utils.DataUtils;
@@ -65,6 +65,7 @@ import test.com.ido.utils.FileUtil;
 import test.com.ido.utils.GetFilePathFromUri;
 import test.com.ido.utils.GsonUtil;
 import test.com.ido.utils.ImageUtil;
+import test.com.ido.utils.ListUtils;
 import test.com.ido.utils.OnItemClickListener;
 import test.com.ido.utils.ResourceUtil;
 import test.com.ido.utils.ZipUtils;
@@ -83,6 +84,8 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     WatchPlateScreenInfo mScreenInfo;
     private CwdAppBean app;
     private CwdIwfBean iwf;
+    private CwdDialConfigBean dial_config;
+
     private List<String> colorList = new ArrayList<>();
     private int selectedTimeColorIndex, selectedFunctionColorIndex;
     private ColorAdapter color1Adapter, color2Adapter;
@@ -96,16 +99,10 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     private boolean mFunctionShow = true;
     private boolean isSupportFunctionSet;
 
-    private List<CwdAppBean.Function> functions = new ArrayList<>();
 
-    public List<Integer> getTimeLocationIndex() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(7);
-        list.add(3);
-        list.add(9);
-        return list;
-    }
+    private List<CwdAppBean.Function> functions = new ArrayList<>();
+    private String packTempCwdPackage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +129,13 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         tvUniqueID = findViewById(R.id.unique_id_tv);
         tvPhoto = findViewById(R.id.photo_tv);
         tvColor2 = findViewById(R.id.tvColor2);
+
+
         BLEManager.getFunctionTables();
         BLEManager.registerWatchOperateCallBack(iOperateCallBack);
-        cwDir = getFilesDir().getPath() + "/wallpaper/";
+        //根据Mac地址区分不同设备的表盘存储文件路径
+        cwDir = getFilesDir().getPath() + "/wallpaper/" + BLEManager.getBtMacAddress() + "/";
+        Log.d(TAG, "onCreate: " + WallpaperDialManager.getDeviceMac());
         BLEManager.getWatchPlateScreenInfo();
         filePath = DataUtils.getInstance().getFilePath();
         if (TextUtils.isEmpty(filePath)) {
@@ -144,9 +145,9 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         }
         initColorView();
         initTimeLocationView();
-
         initFuncView();
     }
+
 
     private void sortTimeFunctionView() {
         llDialWidget.removeView(mIvDialTime);
@@ -157,6 +158,10 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         }
     }
 
+
+    /**
+     * 初始化颜色选择列表
+     */
     private void initColorView() {
         color1Adapter = new ColorAdapter();
         color1Adapter.onItemClickListener = position -> {
@@ -186,9 +191,11 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         rv_func.setAdapter(funcAdapter);
     }
 
+
     private class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.VH> {
         OnItemClickListener onItemClickListener;
         int selectedColorIndex;
+
 
         @NonNull
         @Override
@@ -355,7 +362,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         int childGravity = Gravity.CENTER;
         if (location == WallpaperDialConstants.WidgetLocation.LEFT_BOTTOM || location == WallpaperDialConstants.WidgetLocation.LEFT_TOP || location == WallpaperDialConstants.WidgetLocation.LEFT_CENTER) {
             childGravity = Gravity.LEFT;
-        }else if (location == WallpaperDialConstants.WidgetLocation.RIGHT_BOTTOM || location == WallpaperDialConstants.WidgetLocation.RIGHT_TOP || location == WallpaperDialConstants.WidgetLocation.RIGHT_CENTER){
+        } else if (location == WallpaperDialConstants.WidgetLocation.RIGHT_BOTTOM || location == WallpaperDialConstants.WidgetLocation.RIGHT_TOP || location == WallpaperDialConstants.WidgetLocation.RIGHT_CENTER) {
             childGravity = Gravity.RIGHT;
         }
         llDialWidget.setGravity(childGravity);
@@ -367,6 +374,9 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         BLEManager.unregisterWatchOperateCallBack(iOperateCallBack);
     }
 
+    /**
+     * 打开文件管理选择文件
+     */
     public void selectFile(View view) {
         openFileChooser(SELECT_FILE_REQ);
     }
@@ -407,6 +417,9 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     private String photoInputPath = "";
     private String photoInputPath_crop = LogPathImpl.getInstance().getPicPath() + "input.png";
 
+    /**
+     * 打开文件管理选择文件
+     */
     private void openFileChooser(int code) {
         final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("application/zip");
@@ -417,6 +430,9 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         }
     }
 
+    /**
+     * 打开文件管理选择照片
+     */
     private void openImageChooser(int code) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             startActivityForResult(new Intent(Intent.ACTION_GET_CONTENT).setType("image/*"),
@@ -460,6 +476,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
                 break;
             case SELECT_IMAGE_REQ:
                 final Uri image_url = data.getData();
+                BLEManager.getWatchPlateScreenInfo();//获取屏幕信息
                 photoInputPath = GetFilePathFromUri.getFileAbsolutePath(this, image_url);
                 tvPhoto.setText(photoInputPath);
                 Bitmap wallPaper = BitmapFactory.decodeFile(photoInputPath);
@@ -483,6 +500,8 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             if (watchPlateFileInfo == null || watchPlateFileInfo.fileNameList == null) {
                 return;
             }
+
+            Log.d(TAG, "onGetPlateFileInfo: " + watchPlateFileInfo);
             tvOperateTv.setText(watchPlateFileInfo.toString());
         }
 
@@ -565,22 +584,22 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(outfile + ".lz", new IFileTransferListener() {
             @Override
             public void onStart() {
-
+                Log.e(TAG, "开始传输");
             }
 
             @Override
             public void onProgress(int progress) {
-                Log.e("ddd", progress + "watch file");
+                Log.e(TAG, progress + "watch file");
             }
 
             @Override
             public void onSuccess() {
-                Log.e("ddd", "success");
+                Log.e(TAG, "success");
             }
 
             @Override
             public void onFailed(String errorMsg) {
-
+                Log.e(TAG, "onFailed: " + errorMsg);
             }
         });
         BLEManager.startTranCommonFile(config1);
@@ -601,6 +620,9 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         openFileChooser(SELECT_CW_FILE_REQ);
     }
 
+    /**
+     * 获取选择的表盘文件
+     */
     private void processCwFile(Intent data) {
         final Uri cw_uri = data.getData();
         initConfig();
@@ -609,32 +631,47 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             cwFilePath = path;
             et_cw_file.setText(path);
             cwName = FileUtil.getNoSuffixFileNameFromPath(cwFilePath);
+
             cwDialDir = cwDir + cwName + "/";
             cwTmpDir = cwDialDir + "tmp/";
 
-//            try {
-//                FileUtil.deleteDirectory(new File(cwDialDir));
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-
+            try {
+                File file = new File(cwDialDir);
+                if (file.exists()) {
+                    FileUtil.deleteDirectory(file);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            //解压zip文件
             ZipUtils.unpackCopyZip(cwDir, cwFilePath);
             //xxx/wallpaper/custom1/custom.zip
             ZipUtils.unpackCopyZip(cwTmpDir, cwDialDir + cwName + ".zip");
-            app = getCwdAppBean();
-            iwf = getCwdIwfBean();
 
+            Log.d(TAG, "processCwFile: cwDialDir：" + cwDialDir);
+            Log.d(TAG, "processCwFile: cwTmpDir：" + cwTmpDir);
+            Log.d(TAG, "processCwFile: cwName：" + cwName);
+            Log.d(TAG, "processCwFile: cwDialDir + cwName + \".zip\"：" + cwDialDir + cwName + ".zip");
+            Log.d(TAG, "processCwFile: cwDir：" + cwDir);
+            Log.d(TAG, "processCwFile: cwFilePath：" + cwFilePath);
+
+
+            app = getCwdAppBean();
+            if (isSiCheDevice()) {
+                dial_config = getTempCwdDialConfigBean();
+            } else {
+                iwf = getCwdIwfBean();
+            }
+            Log.d(TAG, "processCwFile: " + dial_config + "   " + getTempCwdDialConfigBean());
+            Log.d(TAG, "processCwFile: " + iwf + getCwdIwfBean());
             //取颜色
             getColors();
-
             //取位置
             selectedLocation = app.getSelect().getTimeFuncLocation();
             List<Integer> locations = app.getLocationValues();
             if (locations != null && !locations.isEmpty()) {
                 mLocationValues.addAll(locations);
             }
-
-            //
             selectedTimeColorIndex = app.getSelect().getTimeColorIndex();
             color1Adapter.selectedColorIndex = selectedTimeColorIndex;
             isSupportFunctionSet = app.getFunction_support() == 1 || isSupportFunction();//1: 支持，0:不支持
@@ -656,10 +693,12 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             iv_cw.setImageURI(Uri.fromFile(previewImgFile));
             updateColor();
             Log.e("Davy", "app = " + GsonUtil.toJson(app) + ", iwf = " + GsonUtil.toJson(iwf));
-            Log.e("Davy", "iwf = " + GsonUtil.toJson(iwf));
         }
     }
 
+    /**
+     * 获取颜色列表
+     */
     private void getColors() {
         List<String> colors = app.getColors();
         if (colors != null && !colors.isEmpty()) {
@@ -686,12 +725,18 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         return app != null && app.getFunction_support_new() == 1;
     }
 
+    /**
+     * 更新颜色
+     */
     private void updateColor() {
         mIvDialTime.setColorFilter(Color.parseColor(colorList.get(selectedTimeColorIndex)));
         mIvDialFunction.setColorFilter(Color.parseColor(colorList.get(selectedFunctionColorIndex)));
     }
 
 
+    /**
+     * 获取选择的照片文件
+     */
     private void processCwImage(Intent data) {
         final Uri cw_image_url = data.getData();
         cwImgPath = GetFilePathFromUri.getFileAbsolutePath(this, cw_image_url);
@@ -700,22 +745,32 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         cwImgPath_show = LogPathImpl.getInstance().getPicPath() + System.currentTimeMillis() + "_cw_show.png";
         if (mScreenInfo != null && mScreenInfo.width > 0) {//Crop the watch screen size picture
             ImageUtil.saveWallPaper(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), cwImgPath_crop);
-            ImageUtil.saveWallPaper(ImageUtil.transform2CornerBitmap(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), 28), cwImgPath_show);
+            if (isSiCheDevice()) {
+                ImageUtil.saveWallPaper(ImageUtil.transform2CornerBitmap(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), 100), cwImgPath_show);
+            } else {
+                ImageUtil.saveWallPaper(ImageUtil.transform2CornerBitmap(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), 20), cwImgPath_show);
+            }
         } else {
             Toast.makeText(this, "please CALL BLEManager.getWatchPlateScreenInfo();", Toast.LENGTH_LONG).show();
         }
         iv_cw.setImageURI(Uri.fromFile(new File(cwImgPath_show)));
+
+        Log.d(TAG, "cwImgPath_show: " + cwImgPath_show);
+
     }
 
-
+    /**
+     * 打开文件管理选择照片
+     */
     public void selectCwImage(View view) {
+        BLEManager.getWatchPlateScreenInfo();
+
         openImageChooser(SELECT_CW_IMAGE_REQ);
     }
 
     public void setCw(View view) {
         //替换背景图和预览图
         replacePreviewImage();
-        replaceBgImage();
         //替换时间颜色
         replaceTempCwdConfig();
         //如果当前表盘已经安装过，则需要删除，可通过表盘列表查询
@@ -731,7 +786,13 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
      * 删除当前表盘，如果已安装了
      */
     private void deleteCw() {
-        String dialName = iwf.getName() + ".iwf";
+        String dialName;
+        Log.d(TAG, "deleteCw: " + isSiCheDevice());
+        if (isSiCheDevice()) {
+            dialName = dial_config.getName() + ".watch";
+        } else {
+            dialName = iwf.getName() + ".iwf";
+        }
         Log.e("Davy", "deleteCwd：" + dialName);
         BLEManager.unregisterWatchOperateCallBack(mDialOperateCallback);
         BLEManager.registerWatchOperateCallBack(mDialOperateCallback);
@@ -745,23 +806,35 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             BLEManager.unregisterWatchOperateCallBack(mDialOperateCallback);
             packAndTransfer();
         }
+
+        @Override
+        public void onGetDialPlateParam(DialPlateParam dialPlateParam) {
+            super.onGetDialPlateParam(dialPlateParam);
+
+        }
     };
 
+
     private void packAndTransfer() {
-        //pack
-        try {
-            ZipUtils.zip(
-                    cwTmpDir,
-                    cwDialDir + "zip/",
-                    "tmp.zip"
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
+        //获取表盘压缩包路径
+        if (isSiCheDevice()) {
+            packTempCwdPackage = packTempCwdPackageBySiChe(cwName);
+        } else {
+            packTempCwdPackage = packTempCwdPackage();
         }
         //set
         WatchPlateSetConfig config = new WatchPlateSetConfig();
-        config.filePath = cwDialDir + "zip/tmp.zip";
-        config.uniqueID = iwf.getName();
+        //选择已经打包好的表盘压缩文件路径
+        if (!packTempCwdPackage.isEmpty()) {
+            if (isSiCheDevice()) {
+                config.filePath = packTempCwdPackage;
+                config.uniqueID = dial_config.getName();
+            } else {
+                config.filePath = packTempCwdPackage;
+                config.uniqueID = iwf.getName();
+            }
+        }
+        Log.d(TAG, "packAndTransfer: packTempCwdPackage：" + packTempCwdPackage);
         progress_bar.setProgress(0);
         config.stateListener = new WatchPlateCallBack.IAutoSetPlateCallBack() {
             @Override
@@ -811,123 +884,213 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             @Override
             public void onFailed(int i) {
                 tv_progress.setText("failed, code = " + i);
+                Log.e(TAG, "failed, code = " + i);
+
             }
         };
         config.isOnlyTranslateWatchFile = false;
         BLEManager.startSetPlateFileToWatch(config);
     }
 
+    private CwdAppBean.Location getTimeFuncLocation() {
+        List<CwdAppBean.Location> locations = app.getLocations();
+        if (ListUtils.INSTANCE.isNotEmpty(locations)) {
+            for (CwdAppBean.Location location : locations) {
+                if (location.getType() == selectedLocation) {
+                    return location;
+                }
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * 配置是否发生变化
+     */
     private void replaceTempCwdConfig() {
-        CwdIwfBean mCwdIwfBean = iwf;
-        if (mCwdIwfBean != null && !mCwdIwfBean.getItem().isEmpty()) {
-            List<CwdIwfBean.Item> items = mCwdIwfBean.getItem();
-            CwdAppBean.Location location = app.findLocation(selectedLocation);
-            CwdAppBean.Function mSelectedFunction = app.findFunction(mFunction);
-            String selectedTimeColor = WallpaperDialManager.colorTo16(colorList.get(selectedTimeColorIndex));
-            String selectedFuncColor = WallpaperDialManager.colorTo16(colorList.get(selectedFunctionColorIndex));
-            if (isSupportFunctionSet) {
-                //找到坐标
-                //处理功能
-                CwdAppBean.Location.FunctionCoordinate functionCoordinate = null;
-                if (location != null && mSelectedFunction != null) {
-                    List<CwdAppBean.Location.FunctionCoordinate> functionCoordinates = location.getFunction_coordinate();
-                    if (functionCoordinates != null) {
-                        for (CwdAppBean.Location.FunctionCoordinate coordinate : functionCoordinates) {
-                            if (coordinate.getFunction() == mFunction) {
-                                functionCoordinate = coordinate;
-                                break;
+
+        boolean hasChanged = false;
+        if (isSiCheDevice()) {
+            CwdDialConfigBean cwdDialConfigBean = getTempCwdDialConfigBean();
+            if (cwdDialConfigBean != null && ListUtils.INSTANCE.isNotEmpty(cwdDialConfigBean.getDial_data())) {
+                List<DialDataBean> items = cwdDialConfigBean.getDial_data();
+                int[] rgb = WallpaperDialManager.hex2RGB(colorList.get(selectedTimeColorIndex));
+                if (items.size() > 2) {
+                    DialDataBean item = items.get(2);
+                    if (rgb != null) {
+                        item.setR(rgb[0]);
+                        item.setG(rgb[1]);
+                        item.setB(rgb[2]);
+                    }
+                    CwdAppBean.Location location = getTimeFuncLocation();
+                    if (location != null) {
+                        item.setX(location.getWeek().get(0));
+                        item.setY(location.getWeek().get(1));
+                    }
+                    hasChanged = true;
+                }
+                if (items.size() > 3) {
+                    DialDataBean item = items.get(3);
+                    if (rgb != null) {
+                        item.setR(rgb[0]);
+                        item.setG(rgb[1]);
+                        item.setB(rgb[2]);
+                    }
+                    CwdAppBean.Location location = getTimeFuncLocation();
+                    if (location != null) {
+                        item.setX(location.getTime().get(0));
+                        item.setY(location.getTime().get(1));
+                    }
+                    hasChanged = true;
+                }
+            }
+            if (hasChanged) {
+                boolean b = saveTempDialConfigIwf(cwdDialConfigBean);
+                Log.d(TAG, "replaceTempCwdConfig: " + b);
+            } else {
+            }
+        } else {
+            CwdIwfBean mCwdIwfBean = iwf;
+            if (mCwdIwfBean != null && !mCwdIwfBean.getItem().isEmpty()) { //其他表盘
+                List<CwdIwfBean.Item> items = mCwdIwfBean.getItem();
+                CwdAppBean.Location location = app.findLocation(selectedLocation);
+                Log.d(TAG, "replaceTempCwdConfig: location: " + location + "   " + selectedLocation);
+                CwdAppBean.Function mSelectedFunction = app.findFunction(mFunction);
+                String selectedTimeColor = WallpaperDialManager.colorTo16(colorList.get(selectedTimeColorIndex));
+                String selectedFuncColor = WallpaperDialManager.colorTo16(colorList.get(selectedFunctionColorIndex));
+                if (isSupportFunctionSet) {
+                    //找到坐标
+                    //处理功能
+                    CwdAppBean.Location.FunctionCoordinate functionCoordinate = null;
+                    if (location != null && mSelectedFunction != null) {
+                        List<CwdAppBean.Location.FunctionCoordinate> functionCoordinates = location.getFunction_coordinate();
+                        if (functionCoordinates != null) {
+                            for (CwdAppBean.Location.FunctionCoordinate coordinate : functionCoordinates) {
+                                if (coordinate.getFunction() == mFunction) {
+                                    functionCoordinate = coordinate;
+                                    break;
+                                }
                             }
                         }
                     }
-                }
-                //如果功能未变
+                    //如果功能未变
 //                if (mFunction == app.getSelect().getSelectFunction()) {
 //                    Log.d(TAG, "未更换功能！");
 //                    if (selectedLocation != app.getSelect().getTimeFuncLocation()) {
 //
 //                    }
 //                } else {
-                Log.d(TAG, "处理前: " + GsonUtil.toJson(mCwdIwfBean));
-                //删除不要的配置，添加用户选择的配置
-                Iterator<CwdIwfBean.Item> it = items.iterator();
-                while (it.hasNext()) {
-                    CwdIwfBean.Item item = it.next();
-                    boolean itemRemoved = false;
-                    //删除功能组件
-                    for (CwdAppBean.Function function : functions) {
-                        if (function.findItem(item.getType(), item.getWidget()) != null) {
+                    Log.d(TAG, "处理前: " + GsonUtil.toJson(mCwdIwfBean));
+                    //删除不要的配置，添加用户选择的配置
+                    Iterator<CwdIwfBean.Item> it = items.iterator();
+                    while (it.hasNext()) {
+                        CwdIwfBean.Item item = it.next();
+                        boolean itemRemoved = false;
+                        //删除功能组件
+                        for (CwdAppBean.Function function : functions) {
+                            if (function.findItem(item.getType(), item.getWidget()) != null) {
+                                it.remove();
+                                itemRemoved = true;
+                                break;
+                            }
+                        }
+
+                        if (itemRemoved) {
+                            continue;
+                        }
+
+                        //删除时间组件，在时间组件总表则删除后添加用户添加的
+                        if (app.findTimeWidgetItem(item.getType(), item.getWidget()) != null) {
                             it.remove();
-                            itemRemoved = true;
-                            break;
                         }
                     }
-
-                    if (itemRemoved) {
-                        continue;
-                    }
-
-                    //删除时间组件，在时间组件总表则删除后添加用户添加的
-                    if (app.findTimeWidgetItem(item.getType(), item.getWidget()) != null) {
-                        it.remove();
-                    }
-                }
-                Log.d(TAG, "删除功能后: " + GsonUtil.toJson(mCwdIwfBean));
-                if (functionCoordinate != null) {
-                    List<CwdAppBean.Function.Item> newFunctionItems = mSelectedFunction.getItem();
-                    for (CwdAppBean.Function.Item newFunctionItem : newFunctionItems) {
-                        CwdAppBean.Location.FunctionCoordinate.Item item = functionCoordinate.findItem(newFunctionItem.getType(), newFunctionItem.getWidget());
-                        if (item != null && item.getCoordinate().size() == 4) {
-                            List<Integer> coordinate = item.getCoordinate();
-                            CwdIwfBean.Item newItem = new CwdIwfBean.Item(newFunctionItem.getWidget(), newFunctionItem.getType(), coordinate.get(0), coordinate.get(1), coordinate.get(2), coordinate.get(3), newFunctionItem.getBg(), newFunctionItem.getAlign(), selectedFuncColor, selectedFuncColor, "", newFunctionItem.getFont(), newFunctionItem.getFontnum());
-                            items.add(newItem);
+                    Log.d(TAG, "删除功能后: " + GsonUtil.toJson(mCwdIwfBean));
+                    if (functionCoordinate != null) {
+                        List<CwdAppBean.Function.Item> newFunctionItems = mSelectedFunction.getItem();
+                        for (CwdAppBean.Function.Item newFunctionItem : newFunctionItems) {
+                            CwdAppBean.Location.FunctionCoordinate.Item item = functionCoordinate.findItem(newFunctionItem.getType(), newFunctionItem.getWidget());
+                            if (item != null && item.getCoordinate().size() == 4) {
+                                List<Integer> coordinate = item.getCoordinate();
+                                CwdIwfBean.Item newItem = new CwdIwfBean.Item(newFunctionItem.getWidget(), newFunctionItem.getType(), coordinate.get(0), coordinate.get(1), coordinate.get(2), coordinate.get(3), newFunctionItem.getBg(), newFunctionItem.getAlign(), selectedFuncColor, selectedFuncColor, "", newFunctionItem.getFont(), newFunctionItem.getFontnum());
+                                items.add(newItem);
+                            }
                         }
                     }
-                }
 //                }
-                //处理时间组件
-                List<CwdIwfBean.Item> timeWidget = null;
-                if (location != null) {
-                    timeWidget = location.getTime_widget();
-                    Log.d(TAG, "时间组件跟随位置变化：" + timeWidget);
-                }
+                    //处理时间组件
+                    List<CwdIwfBean.Item> timeWidget = null;
+                    if (location != null) {
+                        timeWidget = location.getTime_widget();
+                        Log.d(TAG, "时间组件跟随位置变化：" + timeWidget);
+                    }
 
-                if (timeWidget == null || timeWidget.isEmpty()) {
-                    Log.d(TAG, "时间组件未配置！");
+                    if (timeWidget == null || timeWidget.isEmpty()) {
+                        Log.d(TAG, "时间组件未配置！");
+                    } else {
+                        for (CwdIwfBean.Item item : timeWidget) {
+                            item.setFgcolor(selectedTimeColor);
+                            items.add(item);
+                        }
+                    }
+                    //改变时间组件位置
+                    for (CwdIwfBean.Item item : items) {
+                        if (IwfItemType.ICON.equals(item.getType())) {
+                        } else if (IwfItemType.TIME.equals(item.getType())) {
+                            item.setFgcolor(selectedTimeColor);
+                            if (location != null) {
+                                item.setX(location.getTime().get(0));
+                                item.setY(location.getTime().get(1));
+                            }
+                        } else if (IwfItemType.DAY.equals(item.getType())) {
+                            item.setFgcolor(selectedTimeColor);
+                            if (location != null) {
+                                item.setX(location.getDay().get(0));
+                                item.setY(location.getDay().get(1));
+                            }
+                        } else if (IwfItemType.WEEK.equals(item.getType())) {
+                            item.setFgcolor(selectedTimeColor);
+                            if (location != null) {
+                                item.setX(location.getWeek().get(0));
+                                item.setY(location.getWeek().get(1));
+                            }
+                        }
+                    }
+                    Log.d(TAG, "处理后: " + GsonUtil.toJson(mCwdIwfBean));
                 } else {
-                    for (CwdIwfBean.Item item : timeWidget) {
-                        item.setFgcolor(selectedTimeColor);
-                        items.add(item);
-                    }
-                }
-                Log.d(TAG, "处理后: " + GsonUtil.toJson(mCwdIwfBean));
-            } else {
-                for (CwdIwfBean.Item item : items) {
-                    if (IwfItemType.ICON.equals(item.getType())) {
-                    } else if (IwfItemType.TIME.equals(item.getType())) {
-                        item.setFgcolor(selectedTimeColor);
-                        if (location != null) {
-                            item.setX(location.getTime().get(0));
-                            item.setY(location.getTime().get(1));
-                        }
-                    } else if (IwfItemType.DAY.equals(item.getType())) {
-                        item.setFgcolor(selectedTimeColor);
-                        if (location != null) {
-                            item.setX(location.getDay().get(0));
-                            item.setY(location.getDay().get(1));
-                        }
-                    } else if (IwfItemType.WEEK.equals(item.getType())) {
-                        item.setFgcolor(selectedTimeColor);
-                        if (location != null) {
-                            item.setX(location.getWeek().get(0));
-                            item.setY(location.getWeek().get(1));
+                    //无功能编辑设备只更改时间组件位置
+                    for (CwdIwfBean.Item item : items) {
+                        if (IwfItemType.ICON.equals(item.getType())) {
+                        } else if (IwfItemType.TIME.equals(item.getType())) {
+                            item.setFgcolor(selectedTimeColor);
+                            if (location != null) {
+                                item.setX(location.getTime().get(0));
+                                item.setY(location.getTime().get(1));
+                            }
+                        } else if (IwfItemType.DAY.equals(item.getType())) {
+                            item.setFgcolor(selectedTimeColor);
+                            if (location != null) {
+                                item.setX(location.getDay().get(0));
+                                item.setY(location.getDay().get(1));
+                            }
+                        } else if (IwfItemType.WEEK.equals(item.getType())) {
+                            item.setFgcolor(selectedTimeColor);
+                            if (location != null) {
+                                item.setX(location.getWeek().get(0));
+                                item.setY(location.getWeek().get(1));
+                            }
                         }
                     }
                 }
+                saveTempCwdIwf(mCwdIwfBean);
             }
-            saveTempCwdIwf(mCwdIwfBean);
         }
     }
 
+
+    /**
+     * 替换背景壁纸
+     */
     private void replaceBgImage() {
         boolean isUseBmpBg = true;
         String bgName = WallpaperDialManager.TEMP_BG_BMP;
@@ -945,27 +1108,77 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             }
         }
         String des = cwTmpDir + bgName;
+        Log.e(TAG, "replaceBgImage: " + des);
         WallpaperDialManager.replaceCwrBgImageWithTemp(cwImgPath_crop, des, isUseBmpBg);
     }
 
+
     private void replacePreviewImage() {
-        String previewName = iwf.getPreview();
-        Pair<Integer, Integer> size = WallpaperDialManager.getImageSize(cwTmpDir + previewName);
+        String previewName = WallpaperDialManager.TEMP_PREVIEW_IMAGE_BMP;
+        String tempPreviewPath;
+        boolean isUsePreviewBmp = false;
+        if (isSiCheDevice()) {
+            tempPreviewPath = cwDialDir + "tmp/" + previewName;
+
+        } else {
+            if (iwf != null) {
+                String preview = iwf.getPreview();
+                if (!TextUtils.isEmpty(preview)) {
+                    previewName = preview;
+                    isUsePreviewBmp = previewName.toLowerCase().endsWith(BackgroundType.BMP);
+                }
+            }
+            tempPreviewPath = cwDialDir + "tmp/" + previewName;
+
+        }
+
+
+        Pair<Integer, Integer> size = WallpaperDialManager.getImageSize(tempPreviewPath);
         if (size == null) {
             size = new Pair<>(fl_cw.getWidth(), fl_cw.getHeight());
         }
         Log.d(TAG, "preview size = " + size);
-        //存储预览图原始大小，透明背景
-        File bitmapFile = new File(cwDialDir + "preview.png");
+        Log.d(TAG, "tempPreviewPath：临时表盘包预览图路径： " + tempPreviewPath);
+        File bitmapFile = new File(tempPreviewPath);
         int width = mScreenInfo != null ? mScreenInfo.width : fl_cw.getWidth();
         int height = mScreenInfo != null ? mScreenInfo.height : fl_cw.getHeight();
         //存储预览图原始大小，透明背景
-//        BitmapUtil.savePngBitmap(BitmapUtil.zoomImg(BitmapUtil.view2BitmapWithAlpha(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), width, height), bitmapFile, false);
+        BitmapUtil.savePngBitmap(BitmapUtil.zoomImg(BitmapUtil.view2BitmapWithAlpha(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), width, height), bitmapFile, false);
         //存储按照固件预览图大小缩放的预览图，用于生产bmp
-        BitmapUtil.savePngBitmap(BitmapUtil.zoomImg(BitmapUtil.view2BitmapBlackBg(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), size.first, size.second), bitmapFile, false);
-        WallpaperDialManager.replaceCwrPreviewImageWithTemp(bitmapFile.getAbsolutePath(), cwTmpDir + previewName, previewName.endsWith(".bmp"));
+        //存储按照固件预览图大小缩放的预览图，用于生产bmp(previewView 可能会绘制边框，用做固件预览图)
+        File zoomBitmapFile = new File(cwImgPath_show);
+        //bitmap写入到文件。
+        BitmapUtil.savePngBitmap(BitmapUtil.zoomImg(BitmapUtil.view2BitmapBlackBg(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), size.first, size.second), zoomBitmapFile, false);
+        //替换预览图
+        if (isSiCheDevice()) {
+            //将png转化为bin，
+            FileUtil.savePngByBin(zoomBitmapFile.getAbsolutePath(), cwTmpDir + WallpaperDialManager.TEMP_PREVIEW_IMAGE_BIN);
+        } else {
+            //转换bmp
+            WallpaperDialManager.replaceCwrPreviewImageWithTemp(zoomBitmapFile.getAbsolutePath(), cwTmpDir + previewName, isUsePreviewBmp);
+        }
+        Log.d(TAG, "replacePreviewImage: zoomBitmapFile Path:" + zoomBitmapFile.getAbsolutePath());
+        //替换背景图片
+        if (isSiCheDevice()) {
+            //获取选择的背景图
+            File zoomBitmapBgFile = new File(cwImgPath_crop);
+            FileUtil.savePngByBin(zoomBitmapBgFile.getAbsolutePath(), cwTmpDir + WallpaperDialManager.TEMP_BACKGROUND_BIN);
+        } else {
+            replaceBgImage();
+        }
+
     }
 
+    /**
+     * 是否是思澈设备
+     */
+    private boolean isSiCheDevice() {
+        return BLEManager.isSichePlatform();
+    }
+
+    /**
+     * 解析app.json
+     */
     private CwdAppBean getCwdAppBean() {
         try {
             String json = FileUtil.readStringFromFile(cwDialDir + "app.json");
@@ -1005,6 +1218,71 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         return false;
     }
 
+
+    /**
+     * 压缩临时壁纸表盘包到临时目录（思澈平台）
+     */
+    private String packTempCwdPackageBySiChe(String otaFaceName) {
+        try {
+            String tempZipPath = cwTmpDir + otaFaceName + ".watch";
+            FileUtil.deleteFile(tempZipPath);
+            int result = BLEManager.mkSifliDial(cwTmpDir);
+            return result == 0 ? tempZipPath : "";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    /**
+     * 压缩临时壁纸表盘包到临时目录
+     */
+    private String packTempCwdPackage() {
+        String tempZipPath = cwDialDir + "zip/tmp.zip";
+        //pack
+        try {
+            //压缩
+            ZipUtils.zip(
+                    cwTmpDir,
+                    cwDialDir + "zip/",
+                    "tmp.zip"
+            );
+            return tempZipPath;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "packAndTransfer: " + e.getMessage());
+        }
+        return "";
+    }
+
+    /**
+     * 解析临时表盘包dial_config.json(思澈平台)
+     */
+    private CwdDialConfigBean getTempCwdDialConfigBean() {
+        try {
+            String json = FileUtil.readStringFromFile(cwTmpDir + "dial_config.json");
+            if (!TextUtils.isEmpty(json)) {
+                return GsonUtil.fromJson(json, CwdDialConfigBean.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private boolean saveTempDialConfigIwf(CwdDialConfigBean data) {
+        try {
+            return FileUtil.writeStringToFile(cwTmpDir + "dial_config.json", GsonUtil.toJson(data));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 颜色列表
+     */
     public List<String> getColorList() {
         List<String> mColorList = new ArrayList<>();
         mColorList.add("#F2F2F2");

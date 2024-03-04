@@ -480,4 +480,15 @@
     <string name="wt_added_title">已添加的世界时钟：</string>
     <string name="submit">提交</string>
     <string name="select">选择</string>
+
+    <string name="run_plan">运行计划</string>
+    <string name="file_transfer">文件传输</string>
+    <string name="set_language">语言设置</string>
+    <string name="device_control_app">设备控制APP</string>
+    <string name="music">音乐</string>
+    <string name="bt_upgrade">BT 升级</string>
+    <string name="set_sport">设置运动</string>
+    <string name="watch_plate">表盘</string>
+
+
 </resources>
