@@ -1,6 +1,7 @@
 package test.com.ido.sync;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,8 +10,6 @@ import com.ido.ble.LocalDataManager;
 import com.ido.ble.business.sync.ISyncDataListener;
 import com.ido.ble.business.sync.ISyncProgressListener;
 import com.ido.ble.business.sync.SyncPara;
-import com.ido.ble.callback.SyncCallBack;
-import com.ido.ble.callback.SyncV3CallBack;
 import com.ido.ble.data.manage.database.HealthActivity;
 import com.ido.ble.data.manage.database.HealthActivityV3;
 import com.ido.ble.data.manage.database.HealthBloodPressed;
@@ -22,7 +21,6 @@ import com.ido.ble.data.manage.database.HealthHRVdata;
 import com.ido.ble.data.manage.database.HealthHeartRate;
 import com.ido.ble.data.manage.database.HealthHeartRateItem;
 import com.ido.ble.data.manage.database.HealthHeartRateSecond;
-import com.ido.ble.data.manage.database.HealthHeartRateSecondItem;
 import com.ido.ble.data.manage.database.HealthNoise;
 import com.ido.ble.data.manage.database.HealthPressure;
 import com.ido.ble.data.manage.database.HealthPressureItem;
@@ -49,7 +47,7 @@ import test.com.ido.connect.BaseAutoConnectActivity;
 public class SyncDataActivity extends BaseAutoConnectActivity {
 
     private TextView tvSyncResult;
-
+    private String TAG = "SyncDataActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,91 +75,109 @@ public class SyncDataActivity extends BaseAutoConnectActivity {
 
             @Override
             public void onGetSportData(HealthSport healthSport, List<HealthSportItem> items, boolean isSectionItemData) {
+                Log.d(TAG, "onGetSportData: is ok");
                 tvSyncResult.setText("onGetSportData is ok");
             }
 
             @Override
             public void onGetSleepData(HealthSleep healthSleep, List<HealthSleepItem> items) {
+                Log.d(TAG, "onGetSleepData: is ok");
                 tvSyncResult.setText("onGetSleepData is ok");
             }
 
             @Override
             public void onGetHeartRateData(HealthHeartRate healthHeartRate, List<HealthHeartRateItem> items, boolean isSectionItemData) {
+                Log.d(TAG, "onGetHeartRateData: is ok");
                 tvSyncResult.setText("functionInfo is ok");
             }
 
             @Override
             public void onGetBloodPressureData(HealthBloodPressed healthBloodPressed, List<HealthBloodPressedItem> items, boolean isSectionItemData) {
+                Log.d(TAG, "onGetBloodPressureData: is ok");
                 tvSyncResult.setText("onGetHeartRateData is ok");
             }
 
             @Override
             public void onGetActivityData(HealthActivity healthActivity) {
+                Log.d(TAG, "onGetActivityData: is ok");
                 tvSyncResult.setText("onGetActivityData is ok");
             }
 
             @Override
             public void onGetGpsData(HealthGps healthGps, List<HealthGpsItem> healthGpsItems, boolean isSectionItemData) {
+                Log.d(TAG, "onGetGpsData: is ok");
                 tvSyncResult.setText("onGetGpsData is ok");
             }
 
             @Override
             public void onGetHealthSpO2Data(HealthSpO2 healthSpO2, List<HealthSpO2Item> itemList, boolean isSectionItemData) {
+                Log.d(TAG, "onGetHealthSpO2Data: is ok");
                 tvSyncResult.setText("onGetHealthSpO2Data is ok");
             }
 
             @Override
             public void onGetHealthPressureData(HealthPressure healthPressure, List<HealthPressureItem> itemList, boolean isSectionItemData) {
+                Log.d(TAG, "onGetHealthPressureData: is ok");
                 tvSyncResult.setText("onGetHealthPressureData is ok");
             }
 
             @Override
             public void onGetHealthHeartRateSecondData(HealthHeartRateSecond healthHeartRateSecond, boolean isSectionItemData) {
+                Log.d(TAG, "onGetHealthHeartRateSecondData: is ok");
                 tvSyncResult.setText("onGetHealthHeartRateSecondData is ok");
             }
 
             @Override
             public void onGetHealthSwimmingData(HealthSwimming healthSwimming) {
+                Log.d(TAG, "onGetHealthSwimmingData: is ok");
                 tvSyncResult.setText("onGetHealthSwimmingData is ok");
             }
 
             @Override
             public void onGetHealthActivityV3Data(HealthActivityV3 healthActivityV3) {
+                Log.d(TAG, "onGetHealthActivityV3Data: is ok");
                 tvSyncResult.setText("onGetHealthActivityV3Data is ok");
             }
 
             @Override
             public void onGetHealthSportV3Data(HealthSportV3 healthSportV3) {
+                Log.d(TAG, "onGetHealthSportV3Data: is ok"+healthSportV3.toString());
                 tvSyncResult.setText("onGetHealthSportV3Data is ok");
             }
 
             @Override
             public void onGetHealthSleepV3Data(HealthSleepV3 healthSleepV3) {
+                Log.d(TAG, "onGetHealthSleepV3Data: is ok");
                 tvSyncResult.setText("onGetHealthSleepV3Data is ok");
             }
 
             @Override
             public void onGetHealthGpsV3Data(HealthGpsV3 healthGpsV3) {
+                Log.d(TAG, "onGetHealthGpsV3Data: is ok");
                 tvSyncResult.setText("onGetHealthGpsV3Data is ok");
             }
 
             @Override
             public void onGetHealthNoiseData(HealthNoise healthNoise) {
+                Log.d(TAG, "onGetHealthNoiseData: is ok");
                 tvSyncResult.setText("onGetHealthNoiseData is ok");
             }
 
             @Override
             public void onGetHealthTemperature(HealthTemperature healthTemperature) {
+                Log.d(TAG, "onGetHealthTemperature: is ok");
                 tvSyncResult.setText("onGetHealthTemperature is ok");
             }
 
             @Override
             public void onGetHealthBloodPressure(HealthBloodPressureV3 healthBloodPressureV3) {
+                Log.d(TAG, "onGetHealthBloodPressure: is ok");
                 tvSyncResult.setText("onGetHealthBloodPressure is ok");
             }
 
             @Override
             public void onGetHealthRespiratoryRate(HealthRespiratoryRate healthRespiratoryRate) {
+                Log.d(TAG, "onGetHealthRespiratoryRate: ");
 
             }
 
@@ -190,7 +206,7 @@ public class SyncDataActivity extends BaseAutoConnectActivity {
 
             @Override
             public void onSuccess() {
-
+                tvSyncResult.setText("Success");
             }
 
             @Override

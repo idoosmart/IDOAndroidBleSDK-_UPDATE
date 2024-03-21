@@ -17,6 +17,8 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -29,10 +31,14 @@ import com.ido.ble.callback.ConnectCallBack;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.concurrent.Future;
 
 import test.com.ido.R;
 import test.com.ido.dfu.MainDfuActivity;
 import test.com.ido.logoutput.LogOutput;
+import test.com.ido.set.data.ExecutorDispatcher;
+import test.com.ido.set.data.Func;
+import test.com.ido.set.data.listener.Callback;
 import test.com.ido.utils.FileUtilLib;
 import test.com.ido.utils.HidConncetUtil;
 
@@ -227,6 +233,30 @@ public class BaseAutoConnectActivity extends Activity {
     }
 
 
+    private Handler mHandler = null;
+    public void init() {
+        mHandler = new Handler(Looper.getMainLooper());
+    }
+    /**
+     * @author tianwei
+     * @date 2021/7/29
+     * @time 11:48
+     * 用途:简单封装异步操作，需手动取消
+     */
+    protected <T> Future addSubscriber(Func<T> func, Callback<T> callback) {
+        return ExecutorDispatcher.getInstance().dispatch(() -> {
+            try {
+                T data = func.call();
+                if (mHandler != null) {
+                    mHandler.post(() -> callback.onSuccess(data));
+                }
+            } catch (Exception e) {
+                if (mHandler != null) {
+                    mHandler.post(() -> callback.onFailed(""));
+                }
+            }
+        });
+    }
     private void copyDbAndShare() {
         String sdkDbName = "idoLib.db";
         String sdkDbTempName = "idoLib_temp.db";
@@ -343,6 +373,8 @@ public class BaseAutoConnectActivity extends Activity {
             e.printStackTrace();
         }
     }
+
+
 
     protected void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

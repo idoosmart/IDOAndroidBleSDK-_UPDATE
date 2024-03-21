@@ -1,7 +1,5 @@
 package test.com.ido.dial;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,13 +17,11 @@ import com.ido.ble.watch.custom.model.DialPlateParam;
 import com.ido.ble.watch.custom.model.WatchPlateFileInfo;
 import com.ido.ble.watch.custom.model.WatchPlateScreenInfo;
 
-import java.io.File;
-
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.utils.DataUtils;
-import test.com.ido.utils.GetFilePathFromUri;
 import test.com.ido.utils.FileUtil;
+import test.com.ido.utils.GetFilePathFromUri;
 
 /**
  * @author tianwei
@@ -109,6 +105,9 @@ public class DialActivity extends BaseAutoConnectActivity {
             content.append("\nwallpaper_watch_num").append(dialPlateParam.wallpaper_watch_num);
             content.append("\nuser_wallpaper_watch_num").append(dialPlateParam.user_wallpaper_watch_num);
             content.append("\nuser_wallpaper_watch_num").append(dialPlateParam.user_wallpaper_watch_num);
+            if (null==dialPlateParam.item) {
+                return;
+            }
             for (DialPlateParam.PlateFileInfo info : dialPlateParam.item) {
                 content.append("\n").append(info.name).append("：").append(info.size / 1024).append("kb");
             }

@@ -113,6 +113,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="appControlDevice"
+            android:text="@string/app_control_device" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="musicTrans"
             android:text="@string/music" />
 

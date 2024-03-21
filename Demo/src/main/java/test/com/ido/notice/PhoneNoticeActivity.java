@@ -30,8 +30,10 @@ import com.ido.ble.callback.PhoneMsgNoticeCallBack;
 import com.ido.ble.callback.SettingCallBack;
 import com.ido.ble.protocol.model.DeviceChangedPara;
 import com.ido.ble.protocol.model.IncomingCallInfo;
+import com.ido.ble.protocol.model.MessageNotifyState;
 import com.ido.ble.protocol.model.NewMessageInfo;
 import com.ido.ble.protocol.model.NoticeReminderSwitchStatus;
+import com.ido.ble.protocol.model.NotificationPara;
 import com.ido.ble.protocol.model.QuickReplyInfo;
 import com.ido.ble.protocol.model.SupportFunctionInfo;
 import com.ido.ble.protocol.model.V3MessageNotice;
@@ -413,6 +415,39 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
         v3MessageNotice.contact = etNewMsgName.getText().toString();
         v3MessageNotice.dataText = etNewMsgContent.getText().toString();
         BLEManager.setV3MessageNotice(v3MessageNotice);
+    }
+
+    public void OpenDeviceNoticeSwitch(View view){
+        List<MessageNotifyState> stateList = new ArrayList<>();
+        MessageNotifyState state = new MessageNotifyState();
+
+        String typeString = etMsgType.getText().toString();
+        typeString = typeString.replace("x", "0");
+        typeString = typeString.replace("X", "0");
+        state.evt_type = Integer.parseInt(typeString, 16) ;
+        state.notify_state = 1;
+        stateList.add(state);
+        BLEManager.modifyMessageNotifyState(stateList, 0, 0);
+    }
+    public void IconAndNameMsg(View view){
+        NotificationPara para = new NotificationPara();
+        para.contact = etNewMsgName.getText().toString();
+        para.msg_data = etNewMsgContent.getText().toString();
+        String typeString = etMsgType.getText().toString();
+        typeString = typeString.replace("x", "0");
+        typeString = typeString.replace("X", "0");
+        para.evt_type = 1;
+        para.notify_type = Integer.parseInt(typeString, 16);
+        para.items = new ArrayList<>();
+
+        for(int i = 1 ; i <=8 ; i++){
+            NotificationPara.AppNames appNames = new NotificationPara.AppNames();
+            appNames.language = i;
+            appNames.name = etNewMsgNumber.getText().toString();
+            para.items.add(appNames);
+        }
+
+        BLEManager.sendNotification(para);
     }
 
 }

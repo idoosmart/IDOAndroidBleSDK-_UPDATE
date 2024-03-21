@@ -485,6 +485,8 @@
     <string name="file_transfer">文件传输</string>
     <string name="set_language">语言设置</string>
     <string name="device_control_app">设备控制APP</string>
+    <string name="app_control_device">app控制设备</string>
+
     <string name="music">音乐</string>
     <string name="bt_upgrade">BT 升级</string>
     <string name="set_sport">设置运动</string>
