@@ -89,4 +89,6 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation "net.zetetic:android-database-sqlcipher:4.5.0"
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
+    implementation(name: 'jielidial-1.0.0', ext: 'aar')
+//    implementation project(':jielidial')
 }

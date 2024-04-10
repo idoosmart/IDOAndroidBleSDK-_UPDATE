@@ -10,6 +10,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -41,6 +44,8 @@ import com.ido.ble.watch.custom.callback.WatchPlateCallBack;
 import com.ido.ble.watch.custom.model.DialPlateParam;
 import com.ido.ble.watch.custom.model.WatchPlateFileInfo;
 import com.ido.ble.watch.custom.model.WatchPlateScreenInfo;
+import com.ido.jielidial.JieliDialConfig;
+import com.ido.jielidial.JieliDialMaker;
 import com.ido.life.constants.WallpaperDialConstants;
 import com.ido.life.util.BackgroundType;
 import com.ido.life.util.WallpaperDialManager;
@@ -355,7 +360,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         int childGravity = Gravity.CENTER;
         if (location == WallpaperDialConstants.WidgetLocation.LEFT_BOTTOM || location == WallpaperDialConstants.WidgetLocation.LEFT_TOP || location == WallpaperDialConstants.WidgetLocation.LEFT_CENTER) {
             childGravity = Gravity.LEFT;
-        }else if (location == WallpaperDialConstants.WidgetLocation.RIGHT_BOTTOM || location == WallpaperDialConstants.WidgetLocation.RIGHT_TOP || location == WallpaperDialConstants.WidgetLocation.RIGHT_CENTER){
+        } else if (location == WallpaperDialConstants.WidgetLocation.RIGHT_BOTTOM || location == WallpaperDialConstants.WidgetLocation.RIGHT_TOP || location == WallpaperDialConstants.WidgetLocation.RIGHT_CENTER) {
             childGravity = Gravity.RIGHT;
         }
         llDialWidget.setGravity(childGravity);
@@ -712,18 +717,76 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         openImageChooser(SELECT_CW_IMAGE_REQ);
     }
 
+    private boolean isJieLi() {
+        return true;
+    }
+
+    final Handler mMainHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
     public void setCw(View view) {
-        //替换背景图和预览图
-        replacePreviewImage();
-        replaceBgImage();
-        //替换时间颜色
-        replaceTempCwdConfig();
-        //如果当前表盘已经安装过，则需要删除，可通过表盘列表查询
-        boolean isAlreadyInstalled = true;
-        if (isAlreadyInstalled) {
-            deleteCw();
+        if (isJieLi()) {
+            //TODO 拦截重复调用
+            //
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    JieliDialConfig config = new JieliDialConfig();
+                    config.setBgPath(TextUtils.isEmpty(et_cw_img.getText().toString().trim()) ? cwDialDir + "images/bg.png" : cwImgPath_crop);
+                    config.setPreviewPath(cwTmpDir + "preview_" + selectedLocation + ".png");
+                    config.setTimeColor(Color.parseColor(colorList.get(selectedTimeColorIndex)));
+                    config.setBaseBinPath(cwTmpDir + "base_" + selectedLocation + ".bin");
+                    config.setTargetFilePath(cwDialDir + "ido_watch_dial.bin");
+                    Log.e(TAG,"config = "+config);
+                    if (new JieliDialMaker().makeDial(config)) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e(TAG,"制作完成："+config.getTargetFilePath());
+//                                FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(config.getTargetFilePath(), new IFileTransferListener() {
+//                                    @Override
+//                                    public void onStart() {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onProgress(int progress) {
+//                                        Log.e("ddd", progress + "watch file");
+//                                    }
+//
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        Log.e("ddd", "success");
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailed(String errorMsg) {
+//
+//                                    }
+//                                });
+//                                BLEManager.startTranCommonFile(config1);
+                            }
+                        });
+                    }
+                }
+            }).start();
         } else {
-            packAndTransfer();
+            replacePreviewImage();
+            //替换背景图和预览图
+            replaceBgImage();
+            //替换时间颜色
+            replaceTempCwdConfig();
+            //如果当前表盘已经安装过，则需要删除，可通过表盘列表查询
+            boolean isAlreadyInstalled = true;
+            if (isAlreadyInstalled) {
+                deleteCw();
+            } else {
+                packAndTransfer();
+            }
         }
     }
 
