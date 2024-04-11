@@ -55,6 +55,11 @@
             android:text="@string/phone_notice_calling_stop"/>
 
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="CallReminderSwitch"
+            android:text="CallReminderSwitch"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -133,6 +138,19 @@
                 android:onClick="noticeNewMsg"
                 android:text="@string/phone_notice_new_message"/>
         </LinearLayout>
+
+
+        <Button
+            android:layout_marginTop="@dimen/size20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="OpenDeviceNoticeSwitch"
+            android:text="打开设备通知开关"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="IconAndNameMsg"
+            android:text="IconAndNameMsg"/>
 
 
         <TextView

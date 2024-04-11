@@ -20,10 +20,14 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
+import com.ido.ble.BLEManager;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -156,6 +160,92 @@ public class FileUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * 将png转化为bin
+	 */
+	public static void savePngByBin(String pngPath, String binPath) {
+		byte[] pngBytes = fileToByteArray(pngPath);
+		if (pngBytes != null) {
+			byte[] bytes = BLEManager.pngToEzip(pngBytes);
+			byteArrayToFile(bytes, binPath);
+		}
+	}
+	/**
+	 * 2、字节数组写出到文件(图片)* 	  1）、字节数组读取到程序  ByteArrayInputStream*    2）、程序到文件  FileOutputStream
+	 */
+	public static void byteArrayToFile(byte[] src, String filePath) {
+		// 1、创建源
+		File dest = new File(filePath);
+		// 2、选择流
+		InputStream is;
+		OutputStream os = null;
+		try {
+			is = new ByteArrayInputStream(src);
+			os = new FileOutputStream(dest);
+			// 3、操作(分段读取)
+			byte[] flush = new byte[5];
+			// 缓冲容器
+			int len;
+			// 接收长度
+			while ((len = is.read(flush)) != -1) {
+				os.write(flush, 0, len);
+			}
+			os.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			//释放资源
+			try {
+				if (null != os) {
+					os.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static byte[] fileToByteArray(String filePath) {
+		// 1、创建源与目的地
+		File src = new File(filePath);
+		byte[] dest = null;
+		// 2、选择流
+		InputStream is = null;
+		// 有新增方法不能发生多态
+		ByteArrayOutputStream baos = null;
+		try {
+			is = new FileInputStream(src);
+			baos = new ByteArrayOutputStream();
+			// 3、操作(分段读取)
+			byte[] flush = new byte[1024 * 10];
+			// 缓冲容器
+			int len;
+			// 接收长度
+			try {
+				while ((len = is.read(flush)) != -1) {
+					// 写出到字节数组中
+					baos.write(flush, 0, len);
+				}
+				baos.flush();
+				// 返回回来，上面调用时就有了
+				return baos.toByteArray();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// 4、释放资源
+			try {
+				if (null != is) {
+					is.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	/**

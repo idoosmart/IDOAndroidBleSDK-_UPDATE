@@ -1,126 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/sync_gps_status_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/black"
-        android:textColor="@color/white" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="tranAgpsFileonline"
-        android:text="Agps online trans" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="tranAgpsFileoffline"
-        android:text="Agps offline trans" />
-
     <LinearLayout
-        android:id="@+id/llGPS"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="GPS Upgrade"
-            android:textColor="@color/base_color_text_gray" />
+            android:id="@+id/sync_gps_status_tv"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/black"
+            android:textColor="@color/white" />
 
-        <TextView
-            android:id="@+id/tvGPSVersion"
-            android:layout_width="wrap_content"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size20dp" />
+            android:onClick="tranAgpsFileonline"
+            android:text="Agps online trans" />
+
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="tranAgpsFileoffline"-->
+<!--            android:text="Agps offline trans" />-->
+
+        <LinearLayout
+            android:id="@+id/llGPS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="GPS Upgrade"
+                android:textColor="@color/base_color_text_gray" />
+
+            <TextView
+                android:id="@+id/tvGPSVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etGPSPath"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/black"
+                    android:hint="input or select GPS fw path"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btGPSSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="btGPSSelect"
+                    android:text="Select GPS" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvGPSProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btUpgradeGPS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btUpgradeGPS"
+                android:text="Start Upgrade GPS" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llEPO"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="EPO Upgrade"
+                android:textColor="@color/base_color_text_gray" />
+
+            <TextView
+                android:id="@+id/tvLastEPOUpgradeTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size20dp" />
+
+            <Switch
+                android:id="@+id/swEPOMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EPO files are automatically downloaded" />
+
+
+            <TextView
+                android:id="@+id/tvEPOProgress"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/black"
+                android:gravity="center"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btUpgradeEPO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size10dp"
+                android:onClick="btUpgradeEPO"
+                android:text="Download production file" />
+
+            <Button
+                android:id="@+id/btTransferEPH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size10dp"
+                android:onClick="btTransferIcoeEpo"
+                android:text="Start Transfer ICOE EPO file and Upgrade" />
+
+            <Button
+                android:id="@+id/btTransferEPO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size10dp"
+                android:onClick="btTransferEPO"
+                android:text="Start Transfer Airoha EPO file and Upgrade" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size10dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etGPSPath"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvAGPSProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/black"
-                android:hint="input or select GPS fw path"
+                android:gravity="center"
                 android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/btGPSSelect"
+            <EditText
+                android:id="@+id/tcxo_offset_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="btGPSSelect"
-                android:text="Select GPS" />
+                android:hint="晶体偏移"
+                android:text="200" />
+
+            <EditText
+                android:id="@+id/longitude_et"
+                android:hint="经度"
+                android:text="114.019285"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/latitude_et"
+                android:hint="纬度"
+                android:text="22.623514"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/altitude_et"
+                android:hint="海拔高度"
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="setGpsHotStartPara"
+                android:text="设置GPS热启动参数" />
+
+            <TextView
+                android:id="@+id/get_gps_hot_para_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="getGpsHotStartPara"
+                android:text="获取GPS热启动参数" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvGPSProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btUpgradeGPS"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="btUpgradeGPS"
-            android:text="Start Upgrade GPS" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llEPO"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="EPO Upgrade"
-            android:textColor="@color/base_color_text_gray" />
-
-        <TextView
-            android:id="@+id/tvLastEPOUpgradeTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size20dp" />
-
-        <Switch
-            android:id="@+id/swEPOMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Automatic upgrade EPO" />
-
-
-        <TextView
-            android:id="@+id/tvEPOProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btUpgradeEPO"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size10dp"
-            android:onClick="btUpgradeEPO"
-            android:text="Manually upgrade EPO" />
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

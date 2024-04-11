@@ -1,5 +1,6 @@
 package test.com.ido.music;
 
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -8,21 +9,21 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaMetadata;
-import android.media.MediaMetadataEditor;
 import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyCharacterMap;
@@ -33,7 +34,6 @@ import androidx.annotation.Nullable;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
-import com.ido.ble.bluetooth.connect.ConnectFailedReason;
 import com.ido.ble.callback.DeviceControlAppCallBack;
 import com.ido.ble.protocol.model.MusicControlInfo;
 import com.ido.ble.protocol.model.PhoneVoice;
@@ -55,6 +55,7 @@ public class MusicService extends NotificationListenerService implements MediaSe
     private MusicSessionChangeCallback musicCallback;
     private static AudioManager mAudioManager;
     private VolumeBroadcastReceiver volumeBroadcastReceiver;
+    boolean isAddActiveSessionsChangedListener = false;
 
     public void registerMusicCallback(MusicSessionChangeCallback callback) {
         musicCallback = callback;
@@ -66,11 +67,17 @@ public class MusicService extends NotificationListenerService implements MediaSe
 
     public MusicService() {
     }
-
+    private long lastOnBackTime = 0L;
     BaseDeviceControlAppCallBack mCallBack = new BaseDeviceControlAppCallBack() {
         @Override
         public void onControlEvent(DeviceControlAppCallBack.DeviceControlEventType eventType, int var2) {
             Log.d(TAG, "onControlEvent:" + eventType.toString() + ", var2 = " + var2);
+            if ((System.currentTimeMillis() - lastOnBackTime) < 500) {
+                Log.d(TAG, "onControlEvent: Prevent fast cutting of songs");
+                return;
+            } else {
+                lastOnBackTime = System.currentTimeMillis();
+            }
             if (isSupportMusicControl()) {
                 switch (eventType) {
                     case START:
@@ -357,13 +364,42 @@ public class MusicService extends NotificationListenerService implements MediaSe
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        ComponentName notificationListener = new ComponentName(this, MusicService.class);
-        sessionManager.addOnActiveSessionsChangedListener(this, notificationListener);
-        Log.d(TAG, "onStartCommand, controllers = " + sessionManager.getActiveSessions(notificationListener));
-        onActiveSessionsChanged(sessionManager.getActiveSessions(notificationListener));
+
+        boolean isNotificationEnabled = isNotificationEnabled();
+        if (isNotificationEnabled) {
+            maySetupMediaSessionController();
+        }
         return super.onStartCommand(intent, flags, startId);
     }
+    @TargetApi(23)
+    private boolean maySetupMediaSessionController() {
+        try {
+            if (!isAddActiveSessionsChangedListener) {
+                sessionManager = (MediaSessionManager) getSystemService(MEDIA_SESSION_SERVICE);
+                ComponentName componentName = new ComponentName(this, MusicService.class);
+                sessionManager.addOnActiveSessionsChangedListener(this, componentName);
+                List<MediaController> mediaControllerList = sessionManager.getActiveSessions(componentName);
+                onActiveSessionsChanged(mediaControllerList);
+                isAddActiveSessionsChangedListener = true;
+            }
+        } catch (Exception ex) {
+            isAddActiveSessionsChangedListener = false;
+        }
+        return isAddActiveSessionsChangedListener;
+    }
 
+
+    /**
+     * 是否打开了读取通知的权限
+     */
+    public boolean isNotificationEnabled() {
+        String flat = Settings.Secure.getString(getContentResolver(), "enabled_notification_listeners");
+        if (!TextUtils.isEmpty(flat)) {
+            return flat.contains(getPackageName());
+        } else {
+            return false;
+        }
+    }
     @Override
     public void onActiveSessionsChanged(@Nullable List<MediaController> controllers) {
         Log.d(TAG, "onActiveSessionsChanged: " + controllers);
@@ -470,7 +506,7 @@ public class MusicService extends NotificationListenerService implements MediaSe
 
         private void sendMusic(int state) {
             MusicControlInfo musicControlInfo = new MusicControlInfo();
-            musicControlInfo.musicName = getMusicName();
+            musicControlInfo.musicName = "";
             musicControlInfo.singerName = getMusicArtist();
             musicControlInfo.curTimeSecond = (int) getCurrentPosition();
             musicControlInfo.totalTimeSecond = (int) getMusicDuration();

@@ -72,7 +72,7 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
 
     //临时bg.png
     const val TEMP_BG_PNG = "bg.png"
-
+    const val TEMP_BACKGROUND_BIN = "background.bin"
     //临时bg.bmp
     const val TEMP_BG_BMP = "bg.bmp"
 
@@ -83,7 +83,9 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
     const val TEMP_ZOOMED_PREVIEW_IMAGE = "zoom_preview.png"
 
     //临时preview.bmp
-    const val TEMP_PREVIEW_IMAGE_BMP = "preview.png"
+    const val TEMP_PREVIEW_IMAGE_BMP = "preview.bmp"
+
+    const val TEMP_PREVIEW_IMAGE_BIN= "preview.bin"
 
     //临时zip包
     private const val TEMP_NAME = "temp"
@@ -159,29 +161,35 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
                     RelativeLayout.ALIGN_PARENT_TOP,
                     RelativeLayout.CENTER_HORIZONTAL
                 )
+
             WallpaperDialConstants.WidgetLocation.CENTER -> rules = intArrayOf(
                 RelativeLayout.CENTER_IN_PARENT
             )
+
             WallpaperDialConstants.WidgetLocation.CENTER_BOTTOM -> rules =
                 intArrayOf(
                     RelativeLayout.ALIGN_PARENT_BOTTOM,
                     RelativeLayout.CENTER_HORIZONTAL
                 )
+
             WallpaperDialConstants.WidgetLocation.LEFT_TOP -> rules =
                 intArrayOf(
                     RelativeLayout.ALIGN_PARENT_LEFT,
                     RelativeLayout.ALIGN_PARENT_TOP
                 )
+
             WallpaperDialConstants.WidgetLocation.LEFT_BOTTOM -> rules =
                 intArrayOf(
                     RelativeLayout.ALIGN_PARENT_LEFT,
                     RelativeLayout.ALIGN_PARENT_BOTTOM
                 )
+
             WallpaperDialConstants.WidgetLocation.RIGHT_TOP -> rules =
                 intArrayOf(
                     RelativeLayout.ALIGN_PARENT_RIGHT,
                     RelativeLayout.ALIGN_PARENT_TOP
                 )
+
             WallpaperDialConstants.WidgetLocation.RIGHT_BOTTOM -> rules =
                 intArrayOf(
                     RelativeLayout.ALIGN_PARENT_RIGHT,
@@ -298,6 +306,12 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      */
     @JvmStatic
     fun getTempBgImagePath() = getTempCwdBaseDir() + TEMP_BG_PNG
+    /**
+     * 临时preview.bin
+     */
+    @JvmStatic
+    fun getTempCwdPreviewImagePathByBin() = getTempCwdDir() + TEMP_PREVIEW_IMAGE_BIN
+
 
     /**
      * 临时bg.bmp
@@ -310,8 +324,7 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
      * 临时preview.png
      */
     @JvmStatic
-    fun getTempCwdPreviewImagePath() = getTempCwdBaseDir() + TEMP_PREVIEW_IMAGE
-
+    fun getTempCwdPreviewImagePath() = getTempCwdBaseDir() + TEMP_PREVIEW_IMAGE_BMP
     /**
      * 临时preview.png
      */
@@ -716,6 +729,23 @@ object WallpaperDialManager : DeviceParaChangedCallBack.ICallBack {
             return Pair(options.outWidth, options.outHeight)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+        return null
+    }
+
+    /**
+     * 16进制颜色字符串转换成rgb
+     * @param hexStr
+     * @return rgb
+     */
+    @JvmStatic
+    fun hex2RGB(hexStr: String?): IntArray? {
+        if (hexStr != null && "" != hexStr && hexStr.length == 7) {
+            val rgb = IntArray(3)
+            rgb[0] = Integer.valueOf(hexStr.substring(1, 3), 16)
+            rgb[1] = Integer.valueOf(hexStr.substring(3, 5), 16)
+            rgb[2] = Integer.valueOf(hexStr.substring(5, 7), 16)
+            return rgb
         }
         return null
     }

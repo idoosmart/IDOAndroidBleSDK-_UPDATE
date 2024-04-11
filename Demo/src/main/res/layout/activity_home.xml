@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="watchPlate"
-            android:text="watchPlate" />
+            android:text="@string/watch_plate" />
 
         <Button
             android:layout_width="match_parent"
@@ -96,25 +96,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="fileTransfer"
-            android:text="fileTransfer" />
+            android:text="@string/file_transfer" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="multLangTrain"
-            android:text="langauge" />
+            android:text="@string/set_language" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="deviceControlApp"
+            android:text="@string/device_control_app" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="appControlDevice"
+            android:text="@string/app_control_device" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="musicTrans"
-            android:text="music" />
+            android:text="@string/music" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="btUpgrade"
-            android:text="BT upgrade" />
+            android:text="@string/bt_upgrade" />
 
         <Button
             android:layout_width="match_parent"
@@ -127,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="setSport"
-            android:text="Set Sport" />
+            android:text="@string/set_sport" />
 
         <Button
             android:id="@+id/btSetNotification"
@@ -150,7 +162,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="runPlan"
-            android:text="Run plan" />
+            android:text="@string/run_plan" />
+
+
     </LinearLayout>
 
 </ScrollView>

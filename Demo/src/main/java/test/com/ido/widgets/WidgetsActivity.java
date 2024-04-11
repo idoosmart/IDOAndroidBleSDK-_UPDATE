@@ -1,9 +1,26 @@
 package test.com.ido.widgets;
 
-import static com.ido.ble.protocol.model.SmallQuickModule.*;
+import static com.ido.ble.protocol.model.SmallQuickModule.SupportInfo;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_ALARM;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_ALEXA;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_BATTERY;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_CONTACTS;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_HEART_RATE;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_MUSIC;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_NOISE;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_PRESSURE;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_RECENT_ACTIVTY;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_REMINDERS;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_SLEEP;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_SPO2;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_STEPS;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_TEMPERATURE;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_THREE_CIRCLE;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_TIMER;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_WEATHER;
+import static com.ido.ble.protocol.model.SmallQuickModule.WIDGETS_TYPE_WORLD_TIME;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -162,26 +179,30 @@ public class WidgetsActivity extends BaseAutoConnectActivity {
             }
         });
         mItemTouchHelper.attachToRecyclerView(listview);
-        adapter.onItemClickListener = position -> {
-            ShortcutAppData item = addedList.get(position);
-            int index = item.showTypes.indexOf(item.size_type);
-            item.size_type = item.showTypes.get(1 - index);
-            adapter.notifyItemChanged(position);
-        };
-        adapter.onItemDeleteClickListener = position -> {
-            ShortcutAppData item = addedList.remove(position);
-            unAddedList.add(0, item);
-            adapter.notifyDataSetChanged();
-            unAddedAdapter.notifyDataSetChanged();
-        };
-        unAddedAdapter = new UnAddedAdapter();
-        listview_unAdded.setAdapter(unAddedAdapter);
-        unAddedAdapter.onItemClickListener = position -> {
-            ShortcutAppData item = unAddedList.remove(position);
-            addedList.add(item);
-            unAddedAdapter.notifyDataSetChanged();
-            adapter.notifyDataSetChanged();
-        };
+
+        if (func != null && func.V3_set_main_ui_sort) {
+
+            adapter.onItemClickListener = position -> {
+                ShortcutAppData item = addedList.get(position);
+                int index = item.showTypes.indexOf(item.size_type);
+                item.size_type = item.showTypes.get(1 - index);
+                adapter.notifyItemChanged(position);
+            };
+            adapter.onItemDeleteClickListener = position -> {
+                ShortcutAppData item = addedList.remove(position);
+                unAddedList.add(0, item);
+                adapter.notifyDataSetChanged();
+                unAddedAdapter.notifyDataSetChanged();
+            };
+            unAddedAdapter = new UnAddedAdapter();
+            listview_unAdded.setAdapter(unAddedAdapter);
+            unAddedAdapter.onItemClickListener = position -> {
+                ShortcutAppData item = unAddedList.remove(position);
+                addedList.add(item);
+                unAddedAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+            };
+        }
         listview_unAdded.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
