@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -113,6 +114,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_plate);
+        BLEManager.getBasicInfo();
 
         llDialWidget = findViewById(R.id.ll_dial_widget);
         rv_time_location = findViewById(R.id.rv_time_location);
@@ -200,8 +202,6 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     private class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.VH> {
         OnItemClickListener onItemClickListener;
         int selectedColorIndex;
-
-
         @NonNull
         @Override
         public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -291,6 +291,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             return new VH(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dial_time_location, parent, false));
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onBindViewHolder(@NonNull VH holder, int position) {
             Drawable bg = ResourceUtil.getDrawable(R.drawable.bg_e2e3ea_10_corner);
@@ -624,6 +625,10 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     public void selectCwFile(View view) {
         openFileChooser(SELECT_CW_FILE_REQ);
     }
+    public void transTepm(View view) {
+
+
+    }
 
     /**
      * 获取选择的表盘文件
@@ -648,6 +653,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
             //解压zip文件
             ZipUtils.unpackCopyZip(cwDir, cwFilePath);
             //xxx/wallpaper/custom1/custom.zip
@@ -775,7 +781,12 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
 
     private boolean isJieLi() {
-        return true;
+        Log.d(TAG, "isJieLi: "+LocalDataManager.getBasicInfo().platform);
+        if (LocalDataManager.getBasicInfo().platform ==96){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     final Handler mMainHandler = new Handler(Looper.getMainLooper()) {
@@ -793,39 +804,43 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
                 @Override
                 public void run() {
                     JieliDialConfig config = new JieliDialConfig();
-                    config.setBgPath(TextUtils.isEmpty(et_cw_img.getText().toString().trim()) ? cwDialDir + "images/bg.png" : cwImgPath_crop);
+
+                    config.setBgPath(TextUtils.isEmpty(et_cw_img.getText().toString().trim()) ? cwDialDir + "images/bg.png" : cwImgPath_show);
+                    Log.d(TAG, "run: "+cwImgPath_crop);
                     config.setPreviewPath(cwTmpDir + "preview_" + selectedLocation + ".png");
+                    Log.d(TAG, "run: "+Color.parseColor(colorList.get(selectedTimeColorIndex)));
                     config.setTimeColor(Color.parseColor(colorList.get(selectedTimeColorIndex)));
                     config.setBaseBinPath(cwTmpDir + "base_" + selectedLocation + ".bin");
-                    config.setTargetFilePath(cwDialDir + "ido_watch_dial.bin");
-                    Log.e(TAG,"config = "+config);
+                    config.setTargetFilePath(cwDialDir + "jl_platform_dail.iwf.lz");
                     if (new JieliDialMaker().makePhotoDial(config)) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Log.e(TAG,"制作完成："+config.getTargetFilePath());
-//                                FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(config.getTargetFilePath(), new IFileTransferListener() {
-//                                    @Override
-//                                    public void onStart() {
-//
-//                                    }
-//
-//                                    @Override
-//                                    public void onProgress(int progress) {
-//                                        Log.e("ddd", progress + "watch file");
-//                                    }
-//
-//                                    @Override
-//                                    public void onSuccess() {
-//                                        Log.e("ddd", "success");
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailed(String errorMsg) {
-//
-//                                    }
-//                                });
-//                                BLEManager.startTranCommonFile(config1);
+                                FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(config.getTargetFilePath(), new IFileTransferListener() {
+                                    @Override
+                                    public void onStart() {
+
+                                    }
+
+                                    @Override
+                                    public void onProgress(int progress) {
+                                        Log.e("ddd", progress + "watch file");
+                                    }
+
+                                    @Override
+                                    public void onSuccess() {
+                                        Log.e("ddd", "success");
+                                    }
+
+                                    @Override
+                                    public void onFailed(String errorMsg) {
+                                        Log.e("ddd onFailed", errorMsg + "watch file");
+
+                                    }
+                                });
+                                config1.firmwareSpecName = "jl_platform_dail.iwf.lz";
+                                BLEManager.startTranCommonFile(config1);
                             }
                         });
                     }
@@ -1012,7 +1027,6 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
             if (hasChanged) {
                 boolean b = saveTempDialConfigIwf(cwdDialConfigBean);
                 Log.d(TAG, "replaceTempCwdConfig: " + b);
-            } else {
             }
         } else {
             CwdIwfBean mCwdIwfBean = iwf;
@@ -1183,7 +1197,6 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         boolean isUsePreviewBmp = false;
         if (isSiCheDevice()) {
             tempPreviewPath = cwDialDir + "tmp/" + previewName;
-
         } else {
             if (iwf != null) {
                 String preview = iwf.getPreview();
@@ -1349,12 +1362,20 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
      */
     public List<String> getColorList() {
         List<String> mColorList = new ArrayList<>();
-        mColorList.add("#F2F2F2");
+        mColorList.add("#ffffff");
         mColorList.add("#000000");
-        mColorList.add("#FC1E58");
-        mColorList.add("#FF9501");
-        mColorList.add("#0091FF");
-        mColorList.add("#44D7B6");
+        mColorList.add("#de4371");
+        mColorList.add("#de4343");
+        mColorList.add("#de7143");
+        mColorList.add("#dba85c");
+        mColorList.add("#dbcf60");
+        mColorList.add("#b7c96b");
+        mColorList.add("#a8e36d");
+        mColorList.add("#85e36d");
+        mColorList.add("#6de379");
+        mColorList.add("#6de39c");
+        mColorList.add("#6de3c0");
+        mColorList.add("#dba85c");
         return mColorList;
     }
 }

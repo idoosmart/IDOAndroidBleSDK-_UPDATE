@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-def VERSION_NAME = '1.0.0'
+def VERSION_NAME = '1.0.1'
 android {
     compileSdk 34
 

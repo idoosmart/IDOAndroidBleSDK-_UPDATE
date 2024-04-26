@@ -37,9 +37,10 @@ internal object CustomDialUtils {
      */
     @JvmStatic
     fun toDialFile(
-        dialFilePath: String, bgPath: String?, previewPath: String?, color: Int, baseBinPath: String
+        dialFilePath: String, bgPath: String?, previewPath: String?,
+        color: Int, baseBinPath: String
     ): Boolean {
-        mContentColor = if (color <= 0) Color.parseColor("#ffffffff") else color
+        mContentColor = color
         val dataMap = parseBaseBin(baseBinPath) ?: return false
         var stream: OutputStream? = null
         try {
