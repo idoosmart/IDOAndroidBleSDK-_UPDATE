@@ -94,52 +94,6 @@ internal object ImageUtils {
     }
 
     /**
-     * 根据背景，位置，字体，合成一张预览图
-     */
-    fun composeImage(context: Context, placementType: Int, color: String, bg: String?): Bitmap? {
-        val srcBitmap = if (bg.isNullOrEmpty()) {
-            throw IllegalArgumentException("")
-        } else {
-            val fis = FileInputStream(bg)
-            val options = BitmapFactory.Options()
-            options.inScaled = false
-            BitmapFactory.decodeFileDescriptor(fis.fd, null, options)
-        }
-        val cache = Bitmap.createBitmap(
-            srcBitmap.width,
-            srcBitmap.height,
-            Bitmap.Config.ARGB_8888
-        )
-
-        val paint = Paint()
-        paint.isDither = true
-        val canvas = Canvas(cache)
-        canvas.drawBitmap(srcBitmap, 0f, 0f, null)
-
-        var resourceId = R.mipmap.top_left_1
-        when (placementType) {
-            Constants.TOP_LEFT -> {
-                resourceId = R.mipmap.top_left_1
-            }
-
-            Constants.TOP_CENTER -> {
-                resourceId = R.mipmap.top_centre_1
-            }
-
-            Constants.BOTTOM_CENTER -> {
-                resourceId = R.mipmap.bottom_centre_1
-            }
-        }
-        val options: BitmapFactory.Options = BitmapFactory.Options()
-        options.inScaled = false
-        val bitmap = BitmapFactory.decodeResource(context.resources, resourceId, options)
-        val colorBitmap = replaceColorPix(Color.parseColor(color), bitmap)
-        canvas.drawBitmap(colorBitmap, 0f, 0f, null)
-        srcBitmap.recycle()
-        return cache
-    }
-
-    /**
      * 宽高分别缩放
      *
      * @param bitmap     加载的图片

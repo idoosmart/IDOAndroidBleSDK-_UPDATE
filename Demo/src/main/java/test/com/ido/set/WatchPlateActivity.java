@@ -202,6 +202,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     private class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.VH> {
         OnItemClickListener onItemClickListener;
         int selectedColorIndex;
+
         @NonNull
         @Override
         public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -625,6 +626,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
     public void selectCwFile(View view) {
         openFileChooser(SELECT_CW_FILE_REQ);
     }
+
     public void transTepm(View view) {
 
 
@@ -750,6 +752,8 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
      */
     private void processCwImage(Intent data) {
         final Uri cw_image_url = data.getData();
+
+        CwdAppBean cwdAppBean = getCwdAppBean();
         cwImgPath = GetFilePathFromUri.getFileAbsolutePath(this, cw_image_url);
         et_cw_img.setText(cwImgPath);
         Bitmap cw_wallPaper = BitmapFactory.decodeFile(cwImgPath);
@@ -757,9 +761,9 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         if (mScreenInfo != null && mScreenInfo.width > 0) {//Crop the watch screen size picture
             ImageUtil.saveWallPaper(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), cwImgPath_crop);
             if (isSiCheDevice()) {
-                ImageUtil.saveWallPaper(ImageUtil.transform2CornerBitmap(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), 100), cwImgPath_show);
+                ImageUtil.saveWallPaper(ImageUtil.transform2CornerBitmap(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), cwdAppBean.getPreviewRadius()), cwImgPath_show);
             } else {
-                ImageUtil.saveWallPaper(ImageUtil.transform2CornerBitmap(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), 20), cwImgPath_show);
+                ImageUtil.saveWallPaper(ImageUtil.transform2CornerBitmap(Bitmap.createScaledBitmap(cw_wallPaper, mScreenInfo.width, mScreenInfo.height, true), cwdAppBean.getPreviewRadius()), cwImgPath_show);
             }
         } else {
             Toast.makeText(this, "please CALL BLEManager.getWatchPlateScreenInfo();", Toast.LENGTH_LONG).show();
@@ -781,10 +785,10 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
 
     private boolean isJieLi() {
-        Log.d(TAG, "isJieLi: "+LocalDataManager.getBasicInfo().platform);
-        if (LocalDataManager.getBasicInfo().platform ==96){
+        Log.d(TAG, "isJieLi: " + LocalDataManager.getBasicInfo().platform);
+        if (LocalDataManager.getBasicInfo().platform == 96) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -806,9 +810,9 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
                     JieliDialConfig config = new JieliDialConfig();
 
                     config.setBgPath(TextUtils.isEmpty(et_cw_img.getText().toString().trim()) ? cwDialDir + "images/bg.png" : cwImgPath_show);
-                    Log.d(TAG, "run: "+cwImgPath_crop);
+                    Log.d(TAG, "run: " + cwImgPath_crop);
                     config.setPreviewPath(cwTmpDir + "preview_" + selectedLocation + ".png");
-                    Log.d(TAG, "run: "+Color.parseColor(colorList.get(selectedTimeColorIndex)));
+                    Log.d(TAG, "run: " + Color.parseColor(colorList.get(selectedTimeColorIndex)));
                     config.setTimeColor(Color.parseColor(colorList.get(selectedTimeColorIndex)));
                     config.setBaseBinPath(cwTmpDir + "base_" + selectedLocation + ".bin");
                     config.setTargetFilePath(cwDialDir + "jl_platform_dail.iwf.lz");
@@ -816,7 +820,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.e(TAG,"制作完成："+config.getTargetFilePath());
+                                Log.e(TAG, "制作完成：" + config.getTargetFilePath());
                                 FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(config.getTargetFilePath(), new IFileTransferListener() {
                                     @Override
                                     public void onStart() {
@@ -1056,7 +1060,6 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 //                if (mFunction == app.getSelect().getSelectFunction()) {
 //                    Log.d(TAG, "未更换功能！");
 //                    if (selectedLocation != app.getSelect().getTimeFuncLocation()) {
-//
 //                    }
 //                } else {
                     Log.d(TAG, "处理前: " + GsonUtil.toJson(mCwdIwfBean));
@@ -1196,7 +1199,8 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         String tempPreviewPath;
         boolean isUsePreviewBmp = false;
         if (isSiCheDevice()) {
-            tempPreviewPath = cwDialDir + "tmp/" + previewName;
+            tempPreviewPath = cwTmpDir  + previewName;
+
         } else {
             if (iwf != null) {
                 String preview = iwf.getPreview();
@@ -1362,20 +1366,31 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
      */
     public List<String> getColorList() {
         List<String> mColorList = new ArrayList<>();
-        mColorList.add("#ffffff");
-        mColorList.add("#000000");
-        mColorList.add("#de4371");
-        mColorList.add("#de4343");
-        mColorList.add("#de7143");
-        mColorList.add("#dba85c");
-        mColorList.add("#dbcf60");
-        mColorList.add("#b7c96b");
-        mColorList.add("#a8e36d");
-        mColorList.add("#85e36d");
-        mColorList.add("#6de379");
-        mColorList.add("#6de39c");
-        mColorList.add("#6de3c0");
-        mColorList.add("#dba85c");
+        if (!isJieLi()){
+            mColorList.add("#F2F2F2");
+            mColorList.add("#000000");
+            mColorList.add("#FC1E58");
+            mColorList.add("#FF9501");
+            mColorList.add("#0091FF");
+            mColorList.add("#44D7B6");
+        }else {
+            mColorList.add("#ffffff");
+            mColorList.add("#000000");
+            mColorList.add("#de4371");
+            mColorList.add("#de4343");
+            mColorList.add("#de7143");
+            mColorList.add("#dba85c");
+            mColorList.add("#dbcf60");
+            mColorList.add("#b7c96b");
+            mColorList.add("#a8e36d");
+            mColorList.add("#85e36d");
+            mColorList.add("#6de379");
+            mColorList.add("#6de39c");
+            mColorList.add("#6de3c0");
+            mColorList.add("#dba85c");
+        }
+
+
         return mColorList;
     }
 }

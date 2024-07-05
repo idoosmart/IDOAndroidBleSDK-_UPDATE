@@ -20,6 +20,7 @@ data class CwdAppBean(
     val time_widget_list: List<TimeWidgetItem>?,
     val function_list: List<Function>?,
     val screen_corner: Float,
+    val previewRadius: Int,
     val colors: List<String>?
 ) : Serializable {
     data class Location(

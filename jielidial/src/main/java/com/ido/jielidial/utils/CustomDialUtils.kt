@@ -571,9 +571,9 @@ internal object CustomDialUtils {
             minuteModel.y = convertTwoUnSignInt(twoBytes)
 
             stream.read(twoBytes)
-            dayModel.x = convertTwoUnSignInt(twoBytes)
+            monthModel.x = convertTwoUnSignInt(twoBytes)
             stream.read(twoBytes)
-            dayModel.y = convertTwoUnSignInt(twoBytes)
+            monthModel.y = convertTwoUnSignInt(twoBytes)
 
             stream.read(twoBytes)
             dateSeparatorModel.x = convertTwoUnSignInt(twoBytes)
@@ -581,9 +581,9 @@ internal object CustomDialUtils {
             dateSeparatorModel.y = convertTwoUnSignInt(twoBytes)
 
             stream.read(twoBytes)
-            monthModel.x = convertTwoUnSignInt(twoBytes)
+            dayModel.x = convertTwoUnSignInt(twoBytes)
             stream.read(twoBytes)
-            monthModel.y = convertTwoUnSignInt(twoBytes)
+            dayModel.y = convertTwoUnSignInt(twoBytes)
 
             stream.read(twoBytes)
             weekModel.x = convertTwoUnSignInt(twoBytes)
