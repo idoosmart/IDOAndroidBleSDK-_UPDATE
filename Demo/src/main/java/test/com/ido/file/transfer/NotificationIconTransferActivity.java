@@ -1,10 +1,5 @@
 package test.com.ido.file.transfer;
 
-import static android.content.pm.ApplicationInfo.FLAG_SYSTEM;
-import static android.content.pm.ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
-
-
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.RemoteInput;
@@ -18,8 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.service.notification.NotificationListenerService;
-import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import androidx.annotation.NonNull;
 
@@ -63,9 +55,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import test.com.ido.CallBack.BaseGetDeviceInfoCallBack;
 import test.com.ido.R;
+import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.utils.BitmapUtil;
 import test.com.ido.utils.ExecutorDispatcher;
-import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.utils.ResourceUtil;
 
 public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
@@ -110,6 +102,9 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
             List<ApplicationInfo> listAppcations = pm.getInstalledApplications(0);
             Collections.sort(listAppcations, new ApplicationInfo.DisplayNameComparator(pm)); // 字典排序
             TranIconBean bean;
+
+            Log.d(TAG, "loadInstalledApp1: "+listAppcations.size());
+
             for (ApplicationInfo app : listAppcations) {
                 if ((app.flags & ApplicationInfo.FLAG_SYSTEM) == 0
                         && (app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0) {
@@ -119,6 +114,8 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
                     bean.type = convertPkg2Type(bean.pkgName);
                     allNoticeAppBeans.put(bean.pkgName, bean);
                     apps.add(bean);
+
+                    Log.d(TAG, "loadInstalledApp: "+apps.size());
                 }
             }
 

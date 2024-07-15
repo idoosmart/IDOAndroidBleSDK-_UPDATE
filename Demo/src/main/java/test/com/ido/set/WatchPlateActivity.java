@@ -808,7 +808,6 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
                 @Override
                 public void run() {
                     JieliDialConfig config = new JieliDialConfig();
-
                     config.setBgPath(TextUtils.isEmpty(et_cw_img.getText().toString().trim()) ? cwDialDir + "images/bg.png" : cwImgPath_show);
                     Log.d(TAG, "run: " + cwImgPath_crop);
                     config.setPreviewPath(cwTmpDir + "preview_" + selectedLocation + ".png");
@@ -824,23 +823,18 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
                                 FileTransferConfig config1 = FileTransferConfig.getDefaultTransPictureConfig(config.getTargetFilePath(), new IFileTransferListener() {
                                     @Override
                                     public void onStart() {
-
                                     }
-
                                     @Override
                                     public void onProgress(int progress) {
                                         Log.e("ddd", progress + "watch file");
                                     }
-
                                     @Override
                                     public void onSuccess() {
                                         Log.e("ddd", "success");
                                     }
-
                                     @Override
                                     public void onFailed(String errorMsg) {
                                         Log.e("ddd onFailed", errorMsg + "watch file");
-
                                     }
                                 });
                                 config1.firmwareSpecName = "jl_platform_dail.iwf.lz";
@@ -1305,7 +1299,7 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
      */
     private String packTempCwdPackageBySiChe(String otaFaceName) {
         try {
-            String tempZipPath = cwTmpDir + otaFaceName + ".watch";
+            String tempZipPath = cwTmpDir  + "custom1.watch";
             FileUtil.deleteFile(tempZipPath);
             int result = BLEManager.mkSifliDial(cwTmpDir);
             return result == 0 ? tempZipPath : "";
