@@ -27,4 +27,11 @@
         android:onClick="realtekUpgrade"
         android:text="realtekUpgrade"/>
 
+    <Button
+        android:id="@+id/sicheUpgrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sicheUpgrade"
+        android:text="sicheUpgrade"/>
+
 </LinearLayout>

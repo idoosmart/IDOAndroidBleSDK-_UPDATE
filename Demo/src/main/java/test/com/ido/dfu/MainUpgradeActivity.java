@@ -4,14 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.ido.ble.BLEManager;
-import com.ido.ble.callback.EnterDfuModeCallback;
 
 import test.com.ido.R;
-import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.file.transfer.FileTransferActivity;
 
 public class MainUpgradeActivity extends Activity {
@@ -45,4 +39,8 @@ public class MainUpgradeActivity extends Activity {
         startActivity(new Intent(this, FileTransferActivity.class));
     }
 
+    public void sicheUpgrade(View view) {
+        Intent intent =  new Intent(this, MainDfuActivity.class);
+        startActivity(intent);
+    }
 }

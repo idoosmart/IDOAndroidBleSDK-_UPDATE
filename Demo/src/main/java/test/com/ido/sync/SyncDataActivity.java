@@ -37,6 +37,7 @@ import com.ido.ble.data.manage.database.HealthSwimming;
 import com.ido.ble.data.manage.database.HealthTemperature;
 import com.ido.ble.gps.database.HealthGps;
 import com.ido.ble.gps.database.HealthGpsItem;
+import com.ido.ble.protocol.model.DrinkPlanData;
 import com.ido.ble.protocol.model.SupportFunctionInfo;
 
 import java.util.List;
@@ -188,6 +189,11 @@ public class SyncDataActivity extends BaseAutoConnectActivity {
 
             @Override
             public void onGetHealthHRV(HealthHRVdata healthHRVdata) {
+
+            }
+
+            @Override
+            public void onGetDrinkPlan(DrinkPlanData drinkPlanData) {
 
             }
         };
