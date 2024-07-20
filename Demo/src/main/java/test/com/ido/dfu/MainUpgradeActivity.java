@@ -40,7 +40,7 @@ public class MainUpgradeActivity extends Activity {
     }
 
     public void sicheUpgrade(View view) {
-        Intent intent =  new Intent(this, MainDfuActivity.class);
+        Intent intent =  new Intent(this, SICHEotaActivity.class);
         startActivity(intent);
     }
 }

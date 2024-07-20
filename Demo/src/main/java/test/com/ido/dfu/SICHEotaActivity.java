@@ -28,6 +28,7 @@ import com.ido.ble.LocalDataManager;
 import com.ido.ble.bluetooth.device.BLEDevice;
 import com.ido.ble.dfu.BleDFUConfig;
 import com.ido.ble.dfu.BleDFUState;
+import com.ido.ble.protocol.model.BasicInfo;
 
 import java.io.BufferedInputStream;
 import java.io.Closeable;
@@ -142,7 +143,6 @@ public class SICHEotaActivity extends Activity {
         tvError = findViewById(R.id.dfu_error_tv);
         tvFilePath = findViewById(R.id.dfu_file_path_tv);
         tvLostTime = findViewById(R.id.dfu_lost_time_tv);
-        progress_tv = findViewById(R.id.progress_tv);
         tvLiveLostTime = findViewById(R.id.live_lost_time_tv);
         btnStartUpgrade = findViewById(R.id.btn_start_upgrade);
         tvLog = findViewById(R.id.dfu_log_tv);
@@ -229,25 +229,15 @@ public class SICHEotaActivity extends Activity {
     public void startUpgrade(View view){
         Log.e(TAG,"startUpgrade: ");
         tvError.setText("start");
-        progress_tv.setText("0%");
         upgrade_siche();
     }
 
    private void upgrade_siche(){
        BLEManager.addDFUStateListener(iListener);
        macAddress = LocalDataManager.getCurrentDeviceInfo().mDeviceAddress;
-       BLEDevice device  = LocalDataManager.getCurrentDeviceInfo();
+       BasicInfo basicInfo = LocalDataManager.getBasicInfo();
        BLEManager.startDFU(new BleDFUConfig().setFilePath(filePath)
-               .setMacAddress(macAddress).setDeviceId("11212").setIsDfu(isDfu).setPlatform(device.platform));
-    /* if(paths==null || paths.size()==0){
-         Toast.makeText(this,"请选择升级文件",Toast.LENGTH_LONG).show();
-         return;
-     }
-      for(int i=0;i<paths.size();i++){
-          DFUImagePath p = paths.get(i);
-          Log.e(TAG,"paths : "+i+"---type:"+p.getImageType());
-      }
-       SifliDFUService.startActionDFUNand(this,macAddress,paths,Protocol.DFU_MODE_NORMAL,0);*/
+               .setMacAddress(macAddress).setDeviceId("11212").setIsDfu(isDfu).setPlatform(basicInfo.platform));
    }
 /*
    private void regitsterDfuLocalBroadcast(){
