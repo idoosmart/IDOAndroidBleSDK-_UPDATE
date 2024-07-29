@@ -1,11 +1,13 @@
 package test.com.ido.dfu;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -22,13 +24,17 @@ import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.core.content.FileProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
 import com.ido.ble.bluetooth.device.BLEDevice;
 import com.ido.ble.dfu.BleDFUConfig;
 import com.ido.ble.dfu.BleDFUState;
-import com.ido.ble.protocol.model.BasicInfo;
+
 
 import java.io.BufferedInputStream;
 import java.io.Closeable;
@@ -37,11 +43,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import test.com.ido.BuildConfig;
 import test.com.ido.R;
+import test.com.ido.connect.ScanDeviceActivity;
+import test.com.ido.logoutput.LogOutput;
 import test.com.ido.utils.DataUtils;
 import test.com.ido.utils.GetFilePathFromUri;
 
@@ -124,7 +135,6 @@ public class SICHEotaActivity extends Activity {
     };
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -143,6 +153,7 @@ public class SICHEotaActivity extends Activity {
         tvError = findViewById(R.id.dfu_error_tv);
         tvFilePath = findViewById(R.id.dfu_file_path_tv);
         tvLostTime = findViewById(R.id.dfu_lost_time_tv);
+        progress_tv = findViewById(R.id.progress_tv);
         tvLiveLostTime = findViewById(R.id.live_lost_time_tv);
         btnStartUpgrade = findViewById(R.id.btn_start_upgrade);
         tvLog = findViewById(R.id.dfu_log_tv);
@@ -229,16 +240,26 @@ public class SICHEotaActivity extends Activity {
     public void startUpgrade(View view){
         Log.e(TAG,"startUpgrade: ");
         tvError.setText("start");
+        progress_tv.setText("0%");
         upgrade_siche();
     }
 
-   private void upgrade_siche(){
-       BLEManager.addDFUStateListener(iListener);
-       macAddress = LocalDataManager.getCurrentDeviceInfo().mDeviceAddress;
-       BasicInfo basicInfo = LocalDataManager.getBasicInfo();
-       BLEManager.startDFU(new BleDFUConfig().setFilePath(filePath)
-               .setMacAddress(macAddress).setDeviceId("11212").setIsDfu(isDfu).setPlatform(basicInfo.platform));
-   }
+    private void upgrade_siche(){
+        BLEManager.addDFUStateListener(iListener);
+        macAddress = LocalDataManager.getCurrentDeviceInfo().mDeviceAddress;
+        BLEDevice device  = LocalDataManager.getCurrentDeviceInfo();
+        BLEManager.startDFU(new BleDFUConfig().setFilePath(filePath)
+                .setMacAddress(macAddress).setDeviceId("11212").setIsDfu(isDfu).setPlatform(device.platform));
+    /* if(paths==null || paths.size()==0){
+         Toast.makeText(this,"请选择升级文件",Toast.LENGTH_LONG).show();
+         return;
+     }
+      for(int i=0;i<paths.size();i++){
+          DFUImagePath p = paths.get(i);
+          Log.e(TAG,"paths : "+i+"---type:"+p.getImageType());
+      }
+       SifliDFUService.startActionDFUNand(this,macAddress,paths,Protocol.DFU_MODE_NORMAL,0);*/
+    }
 /*
    private void regitsterDfuLocalBroadcast(){
        IntentFilter intentFilter = new IntentFilter();
@@ -324,7 +345,7 @@ public class SICHEotaActivity extends Activity {
                     filePath = path;
                     tvFilePath.setText(path);
                     Log.e(TAG,"image path: "+path);
-                  //  initUpdatefile(path);
+                    //  initUpdatefile(path);
                     DataUtils.getInstance().saveDfuFilePath(path);
                   /*  String folder_path = path.substring(0,path.lastIndexOf("/")+1);
                     Log.e(TAG,"image ctrl path folder: "+folder_path+"ctrl_packet.bin");
@@ -400,7 +421,7 @@ public class SICHEotaActivity extends Activity {
     private String getFileAbsolutePath(Activity context, Uri fileUri) {
         if (context == null || fileUri == null)
             return null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, fileUri)) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, fileUri)) {
             if (isExternalStorageDocument(fileUri)) {
                 String docId = DocumentsContract.getDocumentId(fileUri);
                 String[] split = docId.split(":");

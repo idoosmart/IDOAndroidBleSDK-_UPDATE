@@ -293,7 +293,9 @@
             android:name="com.ido.ble.dfu.DFUService"
             android:enabled="true"
             android:exported="false" />
-
+        <service
+            android:name="com.sifli.siflidfu.SifliDFUService"
+            android:exported="false" />
         <activity
             android:name=".set.ShowAlarmsActivity"
             android:launchMode="singleTask" />

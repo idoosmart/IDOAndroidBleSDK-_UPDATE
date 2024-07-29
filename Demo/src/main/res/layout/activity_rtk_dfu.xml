@@ -39,6 +39,11 @@
             android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/progress_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/aaab" />
 
         <ProgressBar
             android:id="@+id/dfu_progressBar"
@@ -59,35 +64,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="#FFFFFF" />
-
-        <CheckBox
-            android:id="@+id/dfu_is_auto_test_cbx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="自动化测试模式"/>
-        <TextView
-            android:id="@+id/dfu_lost_time_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColor="#FFFFFF" />
-
-        <TextView
-            android:id="@+id/dfu_retry_times_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="重试次数:"
-            android:textColor="#FFFFFF" />
-
-        <TextView
-            android:id="@+id/live_lost_time_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="50sp"
-            android:layout_marginTop="20dp"
-            android:text="20"
             android:textColor="#FFFFFF" />
 
 

@@ -15,6 +15,7 @@ import com.ido.ble.data.manage.database.HealthActivityV3;
 import com.ido.ble.data.manage.database.HealthBloodPressed;
 import com.ido.ble.data.manage.database.HealthBloodPressedItem;
 import com.ido.ble.data.manage.database.HealthBloodPressureV3;
+import com.ido.ble.data.manage.database.HealthBodyComposition;
 import com.ido.ble.data.manage.database.HealthBodyPower;
 import com.ido.ble.data.manage.database.HealthGpsV3;
 import com.ido.ble.data.manage.database.HealthHRVdata;
@@ -35,6 +36,7 @@ import com.ido.ble.data.manage.database.HealthSportItem;
 import com.ido.ble.data.manage.database.HealthSportV3;
 import com.ido.ble.data.manage.database.HealthSwimming;
 import com.ido.ble.data.manage.database.HealthTemperature;
+import com.ido.ble.data.manage.database.HealthV3Ecg;
 import com.ido.ble.gps.database.HealthGps;
 import com.ido.ble.gps.database.HealthGpsItem;
 import com.ido.ble.protocol.model.DrinkPlanData;
@@ -194,6 +196,16 @@ public class SyncDataActivity extends BaseAutoConnectActivity {
 
             @Override
             public void onGetDrinkPlan(DrinkPlanData drinkPlanData) {
+
+            }
+
+            @Override
+            public void onGetHealthBodyCompositionData(HealthBodyComposition healthBodyComposition) {
+
+            }
+
+            @Override
+            public void onGetHealthV3EcgData(HealthV3Ecg healthV3Ecg) {
 
             }
         };

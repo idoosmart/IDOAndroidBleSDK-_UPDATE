@@ -1,6 +1,7 @@
 package test.com.ido.CallBack;
 
 import com.ido.ble.callback.GetDeviceInfoCallBack;
+import com.ido.ble.gps.model.GPSInfo;
 import com.ido.ble.protocol.model.ActivityDataCount;
 import com.ido.ble.protocol.model.BasicInfo;
 import com.ido.ble.protocol.model.BatteryInfo;
@@ -91,5 +92,10 @@ public class BaseGetDeviceInfoCallBack implements GetDeviceInfoCallBack.ICallBac
     @Override
     public void onGetNoticeReminderSwitchStatus(NoticeReminderSwitchStatus noticeReminderSwitchStatus) {
         
+    }
+
+    @Override
+    public void onGetGpsInfo(GPSInfo gpsInfo) {
+
     }
 }
