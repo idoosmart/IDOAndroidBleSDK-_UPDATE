@@ -35,6 +35,7 @@ import test.com.ido.notice.PhoneNoticeActivity;
 import test.com.ido.runplan.RunPlanActivity;
 import test.com.ido.set.MainSetActivity;
 import test.com.ido.set.SetSportActivity;
+import test.com.ido.set.SetWallpaperActivity;
 import test.com.ido.set.WatchPlateActivity;
 import test.com.ido.sync.SyncDataActivity;
 import test.com.ido.unbind.UnbindActivity;
@@ -141,6 +142,9 @@ public class HomeActivity extends BaseAutoConnectActivity {
 
     public void syncData(View v) {
         startActivity(new Intent(this, SyncDataActivity.class));
+    }
+   public void SetWallpaper(View v) {
+        startActivity(new Intent(this, SetWallpaperActivity.class));
     }
 
     public void exchangeData(View v) {

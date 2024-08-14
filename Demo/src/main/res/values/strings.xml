@@ -31,6 +31,7 @@
     <string name="home_app_control_device">App control device ></string>
     <string name="home_device_control_app">Device control app ></string>
     <string name="home_sync_data">data sync ></string>
+    <string name="home_set_wallpaper">Set Wallpaper ></string>
     <string name="home_app_send_data">App send data ></string>
     <string name="home_exchange_data">exchange data ></string>
     <string name="home_tip_not_connect">Not connect device</string>
@@ -60,9 +61,13 @@
     <string name="add">Add</string>
     <string name="unit_minute">Min</string>
     <string name="unit_hour">Hour</string>
-
+    <string name="set_scheduler_reminder"> set scheduler reminder</string>
+    <string name="query">query</string>
+    <string name="set_para_contact">top contact ></string>
+    <string name="set_emergency_contact">emergency  contact ></string>
+    <string name="contact_name">contact name</string>
+    <string name="contact_number">contact number</string>
     <string name="set_para_time">Set time ></string>
-    <string name="set_para_contact">Set Phone book ></string>
     <!--闹钟-->
     <string name="set_para_alarm">Set alarms ></string>
     <string name="alarmtext111">The demo only provides demo, only set one set of alarm clock, and the maximum support of the alarm clock is 10. The developer can set it up for the demo, and the demo only sets one.</string>

@@ -38,6 +38,14 @@
             android:text="@string/home_sync_data"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp" />
+        <Button
+            android:id="@+id/SetWallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="SetWallpaper"
+            android:text="@string/home_set_wallpaper"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
 
         <Button

@@ -249,7 +249,8 @@ public class SICHEotaActivity extends Activity {
         macAddress = LocalDataManager.getCurrentDeviceInfo().mDeviceAddress;
         BLEDevice device  = LocalDataManager.getCurrentDeviceInfo();
         BLEManager.startDFU(new BleDFUConfig().setFilePath(filePath)
-                .setMacAddress(macAddress).setDeviceId("11212").setIsDfu(isDfu).setPlatform(device.platform));
+                .setMacAddress(macAddress).setDeviceId(deviceId)
+                .setIsDfu(isDfu).setPlatform(device.platform));
     /* if(paths==null || paths.size()==0){
          Toast.makeText(this,"请选择升级文件",Toast.LENGTH_LONG).show();
          return;

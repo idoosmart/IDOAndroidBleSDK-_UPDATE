@@ -34,6 +34,8 @@
     <string name="home_app_send_data">APP发送数据 ></string>
     <string name="home_exchange_data">交换数据 ></string>
     <string name="home_tip_not_connect">未连接设备</string>
+    <string name="home_set_wallpaper">设置壁纸文件 ></string>
+
 
     <!--获取信息-->
     <string name="get_info_basic_info">基本信息</string>
@@ -61,10 +63,10 @@
     <string name="add">添加</string>
     <string name="unit_minute">分钟</string>
     <string name="unit_hour">小时</string>
-
+    <string name="set_para_contact"> 常用联系人</string>
     <string name="set_para_time">设置时间 ></string>
     <string name="set_para_contact">设置电话本 ></string>
-
+    <string name="query">查询</string>
     <!--闹钟-->
     <string name="set_para_alarm">设置闹钟 ></string>
     <string name="alarmtext111">demo只提供演示，只设置一组闹钟，闹钟最大支持十个，开发者可以自行设置，为方便演示，demo只设置一个</string>
@@ -492,5 +494,12 @@
     <string name="set_sport">设置运动</string>
     <string name="watch_plate">表盘</string>
 
+    <string name="contact_name"> 名称</string>
+    <string name="contact_number">号码</string>
+    <string name="set_para_time">设置时间 ></string>
+    <string name="contact"> 联系人</string>
+    <string name="set_para_contact"> 常用联系人</string>
+    <string name="set_scheduler_reminder"> 设置日程提醒</string>
+    <string name="set_emergency_contact">紧急联系人 ></string>
 
 </resources>

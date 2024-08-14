@@ -1311,6 +1311,22 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
 
 
     /**
+     * 解析临时表盘包dial_config.json(思澈平台)
+     */
+    private CwdDialConfigBean getTempCwdDialConfigBean() {
+        try {
+            String json = FileUtil.readStringFromFile(cwTmpDir + "dial_config.json");
+            if (!TextUtils.isEmpty(json)) {
+                return GsonUtil.fromJson(json, CwdDialConfigBean.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
      * 压缩临时壁纸表盘包到临时目录
      */
     private String packTempCwdPackage() {
@@ -1331,20 +1347,6 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         return "";
     }
 
-    /**
-     * 解析临时表盘包dial_config.json(思澈平台)
-     */
-    private CwdDialConfigBean getTempCwdDialConfigBean() {
-        try {
-            String json = FileUtil.readStringFromFile(cwTmpDir + "dial_config.json");
-            if (!TextUtils.isEmpty(json)) {
-                return GsonUtil.fromJson(json, CwdDialConfigBean.class);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     private boolean saveTempDialConfigIwf(CwdDialConfigBean data) {
         try {
