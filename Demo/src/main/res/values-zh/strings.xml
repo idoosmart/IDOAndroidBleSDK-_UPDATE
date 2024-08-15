@@ -65,7 +65,6 @@
     <string name="unit_hour">小时</string>
     <string name="set_para_contact"> 常用联系人</string>
     <string name="set_para_time">设置时间 ></string>
-    <string name="set_para_contact">设置电话本 ></string>
     <string name="query">查询</string>
     <!--闹钟-->
     <string name="set_para_alarm">设置闹钟 ></string>
@@ -496,9 +495,6 @@
 
     <string name="contact_name"> 名称</string>
     <string name="contact_number">号码</string>
-    <string name="set_para_time">设置时间 ></string>
-    <string name="contact"> 联系人</string>
-    <string name="set_para_contact"> 常用联系人</string>
     <string name="set_scheduler_reminder"> 设置日程提醒</string>
     <string name="set_emergency_contact">紧急联系人 ></string>
 

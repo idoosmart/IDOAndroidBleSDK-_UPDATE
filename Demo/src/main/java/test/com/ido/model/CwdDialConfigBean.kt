@@ -10,6 +10,8 @@ data class CwdDialConfigBean(
         val version: Int,
         val name: String,
         val id: Int,
+        val dial_path : String?,
+        val postfix : String?,
         val dial_data: MutableList<DialDataBean>
 )
 

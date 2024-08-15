@@ -71,6 +71,14 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'androidx.annotation:annotation:1.1.0'
 
+
+//    api 'com.ido.sdk:rtk-core:1.1.9@jar'
+//    api 'com.ido.sdk:rtk-bbpro-core:1.5.16@jar'
+//    api 'com.ido.sdk:rtk-dfu:3.3.5@jar'
+//    api 'com.ido.sdk:rtk-usb:1.0.7@jar'
+//    api 'com.ido.sdk:SifliDFU-1.1.20D:1.1.20@jar'
+//    api 'com.ido.sdk:sifliezip:1.0.0@jar'
+
     //SDK--need
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'com.alibaba:fastjson:1.2.35'
@@ -90,6 +98,6 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
 //    implementation(name: 'jielidial-1.0.1', ext: 'aar')
     implementation project(':jielidial')
-    implementation files('libs/IDoBLELib-VeryFit-2.69.00.jar')
+    implementation files('libs/IDoBLELib-VeryFit-2.69.04.jar')
     implementation files('libs/siflireadersdk-release.aar')
 }

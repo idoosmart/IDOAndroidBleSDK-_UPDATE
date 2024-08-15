@@ -94,8 +94,5 @@ public class BaseGetDeviceInfoCallBack implements GetDeviceInfoCallBack.ICallBac
         
     }
 
-    @Override
-    public void onGetGpsInfo(GPSInfo gpsInfo) {
 
-    }
 }
