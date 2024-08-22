@@ -8,6 +8,7 @@
     tools:context=".set.SetWallpaperActivity">
 
     <EditText
+        android:hint="请选择文件路径"
         android:id="@+id/wallpaper_ed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -33,4 +34,25 @@
         android:id="@+id/wallpaper_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/wallpaper_color"
+        android:layout_width="match_parent"
+        android:hint="输入颜色"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/set_wallpaper_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set wallpaper color"
+        android:onClick="setWallpaperColor"
+        />
+    <TextView
+        android:id="@+id/wallpaper_response"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
 </LinearLayout>

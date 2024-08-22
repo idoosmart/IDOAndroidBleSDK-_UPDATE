@@ -36,7 +36,7 @@ import java.io.File
  * @date 2022/1/11
  * @time 16:28
  * 用途:睡眠管理和健康管理
- */ class HealthManagerActivity : Activity(), IHealthManagerView,
+ */ class  HealthManagerActivity : Activity(), IHealthManagerView,
         PageLoadView {
 
     private val mCustomWebChromClient: CustomWebChromClient = CustomWebChromClient()

@@ -10,14 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ido.ble.BLEManager;
+import com.ido.ble.callback.SettingCallBack;
 import com.ido.ble.file.transfer.FileTransferConfig;
 import com.ido.ble.file.transfer.IFileTransferListener;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import com.ido.ble.protocol.model.SetListStyle;
 
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
@@ -37,7 +36,8 @@ public class SetWallpaperActivity extends BaseAutoConnectActivity {
     private String photoInputPath_bin = LogPathImpl.getInstance().getPicPath() + "alwpaper.bin";
 
     private TextView tvProgress;
-    private EditText imagPath;
+    private TextView wallpaper_response;
+    private EditText imagPath, wallpaper_color;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,7 +46,20 @@ public class SetWallpaperActivity extends BaseAutoConnectActivity {
         setContentView(R.layout.activity_set_wallpaper);
         imagPath = findViewById(R.id.wallpaper_ed);
         tvProgress = findViewById(R.id.wallpaper_progress);
+        wallpaper_response = findViewById(R.id.wallpaper_response);
+        wallpaper_color = findViewById(R.id.wallpaper_color);
+        BLEManager.registerSettingCallBack(new SettingCallBack.ICallBack() {
+            @Override
+            public void onSuccess(SettingCallBack.SettingType settingType, Object o) {
+                wallpaper_response.setText("success");
+            }
 
+            @Override
+            public void onFailed(SettingCallBack.SettingType settingType) {
+                wallpaper_response.setText("failed");
+
+            }
+        });
     }
 
     public void selectImage(View view) {
@@ -97,7 +110,7 @@ public class SetWallpaperActivity extends BaseAutoConnectActivity {
                 imagPath.setText(photoInputPath_crop);
                 //320x385
                 ImageUtil.saveWallPaper(Bitmap.createScaledBitmap(wallPaper, 320, 385, true), photoInputPath_crop);
-                FileUtil.savePngByBin(photoInputPath_crop,  photoInputPath_bin);
+                FileUtil.savePngByBin(photoInputPath_crop, photoInputPath_bin);
                 break;
         }
     }
@@ -134,7 +147,7 @@ public class SetWallpaperActivity extends BaseAutoConnectActivity {
         };
         config.PRN = Integer.parseInt("10");
         config.filePath = photoInputPath_bin;
-        config.firmwareSpecName = "background.bin";
+        config.firmwareSpecName = "alwpaper.bin";
         config.dataType = 255;
         config.zipType = 0;
         config.maxRetryTimes = 0;
@@ -143,23 +156,20 @@ public class SetWallpaperActivity extends BaseAutoConnectActivity {
     }
 
 
-    public static void compressImage(String imagePath, String outputPath) {
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        int quality = 100;
-        bitmap.compress(Bitmap.CompressFormat.PNG, quality, byteArrayOutputStream);
-        while (byteArrayOutputStream.toByteArray().length / 1024 > 600) {
-            byteArrayOutputStream.reset();
-            quality -= 10;
-            bitmap.compress(Bitmap.CompressFormat.PNG, quality, byteArrayOutputStream);
+  
+
+    public void setWallpaperColor(View view) {
+        String s = wallpaper_color.getText().toString();
+        if (s.isEmpty()){
+            Toast.makeText(this, "请输入颜色值", Toast.LENGTH_SHORT).show();
+            return;
         }
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(outputPath));
-            fileOutputStream.write(byteArrayOutputStream.toByteArray());
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        s = s.replace("x", "0");
+        s = s.replace("X", "0");
+        int intValue = Integer.valueOf(s,16);
+        SetListStyle setListStyle = new SetListStyle();
+        setListStyle.font_color =intValue;
+        BLEManager.setListColor(setListStyle);
+        //16776960  16777215
     }
 }

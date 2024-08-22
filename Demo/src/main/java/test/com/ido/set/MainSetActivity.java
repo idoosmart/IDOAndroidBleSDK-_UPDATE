@@ -1,7 +1,13 @@
 package test.com.ido.set;
 
+import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
@@ -11,22 +17,23 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
+import com.ido.ble.callback.AppSendAllPhoneContactsCallBack;
 import com.ido.ble.callback.OperateCallBack;
 import com.ido.ble.callback.OtherProtocolCallBack;
 import com.ido.ble.callback.QueryStatusCallBack;
 import com.ido.ble.callback.RebootCallback;
 import com.ido.ble.callback.SettingCallBack;
-import com.ido.ble.dfu.BleDFUConfig;
+import com.ido.ble.file.transfer.FileTransferConfig;
+import com.ido.ble.file.transfer.IFileTransferListener;
 import com.ido.ble.protocol.model.ActivitySwitch;
-import com.ido.ble.protocol.model.AntiLostMode;
+import com.ido.ble.protocol.model.AllPhoneContacts;
 import com.ido.ble.protocol.model.BloodPressureAdjustDeviceReplyInfo;
 import com.ido.ble.protocol.model.BloodPressureAdjustPara;
-import com.ido.ble.protocol.model.BloodPressureQueryAdjustResultPara;
 import com.ido.ble.protocol.model.CalorieAndDistanceGoal;
-import com.ido.ble.protocol.model.DialPlate;
-import com.ido.ble.protocol.model.DisplayMode;
 import com.ido.ble.protocol.model.DrinkWaterReminder;
 import com.ido.ble.protocol.model.FrequentContactsV3;
 import com.ido.ble.protocol.model.Goal;
@@ -44,8 +51,6 @@ import com.ido.ble.protocol.model.PressureParam;
 import com.ido.ble.protocol.model.SPO2Param;
 import com.ido.ble.protocol.model.ScheduleReminderV3;
 import com.ido.ble.protocol.model.ScreenBrightness;
-import com.ido.ble.protocol.model.ShortCut;
-import com.ido.ble.protocol.model.SosSwitch;
 import com.ido.ble.protocol.model.SportModeSort;
 import com.ido.ble.protocol.model.SportType;
 import com.ido.ble.protocol.model.SupportFunctionInfo;
@@ -58,7 +63,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import test.com.ido.HomeActivity;
 import test.com.ido.R;
 import test.com.ido.connect.BaseAutoConnectActivity;
 import test.com.ido.utils.DateUtil;
@@ -287,6 +291,82 @@ public class MainSetActivity extends BaseAutoConnectActivity {
     public void setRestoreFactory(View v){
 
         BLEManager.setRestoreFactory();
+    }
+    /**
+     * 下发通讯录
+     * @param v
+     */
+    public void setAddressBook(View v){
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "没有通讯录读取权限", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AllPhoneContacts allPhoneContacts = new AllPhoneContacts();
+        allPhoneContacts.year = 2024;
+        allPhoneContacts.month = 8;
+        allPhoneContacts.day = 19;
+        allPhoneContacts.hour = 14;
+        allPhoneContacts.minute = 11;
+        allPhoneContacts.second = 12;
+        allPhoneContacts.items = new ArrayList<>();
+
+        ContentResolver contentResolver = this.getContentResolver();
+        Cursor cursor = contentResolver.query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                null, null, null, null);
+        //获取手机所有联系人信息
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                @SuppressLint("Range")
+                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                @SuppressLint("Range")
+                String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                AllPhoneContacts.PhoneContactItem contactItem = new AllPhoneContacts.PhoneContactItem();
+                contactItem.name = name;
+                contactItem.phone = phoneNumber;
+                allPhoneContacts.items.add(contactItem);
+            }
+            cursor.close();
+        }
+
+        allPhoneContacts.contact_item_num = allPhoneContacts.items.size();
+        BLEManager.setAllPhoneContacts(allPhoneContacts);
+        BLEManager.registerAppSendAllPhoneContactsCallBack(new AppSendAllPhoneContactsCallBack.ICallBack() {
+            @Override
+            public void onCallBack(String filePath) {
+                FileTransferConfig fileTransferConfig = new FileTransferConfig();
+
+                fileTransferConfig.filePath = filePath;
+
+                fileTransferConfig.dataType = 255;
+                fileTransferConfig.PRN = 10;
+                fileTransferConfig.firmwareSpecName = ".ml";
+                fileTransferConfig.iFileTransferListener = new IFileTransferListener() {
+                    @Override
+                    public void onStart() {
+                        Log.d("contact===> ", "onStart: ");
+                    }
+
+                    @Override
+                    public void onProgress(int progress) {
+
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        Log.d("contact===> ", "onSuccess: ");
+                    }
+
+                    @Override
+                    public void onFailed(String errorMsg) {
+                        Log.d("contact===> ", "onFailed: ");
+                    }
+                };
+                BLEManager.startTranCommonFile(fileTransferConfig);
+            }
+        });
+
     }
 
     /**

@@ -121,15 +121,15 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
 //            return
 //        }
         mUpgrading = true
-        if (isSupportGPSUpgrade()) {
-            printAndSaveLog("先获取gps信息...")
-            BLEManager.unregisterGetGpsInfoCallBack(this)
-            BLEManager.registerGetGpsInfoCallBack(this)
-            BLEManager.getGpsInfo()
-        } else {
-            printAndSaveLog("start...")
+//        if (isSupportGPSUpgrade()) {
+//            printAndSaveLog("先获取gps信息...")
+//            BLEManager.unregisterGetGpsInfoCallBack(this)
+//            BLEManager.registerGetGpsInfoCallBack(this)
+//            BLEManager.getGpsInfo()
+//        } else {
+//            printAndSaveLog("start...")
             startDownloadFile()
-        }
+//        }
     }
 
     private fun isSupportGPSUpgrade(): Boolean {
@@ -266,22 +266,22 @@ class EpoUpgradeHelper : GpsCallBack.IGetGpsInfoCallBack,
                 filePath = EPO_DIR.plus("EPO_BDS_3.DAT")
             ),
             EpoBean(
-                url = "http://starcourse.location.io/TempEvaluation2023Q4/",
+                url = "http://starcourse.location.io/IC2MItGo7K/",
                 fileName = "f1e1G3.pgl",
                 filePath = ICOE_EPO_DIR.plus("f1e1G3.pgl")
             ),
             EpoBean(
-                url = "http://starcourse.location.io/TempEvaluation2023Q4/",
+                url = "http://starcourse.location.io/IC2MItGo7K/",
                 fileName = "f1e1C3.pgl",
                 filePath = ICOE_EPO_DIR.plus("f1e1C3.pgl")
             ),
             EpoBean(
-                url = "http://starcourse.location.io/TempEvaluation2023Q4/",
+                url = "http://starcourse.location.io/IC2MItGo7K/",
                 fileName = "f1e1E3.pgl",
                 filePath = ICOE_EPO_DIR.plus("f1e1E3.pgl")
             ),
             EpoBean(
-                url = "http://starcourse.location.io/TempEvaluation2023Q4/",
+                url = "http://starcourse.location.io/IC2MItGo7K/",
                 fileName = "f1e1J3.pgl",
                 filePath = ICOE_EPO_DIR.plus("f1e1J3.pgl")
             )

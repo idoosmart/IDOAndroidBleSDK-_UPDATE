@@ -87,6 +87,7 @@
   <androidx.navigation.safeargs.kotlin/>
   <androidx.paging/>
   <androidx.palette/>
+  <androidx.pdf/>
   <androidx.percentlayout/>
   <androidx.preference/>
   <androidx.print/>
@@ -138,6 +139,7 @@
   <androidx.window.extensions.core/>
   <androidx.work/>
   <com.android/>
+  <com.android.ai-pack/>
   <com.android.application/>
   <com.android.art/>
   <com.android.asset-pack/>
@@ -149,17 +151,20 @@
   <com.android.databinding/>
   <com.android.designcompose/>
   <com.android.dynamic-feature/>
+  <com.android.experimental.built-in-kotlin/>
   <com.android.fused-library/>
   <com.android.identity/>
   <com.android.installreferrer/>
   <com.android.internal.settings/>
   <com.android.java.tools.build/>
   <com.android.kotlin.multiplatform.library/>
+  <com.android.legacy-kapt/>
   <com.android.library/>
   <com.android.lint/>
   <com.android.ndk.thirdparty/>
   <com.android.privacy-sandbox-sdk/>
   <com.android.reporting/>
+  <com.android.security.lint/>
   <com.android.settings/>
   <com.android.support/>
   <com.android.support.constraint/>
