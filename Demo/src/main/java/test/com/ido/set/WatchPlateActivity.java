@@ -1218,12 +1218,12 @@ public class WatchPlateActivity extends BaseAutoConnectActivity {
         int width = mScreenInfo != null ? mScreenInfo.width : fl_cw.getWidth();
         int height = mScreenInfo != null ? mScreenInfo.height : fl_cw.getHeight();
         //存储预览图原始大小，透明背景
-        BitmapUtil.savePngBitmap(BitmapUtil.zoomImg(BitmapUtil.view2BitmapWithAlpha(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), width, height), bitmapFile, false);
+        BitmapUtil.savePngBitmap(BitmapUtil.zoomImgWithBorder(BitmapUtil.view2BitmapWithAlpha(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), width, height), bitmapFile, false);
         //存储按照固件预览图大小缩放的预览图，用于生产bmp
         //存储按照固件预览图大小缩放的预览图，用于生产bmp(previewView 可能会绘制边框，用做固件预览图)
         File zoomBitmapFile = new File(cwImgPath_show);
         //bitmap写入到文件。
-        BitmapUtil.savePngBitmap(BitmapUtil.zoomImg(BitmapUtil.view2BitmapBlackBg(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), size.first, size.second), zoomBitmapFile, false);
+        BitmapUtil.savePngBitmap(BitmapUtil.zoomImgWithBorder(BitmapUtil.view2BitmapBlackBg(fl_cw, fl_cw.getWidth(), fl_cw.getHeight()), size.first, size.second), zoomBitmapFile, false);
         //替换预览图
         if (isSiCheDevice()) {
             //将png转化为bin，

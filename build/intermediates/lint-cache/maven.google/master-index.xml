@@ -201,6 +201,7 @@
   <com.google.ads.interactivemedia.v3/>
   <com.google.ads.mediation/>
   <com.google.ai.client.generativeai/>
+  <com.google.ai.edge.litert/>
   <com.google.ambient.crossdevice/>
   <com.google.android.ads/>
   <com.google.android.ads.consent/>

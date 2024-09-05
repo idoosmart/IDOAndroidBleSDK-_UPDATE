@@ -23,8 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import test.com.ido.R;
-
 /**
  * @author tianwei
  * @date 2022/11/1
@@ -213,17 +211,38 @@ public class BitmapUtil {
         }
     }
 
+    public static Bitmap zoomImgWithBorder(Bitmap bm, int newWidth, int newHeight) {
+        // 定义边框大小
+        int borderSize = 4;
+        // 计算包含边框的新尺寸
+        int widthWithBorder = newWidth + 2 * borderSize;
+        int heightWithBorder = newHeight + 2 * borderSize;
+
+        // 调整原始位图的大小以适应新尺寸（不包括边框）
+        Bitmap resizedBitmap = zoomImg(bm, newWidth, newHeight);
+
+        // 创建一个新的位图，尺寸包含边框
+        Bitmap bitmapWithBorder = Bitmap.createBitmap(widthWithBorder, heightWithBorder, Bitmap.Config.ARGB_8888);
+
+        // 创建画布并在新位图上绘制调整大小的位图，并为边框留出偏移
+        Canvas canvas = new Canvas(bitmapWithBorder);
+        canvas.drawARGB(0, 0, 0, 0); // 用透明颜色填充画布
+        canvas.drawBitmap(resizedBitmap, borderSize, borderSize, null);
+
+        return bitmapWithBorder;
+    }
+
     public static Bitmap zoomImg(Bitmap bm, int newWidth, int newHeight) {
-        // 获得图片的宽高
+        // 获取原始宽高
         int width = bm.getWidth();
         int height = bm.getHeight();
         // 计算缩放比例
         float scaleWidth = ((float) newWidth) / width;
         float scaleHeight = ((float) newHeight) / height;
-        // 取得想要缩放的matrix参数
+        // 创建缩放的矩阵
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
-        // 得到新的图片
+        // 创建调整大小后的位图
         Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
         return newbm;
     }

@@ -14,8 +14,8 @@ import android.widget.Spinner;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.callback.OperateCallBack;
+import com.ido.ble.file.transfer.FileTransferConfig;
 import com.ido.ble.file.transfer.IFileTransferListener;
-import com.ido.ble.file.transfer.spp.SPPFileTransferConfig;
 import com.ido.ble.protocol.model.MusicOperate;
 
 import java.io.File;
@@ -200,7 +200,53 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
             return;
         }
         progressDialog.setTitle(R.string.music_tips_tranferring);
-        SPPFileTransferConfig config = SPPFileTransferConfig.getDefaultMusicFileConfig(musicPath, new IFileTransferListener() {
+//        SPPFileTransferConfig config = SPPFileTransferConfig.getDefaultMusicFileConfig(musicPath, new IFileTransferListener() {
+//            @Override
+//            public void onStart() {
+//                Log.d(TAG, "transferMusicFile onStart");
+//            }
+//
+//            @Override
+//            public void onProgress(int i) {
+//                Log.d(TAG, "transferMusicFile onProgress: " + i);
+//                if (!progressDialog.isShowing()) {
+//                    showProgressDialog(getResources().getString(R.string.music_tips_tranferring));
+//                }
+//            }
+//
+//            @Override
+//            public void onSuccess() {
+//                Log.d(TAG, "transferMusicFile onSuccess");
+//                showToast(R.string.music_tips_tranfer_success);
+//                Log.d(TAG, "isChecked = " + cbAddMusic2Sheet.isChecked() + ", musicId = " + musicId + ", musicAndFolderInfo = " + musicAndFolderInfo + ", selectMusicFolderPosition = " + selectMusicFolderPosition);
+//                //添加歌曲到歌单
+//                if (cbAddMusic2Sheet.isChecked() && musicId > 0 && musicAndFolderInfo != null && musicAndFolderInfo.folder_num > 0 && selectMusicFolderPosition >= 0) {
+//                    MusicOperate.MusicFolder folder = musicAndFolderInfo.folder_items.get(selectMusicFolderPosition);
+//                    if (folder.music_index == null) {
+//                        folder.music_index = new ArrayList<>();
+//                    }
+//                    folder.music_num++;
+//                    folder.music_index.add(musicId);
+//                    BLEManager.moveMusicIntoFolder(folder);
+//                    Log.d(TAG, "moveMusicIntoFolder");
+//                } else {
+//                    refresh();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailed(String s) {
+//                Log.d(TAG, "transferMusicFile onFailed: " + s);
+//                showToast(R.string.music_tips_tranfer_failed);
+//                refresh();
+//            }
+//        });
+//        config.firmwareSpecName = musicName;
+//        config.PRN = 30;
+//        BLEManager.startSppTranFile(config);
+
+
+        FileTransferConfig fileTransferConfig =  FileTransferConfig.getDefaultMusicFileConfig(musicPath, new IFileTransferListener(){
             @Override
             public void onStart() {
                 Log.d(TAG, "transferMusicFile onStart");
@@ -241,8 +287,11 @@ public class MusicManagerActivity extends BaseAutoConnectActivity {
                 refresh();
             }
         });
-        config.firmwareSpecName = musicName;
-        BLEManager.startSppTranFile(config);
+        fileTransferConfig.firmwareSpecName = musicName;
+        fileTransferConfig.PRN = 30;
+
+        BLEManager.startTranCommonFile(fileTransferConfig);
+
     }
 
     public void btQueryMusic(View view) {

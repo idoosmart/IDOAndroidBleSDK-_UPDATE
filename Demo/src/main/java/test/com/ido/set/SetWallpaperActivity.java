@@ -39,6 +39,8 @@ public class SetWallpaperActivity extends BaseAutoConnectActivity {
     private TextView wallpaper_response;
     private EditText imagPath, wallpaper_color;
 
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +147,7 @@ public class SetWallpaperActivity extends BaseAutoConnectActivity {
 
             }
         };
+
         config.PRN = Integer.parseInt("10");
         config.filePath = photoInputPath_bin;
         config.firmwareSpecName = "alwpaper.bin";
@@ -155,21 +158,18 @@ public class SetWallpaperActivity extends BaseAutoConnectActivity {
         BLEManager.startTranCommonFile(config);
     }
 
-
-  
-
     public void setWallpaperColor(View view) {
         String s = wallpaper_color.getText().toString();
-        if (s.isEmpty()){
+        if (s.isEmpty()) {
             Toast.makeText(this, "请输入颜色值", Toast.LENGTH_SHORT).show();
             return;
         }
         s = s.replace("x", "0");
         s = s.replace("X", "0");
-        int intValue = Integer.valueOf(s,16);
+        int intValue = Integer.valueOf(s, 16);
         SetListStyle setListStyle = new SetListStyle();
-        setListStyle.font_color =intValue;
-        BLEManager.setListColor(setListStyle);
+        setListStyle.font_color = intValue;
+//        BLEManager.setListColor(setListStyle);
         //16776960  16777215
     }
 }
