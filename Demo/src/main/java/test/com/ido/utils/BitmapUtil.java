@@ -222,7 +222,7 @@ public class BitmapUtil {
         Bitmap resizedBitmap = zoomImg(bm, newWidth, newHeight);
 
         // 创建一个新的位图，尺寸包含边框
-        Bitmap bitmapWithBorder = Bitmap.createBitmap(widthWithBorder, heightWithBorder, Bitmap.Config.ARGB_8888);
+        Bitmap bitmapWithBorder = Bitmap.createBitmap(widthWithBorder, heightWithBorder, Bitmap.Config.RGB_565);
 
         // 创建画布并在新位图上绘制调整大小的位图，并为边框留出偏移
         Canvas canvas = new Canvas(bitmapWithBorder);
