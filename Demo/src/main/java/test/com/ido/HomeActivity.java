@@ -21,6 +21,7 @@ import test.com.ido.device2app.DeviceControlAppActivity;
 import test.com.ido.device2app.PhoneListenService;
 import test.com.ido.dfu.MainUpgradeActivity;
 import test.com.ido.dial.DialActivity;
+import test.com.ido.dial.photo.PhotoWatchPlateActivity;
 import test.com.ido.exgdata.ExchangeDataMainActivity;
 import test.com.ido.file.transfer.BTTransferActivity;
 import test.com.ido.file.transfer.FileTransferActivity;
@@ -192,6 +193,10 @@ public class HomeActivity extends BaseAutoConnectActivity {
 
     public void btDial(View view) {
         startActivity(new Intent(this, DialActivity.class));
+    }
+
+    public void photoWatchPlate(View view) {
+        startActivity(new Intent(this, PhotoWatchPlateActivity.class));
     }
 
     public void btIconTrans(View view) {

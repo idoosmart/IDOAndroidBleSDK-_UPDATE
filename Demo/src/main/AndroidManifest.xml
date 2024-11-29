@@ -96,6 +96,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".dial.photo.PhotoWatchPlateActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".set.SetWallpaperActivity"
             android:exported="false" />
 
@@ -292,11 +296,9 @@
             android:enabled="true"
             android:exported="false" />
 
-
         <service
             android:name="com.sifli.siflidfu.SifliDFUService"
             android:exported="false" />
-
 
         <activity android:name=".set.SetContactActivity"/>
 
@@ -340,7 +342,6 @@
             android:name="com.realsil.sdk.dfu.DfuService"
             android:enabled="true"
             android:exported="false" />
-
 
         <provider
             android:name="androidx.core.content.FileProvider"

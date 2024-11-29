@@ -55,6 +55,7 @@ class WallpaperDialConstants {
         WidgetLocation.RIGHT_BOTTOM,
         WidgetLocation.CENTER_TOP,
         WidgetLocation.CENTER,
+        WidgetLocation.CENTER_55,
         WidgetLocation.CENTER_BOTTOM
     )
     annotation class WidgetLocation {
@@ -72,6 +73,7 @@ class WallpaperDialConstants {
             const val CENTER_TOP = 2
             const val CENTER = 5
             const val CENTER_BOTTOM = 8
+            const val CENTER_55 = 55
         }
     }
 

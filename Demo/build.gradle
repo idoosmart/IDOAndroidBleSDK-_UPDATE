@@ -98,6 +98,6 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
 //    implementation(name: 'jielidial-1.0.1', ext: 'aar')
     implementation project(':jielidial')
-    implementation files('libs/IDoBLELib-VeryFit-2.69.10.jar')
     implementation files('libs/siflireadersdk-release.aar')
+    implementation files('libs/IDoBLELib-VeryFit-2.70.00.jar')
 }
