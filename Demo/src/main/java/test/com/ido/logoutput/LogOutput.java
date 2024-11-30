@@ -14,12 +14,15 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import androidx.core.content.FileProvider;
+
 import com.ido.ble.BLEManager;
 import com.ido.ble.logs.LogTool;
 import com.ido.logoutput.ILogAidlInterface;
 
 import java.io.File;
 
+import test.com.ido.BuildConfig;
 import test.com.ido.log.LogPathImpl;
 import test.com.ido.logoutput.bluetooth.BluetoothLogoutManager;
 import test.com.ido.utils.Common;
@@ -157,6 +160,11 @@ public class LogOutput {
         File file = new File(zipNamePath);
         if(file.exists()){
             Uri uri = Uri.fromFile(new File(zipNamePath));
+            if(Build.VERSION.SDK_INT>=24){
+                uri =  FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",file);
+            }else {
+                uri = Uri.fromFile(file);
+            }
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_STREAM, uri);

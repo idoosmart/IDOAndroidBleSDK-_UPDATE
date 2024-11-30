@@ -34,11 +34,11 @@ public class APP extends MultiDexApplication {
         LogPathImpl.initLogPath(this);
         initDirs();
         CrashHandler.getInstance().init(this);
-
+        CrashHandler.getInstance().setCrashDir(LogPathImpl.getInstance().getCrashLogPath());
         // 添加facebookc插件
         Stetho.initializeWithDefaults(this);
 
-        CrashReport.initCrashReport(getApplicationContext(), "1ddf6b5084", true);
+        CrashReport.initCrashReport(getApplicationContext(), "a3d98f1a9f", true);
         if (!BuildConfig.DEBUG) {
             CrashReport.setUserSceneTag(getApplicationContext(), 178865);
         }

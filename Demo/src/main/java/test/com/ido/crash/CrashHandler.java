@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -61,6 +62,21 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 		Thread.setDefaultUncaughtExceptionHandler(this);
 	}
 
+	private String dir;
+	/**
+	 * 设置保存奔溃信息日志目录
+	 *
+	 * @param crashDir
+	 */
+	public void setCrashDir(String crashDir) {
+		dir = crashDir;
+		if (!TextUtils.isEmpty(crashDir)) {
+			File file = new File(crashDir);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+		}
+	}
 	/**
 	 * 当UncaughtException发生时会转入该函数来处理
 	 */
@@ -168,12 +184,16 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
 			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 				String path = Constant.CRASH_PATH;
-				deleteOldFile(path);
-				File dir = new File(path);
-				if (!dir.exists()) {
-					dir.mkdirs();
+				if (TextUtils.isEmpty(dir)) {
+					dir = Environment.getExternalStorageDirectory().getAbsolutePath();
+				} else {
+					deleteOldFile(dir);
 				}
-				FileOutputStream fos = new FileOutputStream(path + fileName);
+				File dirFile = new File(this.dir);
+				if (!dirFile.exists()) {
+					dirFile.mkdirs();
+				}
+				FileOutputStream fos = new FileOutputStream(dir + fileName);
 				fos.write(sb.toString().getBytes());
 				fos.close();
 			}
