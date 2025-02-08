@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">IDO Demo</string>
+    <string name="app_name">IDO Demo Custom</string>
 
     <!--扫描-->
     <string name="scan_refresh">刷新</string>
@@ -186,7 +186,10 @@
     <string name="sync_V3_data_stop">停止同步V3数据</string>
 
     <!--提醒命令-->
+    <string name="phone_notice_sync_phone_book">同步通讯录</string>
+    <string name="phone_notice_sync_phone_book_tip">点击同步通讯录到手表，来电是可以展示来电人姓名</string>
     <string name="phone_notice_incoming_call">来电提醒</string>
+    <string name="phone_notice_incoming_call_reply">来电快捷回复开关</string>
     <string name="phone_notice_calling_stop">结束来电提醒</string>
     <string name="phone_notice_new_message">新信息提醒</string>
     <string name="phone_notice_unread_message">未读消息提醒</string>

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.ido.ble.BLEManager;
 import com.ido.ble.callback.DeviceParaChangedCallBack;
 import com.ido.ble.protocol.model.DeviceChangedPara;
@@ -31,6 +33,7 @@ import test.com.ido.get.GetInfoActivity;
 import test.com.ido.gps.GpsMainActivity;
 import test.com.ido.logoutput.bluetooth.BluetoothLogoutManager;
 import test.com.ido.music.MusicActivity;
+import test.com.ido.notice.ContactManager;
 import test.com.ido.notice.PhoneNoticeActivity;
 import test.com.ido.runplan.RunPlanActivity;
 import test.com.ido.set.MainSetActivity;
@@ -112,6 +115,7 @@ public class HomeActivity extends BaseAutoConnectActivity {
         } else {
             startService(new Intent(this, PhoneListenService.class));
             Log.d(HomeActivity.class.getName(), "onCreate: 已获得权限");
+            ContactManager.getInstance().init();
         }
     }
 
@@ -122,6 +126,17 @@ public class HomeActivity extends BaseAutoConnectActivity {
         BluetoothLogoutManager.getManager().stop();
 
         System.exit(0);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_ASK_PERMISSIONS) {
+            boolean b = PermissionUtil.checkSelfPermission(getBaseContext(), PermissionUtil.getPhonePermission());
+            if (b) {
+                ContactManager.getInstance().init();
+            }
+        }
     }
 
     public void unbind(View v) {
@@ -143,7 +158,8 @@ public class HomeActivity extends BaseAutoConnectActivity {
     public void syncData(View v) {
         startActivity(new Intent(this, SyncDataActivity.class));
     }
-   public void SetWallpaper(View v) {
+
+    public void SetWallpaper(View v) {
         startActivity(new Intent(this, SetWallpaperActivity.class));
     }
 
@@ -176,8 +192,9 @@ public class HomeActivity extends BaseAutoConnectActivity {
     public void multLangTrain(View view) {
         startActivity(new Intent(this, MultLangTrainActivity.class));
     }
-  public void deviceControlApp(View view) {
-      startActivity(new Intent(this, DeviceControlAppActivity.class));
+
+    public void deviceControlApp(View view) {
+        startActivity(new Intent(this, DeviceControlAppActivity.class));
     }
 
 

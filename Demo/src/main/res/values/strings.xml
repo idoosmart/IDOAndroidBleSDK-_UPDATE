@@ -187,7 +187,10 @@
     <string name="sync_V3_data_stop">stop sync V3 data</string>
 
     <!--提醒命令-->
+    <string name="phone_notice_sync_phone_book">sync phone book</string>
+    <string name="phone_notice_sync_phone_book_tip">Click to sync contacts to the watch, and the caller\'s name will be displayed when an incoming call is received.</string>
     <string name="phone_notice_incoming_call">phone incoming notice</string>
+    <string name="phone_notice_incoming_call_reply">Call quick reply switch</string>
     <string name="phone_notice_calling_stop">stop calling notice</string>
     <string name="phone_notice_new_message">message notice</string>
     <string name="phone_notice_unread_message">unread message notice</string>

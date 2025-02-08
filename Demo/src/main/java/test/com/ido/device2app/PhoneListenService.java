@@ -1,15 +1,22 @@
 package test.com.ido.device2app;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
+import android.provider.ContactsContract;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
@@ -17,6 +24,7 @@ import com.ido.ble.callback.DeviceControlAppCallBack;
 import com.ido.ble.protocol.model.IncomingCallInfo;
 import com.ido.ble.protocol.model.SupportFunctionInfo;
 
+import test.com.ido.APP;
 import test.com.ido.CallBack.BaseDeviceControlAppCallBack;
 import test.com.ido.utils.PermissionUtil;
 import test.com.ido.utils.PhoneUtil;
@@ -79,10 +87,43 @@ public class PhoneListenService extends Service {
                 hasFirstRegisterPhone = true;
                 return;
             }
-            handleCallReminder(state, incomingNumber, incomingNumber);
+            handleCallReminder(state, incomingNumber,getContactNameFromPhoneBook(APP.getAppContext(),incomingNumber) );
         }
     }
 
+    public static String getContactNameFromPhoneBook(Context context, String number) {
+        String contactName = number;
+        if (TextUtils.isEmpty(number)) {
+            return contactName;
+        }
+
+        //申请PERMISSION_GRANTED权限
+        boolean isPermissions = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED;
+        boolean isPermissions2 = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED;
+        if (isPermissions||isPermissions2) {
+            return contactName;
+        }
+//        if (isPermissions) {
+////            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 3);
+//            return contactName;
+//        } else {
+        String[] projection = {ContactsContract.PhoneLookup.DISPLAY_NAME,
+                ContactsContract.PhoneLookup.NUMBER};
+        Uri uri = Uri.withAppendedPath(
+                ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
+                Uri.encode(number));
+        Cursor cursor = context.getContentResolver().query(uri, projection,
+                null, null, null);
+        if (cursor==null)return "";
+        if (cursor.moveToFirst()) {
+            contactName = cursor
+                    .getString(cursor
+                            .getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            cursor.close();
+        }
+        return contactName;
+//        }
+    }
     /**
      * 获取功能列表
      *

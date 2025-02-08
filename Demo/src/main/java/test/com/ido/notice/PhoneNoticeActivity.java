@@ -17,17 +17,22 @@ import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.ido.ble.BLEManager;
 import com.ido.ble.LocalDataManager;
 import com.ido.ble.callback.DeviceParaChangedCallBack;
 import com.ido.ble.callback.PhoneMsgNoticeCallBack;
 import com.ido.ble.callback.SettingCallBack;
+import com.ido.ble.protocol.model.CallQuickReplySwitch;
 import com.ido.ble.protocol.model.DeviceChangedPara;
 import com.ido.ble.protocol.model.IncomingCallInfo;
 import com.ido.ble.protocol.model.MessageNotifyState;
@@ -53,6 +58,7 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
     private EditText etIncomingName, etIncomingPhoneNumber;
     private EditText etNewMsgContent, etNewMsgName, etNewMsgNumber, etMsgType;
     private RadioButton rbSMS, rbEmail, rbWX;
+    private TextView syncPhoneBookTip;
 
     //正在回复来电
     private static boolean isInComingCallReplying = false;
@@ -99,6 +105,14 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
             requestPermissions(new String[]{Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS}, 1000);
         }
         sendQuickIncomingReplyInfo2Device();
+        ((Switch) findViewById(R.id.setCallReply)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                CallQuickReplySwitch callQuickReplySwitch = new CallQuickReplySwitch();
+                callQuickReplySwitch.on_off = b ? CallQuickReplySwitch.STATUS_ON : CallQuickReplySwitch.STATUS_OFF;
+                BLEManager.setCallQuickReplySwitch(callQuickReplySwitch);
+            }
+        });
     }
 
     @Override
@@ -339,6 +353,7 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
         rbSMS = (RadioButton) findViewById(R.id.phone_notice_new_msg_type_sms_rb);
         rbEmail = (RadioButton) findViewById(R.id.phone_notice_new_msg_type_email_rb);
         rbWX = (RadioButton) findViewById(R.id.phone_notice_new_msg_type_wx_rb);
+        syncPhoneBookTip =  findViewById(R.id.syncPhoneBookTip);
 
     }
 
@@ -363,6 +378,52 @@ public class PhoneNoticeActivity extends BaseAutoConnectActivity {
         super.onDestroy();
         BLEManager.unregisterPhoneMsgNoticeCallBack(iCallBack);
         BLEManager.unregisterSettingCallBack(mQuickIncomingCallSettingCallBack);
+    }
+
+
+    public void syncPhoneBook(View v) {
+        ContactManager.getInstance().setCallback(new ContactManager.ICallback() {
+            @Override
+            public void onStart() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        syncPhoneBookTip.setText("sync start");
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int var1) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        syncPhoneBookTip.setText("sync progress = "+var1);
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(int count) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        syncPhoneBookTip.setText("sync success, count: "+count);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(@Nullable String var1) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        syncPhoneBookTip.setText("sync failed： "+var1);
+                    }
+                });
+            }
+        });
+        ContactManager.getInstance().startSync();
     }
 
 

@@ -12,39 +12,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="@dimen/size10dp"
             android:layout_marginBottom="@dimen/size10dp"
-            android:background="@color/aaa">
+            android:background="@color/aaa"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/syncPhoneBookTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_notice_sync_phone_book_tip" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="syncPhoneBook"
+                android:text="@string/phone_notice_sync_phone_book" />
 
             <EditText
                 android:id="@+id/phone_notice_incoming_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="zhou"
-                android:hint="name"/>
+                android:hint="name"
+                android:text="zhou" />
+
             <EditText
                 android:id="@+id/phone_notice_incoming_phone_number_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="12345678900"
+                android:hint="phone"
                 android:inputType="phone"
-                android:hint="phone"/>
+                android:text="12345678900" />
+
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Note: Test quick reply, please use real mobile phone number"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Note: Test quick reply, please use real mobile phone number" />
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="noticeIncomingCall"
-                android:text="@string/phone_notice_incoming_call"/>
+                android:text="@string/phone_notice_incoming_call" />
+
+            <Switch
+                android:id="@+id/setCallReply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size10dp"
+                android:layout_marginRight="@dimen/size20dp"
+                android:layout_marginBottom="@dimen/size10dp"
+                android:text="@string/phone_notice_incoming_call_reply" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="v3noticeIncomingCall"
-                android:text="v3 phone incoming notice"/>
+                android:text="v3 phone incoming notice" />
         </LinearLayout>
 
 
@@ -52,44 +75,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="setStopInComingCall"
-            android:text="@string/phone_notice_calling_stop"/>
+            android:text="@string/phone_notice_calling_stop" />
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="CallReminderSwitch"
-            android:text="CallReminderSwitch"/>
+            android:text="CallReminderSwitch" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="@dimen/size10dp"
             android:layout_marginBottom="@dimen/size10dp"
-            android:background="@color/aaa">
+            android:background="@color/aaa"
+            android:orientation="vertical">
 
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:checkedButton="@+id/phone_notice_new_msg_type_sms_rb"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <RadioButton
                     android:id="@+id/phone_notice_new_msg_type_sms_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sms"/>
+                    android:text="sms" />
+
                 <RadioButton
                     android:id="@+id/phone_notice_new_msg_type_email_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="mail"/>
+                    android:text="mail" />
+
                 <RadioButton
                     android:id="@+id/phone_notice_new_msg_type_wx_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="weixin"/>
+                    android:text="weixin" />
 
 
             </RadioGroup>
@@ -98,10 +124,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="mgs_type"/>
+                    android:text="mgs_type" />
 
                 <EditText
                     android:id="@+id/phone_notice_new_msg_type_et"
@@ -116,41 +143,44 @@
                 android:id="@+id/phone_notice_new_msg_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="zhou"
-                android:hint="name"/>
+                android:hint="name"
+                android:text="zhou" />
 
             <EditText
                 android:id="@+id/phone_notice_new_msg_number_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="243147030"
+                android:hint="phone"
                 android:inputType="phone"
-                android:hint="phone"/>
+                android:text="243147030" />
+
             <EditText
                 android:id="@+id/phone_notice_new_msg_content_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="hello link"
-                android:hint="content"/>
+                android:hint="content"
+                android:text="hello link" />
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="noticeNewMsg"
-                android:text="@string/phone_notice_new_message"/>
+                android:text="@string/phone_notice_new_message" />
         </LinearLayout>
 
 
         <Button
-            android:layout_marginTop="@dimen/size20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size20dp"
             android:onClick="OpenDeviceNoticeSwitch"
-            android:text="打开设备通知开关"/>
+            android:text="打开设备通知开关" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="IconAndNameMsg"
-            android:text="IconAndNameMsg"/>
+            android:text="IconAndNameMsg" />
 
 
         <TextView
@@ -223,7 +253,7 @@
     TYPE_lfood = 0X4B;\n
     TYPE_Rappi = 0X4C;\n
     TYPE_Mercado_livre = 0X4D;\n
-    TYPE_Yahoo = 0X4E;"/>
+    TYPE_Yahoo = 0X4E;" />
     </LinearLayout>
 
 
