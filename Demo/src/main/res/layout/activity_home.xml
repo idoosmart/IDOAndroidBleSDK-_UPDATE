@@ -143,6 +143,11 @@
             android:text="Dial" />
 
         <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Photo Dial"
+            android:onClick="photoWatchPlate"/>
+        <Button
             android:id="@+id/btSetSport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

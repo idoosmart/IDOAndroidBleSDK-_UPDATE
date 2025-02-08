@@ -19,7 +19,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 3
-        versionName "3.1"
+        versionName "3.1.0"
         multiDexEnabled true
 
     }
@@ -98,6 +98,6 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.32'
 //    implementation(name: 'jielidial-1.0.1', ext: 'aar')
     implementation project(':jielidial')
-    implementation files('libs/IDoBLELib-VeryFit-2.69.10.jar')
     implementation files('libs/siflireadersdk-release.aar')
+    implementation files('libs/IDoBLELib-VeryFit-2.70.00.jar')
 }
