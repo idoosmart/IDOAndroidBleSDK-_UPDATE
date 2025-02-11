@@ -98,9 +98,8 @@ public class PhoneListenService extends Service {
         }
 
         //申请PERMISSION_GRANTED权限
-        boolean isPermissions = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED;
-        boolean isPermissions2 = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED;
-        if (isPermissions||isPermissions2) {
+        boolean hasPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+        if (!hasPermission) {
             return contactName;
         }
 //        if (isPermissions) {
@@ -174,7 +173,7 @@ public class PhoneListenService extends Service {
         Log.d(TAG, "sendCallReminder2DeviceNew: 发送命令到手环");
         Log.d(TAG, "sendCallReminder2DeviceNew: sendData   phoneNumber: " + phoneNumber + " ---contactName:" + contactName );
         IncomingCallInfo incomingCallInfo = new IncomingCallInfo();
-        incomingCallInfo.name = phoneNumber;
+        incomingCallInfo.name = contactName;
         incomingCallInfo.phoneNumber = contactName;
 
         BLEManager.setIncomingCallInfo(incomingCallInfo);
