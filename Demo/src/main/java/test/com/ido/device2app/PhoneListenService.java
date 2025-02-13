@@ -174,7 +174,7 @@ public class PhoneListenService extends Service {
         Log.d(TAG, "sendCallReminder2DeviceNew: sendData   phoneNumber: " + phoneNumber + " ---contactName:" + contactName );
         IncomingCallInfo incomingCallInfo = new IncomingCallInfo();
         incomingCallInfo.name = contactName;
-        incomingCallInfo.phoneNumber = contactName;
+        incomingCallInfo.phoneNumber = phoneNumber;
 
         BLEManager.setIncomingCallInfo(incomingCallInfo);
     }
