@@ -601,7 +601,7 @@ public class NotificationIconTransferActivity extends BaseAutoConnectActivity {
                             } catch (Exception e) {
                                 Log.e(TAG, "图标：type = $type, 目录创建失败");
                             }
-                            BitmapUtil.saveBitmap(BitmapUtil.zoomImgWithBorder(mBitmap, width, height), mIconPath);
+                            BitmapUtil.saveBitmap(BitmapUtil.zoomImg(mBitmap, width, height), mIconPath);
                             return mIconPath;
                         }
                     });
