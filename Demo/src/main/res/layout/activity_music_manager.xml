@@ -107,9 +107,7 @@
                 android:id="@+id/etMusicName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/size10dp"
-                android:layout_toLeftOf="@+id/cbAddMusic2Sheet"
                 android:background="@color/black"
                 android:hint="@string/music_input_music_name"
                 android:minHeight="@dimen/size40dp"
@@ -143,15 +141,13 @@
                 android:onClick="btAddMusic"
                 android:text="@string/music_add_music" />
 
-            <EditText
-                android:id="@+id/etMusicId"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size40dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/black"
-                android:hint="@string/music_input_music_id"
-                android:inputType="number"
-                android:textColor="@color/white" />
+            <Spinner
+                android:id="@+id/musicSp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minWidth="100dp"
+                android:tooltipText="选择歌单" />
 
             <Button
                 android:layout_width="match_parent"
@@ -183,6 +179,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size50dp"
                 android:onClick="btAddMusic2Folder"
                 android:text="@string/music_add_music_2_sheet_btn" />
         </LinearLayout>
